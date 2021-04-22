@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -12,9 +13,22 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
-        return view('Site.Produtos.index');
+        $products = DB::table('products')
+        ->join('types', 'products.type_id', '=', 'types.type_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->get();
+        $types = DB::table('types')->get();
+        $sizes = DB::table('sizes')->get();
+        return view('Site.Produtos.index',[
+            'products' => $products,
+            'types' => $types,
+            'sizes' => $sizes,
+            ]);
+        #dd($products, $types, $sizes);
     }
 
     public function indexTipos()

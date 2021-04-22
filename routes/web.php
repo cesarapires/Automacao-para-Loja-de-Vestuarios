@@ -14,11 +14,11 @@ use App\Http\Controller\ProductsController;
 */
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
-    Route::get('/', HomeController::class);
+    Route::get('/', HomeController::class)->name('Site.Home');
 
-    Route::get('/Produtos', 'ProductsController@index');
-    Route::get('/Produtos/Tipos', 'ProductsController@indexTipos');
-    Route::get('/Produtos/Tamanhos', 'ProductsController@indexTamanhos');
+    Route::get('/Produtos', 'ProductsController@index')->name('Site.Products');
+    Route::get('/Produtos/Tipos', 'ProductsController@indexTipos')->name('Site.ProductsTypes');
+    Route::get('/Produtos/Tamanhos', 'ProductsController@indexTamanhos')->name('Site.ProductsSizes');
 
     
 });
