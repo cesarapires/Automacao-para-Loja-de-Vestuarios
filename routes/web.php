@@ -29,7 +29,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/Produtos', 'ProductsController@index')->name('Site.Products');
     Route::get('/Produtos/Tipos', 'ProductsController@indexTipos')->name('Site.ProductsTypes');
     Route::get('/Produtos/Tamanhos', 'ProductsController@indexTamanhos')->name('Site.ProductsSizes');
-    Route::post('/Produtos', 'ProductsController@store')->name('Site.ProductsStore');
+    Route::post('/Produtos/CadastroProduto', 'ProductsController@store')->name('Site.ProductsStore');
     
 });
     
