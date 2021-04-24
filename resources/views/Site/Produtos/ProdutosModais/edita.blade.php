@@ -62,14 +62,5 @@
 
 <script>
 /* When click edit user */
-$('#modalEditProduct').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var modal = $(this)
-    var recipient = button.data('whatever') // Extract info from data-* attributes
-  
-    
-    modal.find('#edtnameProduct').val("Funciona")
 
-    modal.find('#edtstockProduct').val(recipient)
-})
 </script>
