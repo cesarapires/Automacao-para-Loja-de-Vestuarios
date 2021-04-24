@@ -16,10 +16,20 @@ use App\Http\Controller\ProductsController;
 Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/', HomeController::class)->name('Site.Home');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Web Routes
+    |--------------------------------------------------------------------------
+    | 
+    | Aqui estão as rotas relacionadas ao produtos desde as rotas dos tamanhos
+    | e tipos até as rotas de cadastro.
+    |
+    */
+
     Route::get('/Produtos', 'ProductsController@index')->name('Site.Products');
     Route::get('/Produtos/Tipos', 'ProductsController@indexTipos')->name('Site.ProductsTypes');
     Route::get('/Produtos/Tamanhos', 'ProductsController@indexTamanhos')->name('Site.ProductsSizes');
-
+    Route::post('/Produtos', 'ProductsController@store')->name('Site.ProductsStore');
     
 });
     

@@ -46,9 +46,15 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        /*$products=$this->objProduct->all();
+        return view('create',compact('products'));
+        DB::table('users')->insert([
+            'email' => 'kayla@example.com',
+            'votes' => 0
+        ]);*/
+        
     }
 
     /**
@@ -59,7 +65,20 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*$products=$this->objProduct->all();
+        return view('create',compact('products'));*/
+
+        DB::table('products')->insert([
+            'name'=>$request->nameProduct,
+            'type_id'=>$request->type_IdProduct,
+            'size_id'=>$request->size_IdProduct,
+            'price_buy'=>$request->price_BuyProduct,
+            'price_sell'=>$request->price_SellProduct,
+            'date_buy' => date("Y-m-d"),  
+            'stock'=>$request->stockProduct
+        ]);
+
+        return redirect('Produtos');
     }
 
     /**
