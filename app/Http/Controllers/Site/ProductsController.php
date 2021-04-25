@@ -33,12 +33,38 @@ class ProductsController extends Controller
 
     public function indexTipos()
     {
-        return view('Site.Produtos.Tipos.index');
+        /*$types = DB::table('types')->get();
+        return view('Site.Tipos.index',['types' => $types,]);*/
+        $products = DB::table('products')
+        ->join('types', 'products.type_id', '=', 'types.type_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->get();
+        $types = DB::table('types')->get();
+        $sizes = DB::table('sizes')->get();
+        return view('Site.Produtos.index',[
+            'products' => $products,
+            'types' => $types,
+            'sizes' => $sizes,
+            ]);
     }
 
     public function indexTamanhos()
     {
-        return view('Site.Produtos.Tamanhos.index');
+        /*$sizes = DB::table('sizes')->get();
+        return view('Site.Tamanhos.index',['sizes' => $sizes,]);*/
+        $products = DB::table('products')
+        ->join('types', 'products.type_id', '=', 'types.type_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->get();
+        $types = DB::table('types')->get();
+        $sizes = DB::table('sizes')->get();
+        return view('Site.Produtos.index',[
+            'products' => $products,
+            'types' => $types,
+            'sizes' => $sizes,
+            ]);
     }
 
     /**
@@ -48,13 +74,7 @@ class ProductsController extends Controller
      */
     public function create(Request $request)
     {
-        /*$products=$this->objProduct->all();
-        return view('create',compact('products'));
-        DB::table('users')->insert([
-            'email' => 'kayla@example.com',
-            'votes' => 0
-        ]);*/
-        
+        //        
     }
 
     /**
@@ -74,7 +94,8 @@ class ProductsController extends Controller
             'size_id'=>$request->size_IdProduct,
             'price_buy'=>$request->price_BuyProduct,
             'price_sell'=>$request->price_SellProduct,
-            'date_buy' => date("Y-m-d"),  
+            'created_at' => date("Y-m-d H:i:s"),  
+            'updated_at' => date("Y-m-d H:i:s"),  
             'stock'=>$request->stockProduct
         ]);
 
