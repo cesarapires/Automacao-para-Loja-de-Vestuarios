@@ -126,7 +126,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="{{route('Site.Home')}}" class="nav-link active">
+                            <a href="{{route('Site.Home')}}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Home
@@ -189,6 +189,7 @@
             </div>
         </footer>
     </div>
+
 </body>
 
 </html>

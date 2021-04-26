@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active">NSD Dashboard v1</li>
+                    <li class="breadcrumb-item active">NSD Dashboard v1 | Produtos</li>
                 </ol>
             </div>
         </div>
@@ -82,7 +82,10 @@
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#modalDeleteProduct" data-id="product_id">
+                                            data-target="#modalDeleteProduct" data-whatever='{
+                                                "idProduct":"{{$products->product_id}}",
+                                                "nameProduct":"{{$products->name}}"
+                                                }'>
                                             <i class="fas fa-trash">
                                             </i>
                                             Apagar

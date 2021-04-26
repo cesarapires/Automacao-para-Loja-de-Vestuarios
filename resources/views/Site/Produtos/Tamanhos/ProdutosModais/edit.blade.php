@@ -1,63 +1,35 @@
-<div class="modal fade" id="modalEditProduct">
+<div class="modal fade" id="modalEditSize">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Produtos</h4>
+                <h4 class="modal-title">Alterar tamanhos</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="FormEdtProducts" name="FormEdtProducts"
-                    action="{{route('Site.ProductsStore')}}">
+                <form method="post" enctype="multipart/form-data" id="FormEdtProducts" name="FormEdtSize"
+                    action="{{route('Site.SizeUpdate')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputNameProduct">Descrição</label>
-                            <input type="text" class="form-control" name="edtnameProduct" id="edtnameProduct" value="">
+                            <label for="inputIdType">ID</label>
+                            <input type="text" class="form-control" name="edtidSize" id="edtidSize" value="" Readonly>
                         </div>
                         <div class="form-group">
-                            <label for="inputStockProduct">Estoque</label>
-                            <input type="text" class="form-control" name="edtstockProduct" id="edtstockProduct" value="">
+                            <label for="inputNameType">Descrição</label>
+                            <input type="text" class="form-control" name="edtnameSize" id="edtnameSize" value="">
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Custo</label>
-                            <input type="text" class="form-control" name="edtpriceBuyProduct" id="edtpriceBuyProduct"
-                                value="">
+                            <label for="inputUpdateType">Data da última atualização</label>
+                            <input type="text" class="form-control" name="edtupdateSize" id="edtupdateSize" value=""
+                                disabled>
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_SellProduct">Venda</label>
-                            <input type="text" class="form-control" name="edtpriceSellProduct" id="edtpriceSellProduct"
-                                value="">
-                        </div>
-                        <div class="form-group">
-                            <label>Tamanho</label>
-                            <select class="form-control select2bs4" name="edtsizeIdSize" id="edtsizeIdSize" style="width: 100%;">
-                                <option value="">Selecione um tamanho:</option>
-                                @foreach($sizes as $sizes)
-                                <option value="{{$sizes->size_id}}">{{$sizes->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tipo</label>
-                            <select class="form-control select2bs4" name="edttypeIdProduct" id="edttypeIdProduct" style="width: 100%;">
-                                <option value="">Selecione um tipo:</option>
-                                @foreach($types as $types)
-                                <option value="{{$types->type_id}}">{{$types->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPrice_SellProduct">Data da última atualização</label>
-                            <input type="text" class="form-control" name="edtupdateProduct" id="edtupdateProduct"
-                                value="" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPrice_SellProduct">Data de criação</label>
-                            <input type="text" class="form-control" name="edtcreateProduct" id="edtcreateProduct"
-                                value="" disabled>
+                            <label for="inputCreateType">Data de criação</label>
+                            <input type="text" class="form-control" name="edtcreateSize" id="edtcreateSize" value=""
+                                disabled>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -72,30 +44,19 @@
 
 <script>
 /* When click edit user */
-$('#modalEditProduct').on('show.bs.modal', function(event) {
+$('#modalEditSize').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
-    var idProduct = button.data('whatever').product_id
-    var nameProduct = button.data('whatever').name
-    var stockProduct = button.data('whatever').stock
-    var priceBuyProduct = button.data('whatever').price_buy 
-    var priceSellProduct = button.data('whatever').price_sell
-    var updateAtProduct = button.data('whatever').update_at
-    var createAtProduct = button.data('whatever').create_at
-    var typeIdProduct = button.data('whatever').type_id
-    var sizeIdProduct = button.data('whatever').size_id
+    var idSize = button.data('whatever').idSize
+    var nameSize = button.data('whatever').nameSize
+    var updatedAtSize = button.data('whatever').updatedAtSize
+    var createdAtSize = button.data('whatever').createdAtSize
 
-    
-    
-    modal.find('#edtnameProduct').val(nameProduct)
-    modal.find('#edtstockProduct').val(stockProduct)
-    modal.find('#edtpriceBuyProduct').val(priceBuyProduct)
-    modal.find('#edtpriceSellProduct').val(priceSellProduct)
-    modal.find("#edtsizeIdSize").val(sizeIdProduct)
-    modal.find('#edttypeIdProduct').val(typeIdProduct)
-    modal.find('#edtupdateProduct').val(updateAtProduct)
-    modal.find('#edtcreateProduct').val(createAtProduct)
+    modal.find('#edtidSize').val(idSize)
+    modal.find('#edtnameSize').val(nameSize)
+    modal.find('#edtupdateSize').val(updatedAtSize)
+    modal.find('#edtcreateSize').val(createdAtSize)
 })
 </script>
