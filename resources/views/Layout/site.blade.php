@@ -163,6 +163,46 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('Site.Home')}}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Clientes
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('Site.Home')}}" class="nav-link">
+                            <i class="nav-icon fas fa-store"></i>
+                                <p>
+                                    Vendas
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('Site.Home')}}" class="nav-link">
+                                <i class="nav-icon fas fa-landmark"></i>
+                                <p>
+                                    Contas
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('Site.Home')}}" class="nav-link">
+                                <i class="nav-icon fas fa-money-bill"></i>
+                                <p>
+                                    Caixa
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('Site.Home')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>
+                                    Relatórios
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('logout')}}" class="nav-link">
                                 <i class="nav-icon fas fa-door-open"></i>
                                 <p>
