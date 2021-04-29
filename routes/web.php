@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controller\ProductsController;
+use App\Http\Controller\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +15,13 @@ use App\Http\Controller\ProductsController;
 |
 */
 
+/*Route::get('/', function () {
+    return view('welcome');
+});*/
+
+
 Route::namespace('App\Http\Controllers\Site')->group(function(){
-    Route::get('/', HomeController::class)->name('Site.Home');
+    Route::get('/', HomeController::class)->middleware(['auth'])->name('Site.Home');
 
     /*
     |--------------------------------------------------------------------------
@@ -26,20 +33,26 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     |
     */
 
-    Route::get('/Produtos', 'ProductsController@index')->name('Site.Products');
-    Route::post('/Produtos/CadastroProduto', 'ProductsController@storeProduct')->name('Site.ProductsStore');
-    Route::post('/Produtos/AlterarProduto', 'ProductsController@updateProduct')->name('Site.ProductsUpdate');
-    Route::post('/Produtos/DeleteProduto', 'ProductsController@deleteProduct')->name('Site.ProductsDelete');
+    Route::get('/Produtos', 'ProductsController@index')->middleware(['auth'])->name('Site.Products');
+    Route::post('/Produtos/CadastroProduto', 'ProductsController@storeProduct')->middleware(['auth'])->name('Site.ProductsStore');
+    Route::post('/Produtos/AlterarProduto', 'ProductsController@updateProduct')->middleware(['auth'])->name('Site.ProductsUpdate');
+    Route::post('/Produtos/DeleteProduto', 'ProductsController@deleteProduct')->middleware(['auth'])->name('Site.ProductsDelete');
     
-    Route::get('/Produtos/Tipos', 'ProductsController@indexTipos')->name('Site.ProductsTypes');
-    Route::post('/Produtos/CadastroTipo', 'ProductsController@storeType')->name('Site.TypesStore');
-    Route::post('/Produtos/AlterarTipo', 'ProductsController@updateType')->name('Site.TypesUpdate');
-    Route::post('/Produtos/DeleteTipo', 'ProductsController@deleteType')->name('Site.TypesDelete');
+    Route::get('/Produtos/Tipos', 'ProductsController@indexTipos')->middleware(['auth'])->name('Site.ProductsTypes');
+    Route::post('/Produtos/CadastroTipo', 'ProductsController@storeType')->middleware(['auth'])->name('Site.TypesStore');
+    Route::post('/Produtos/AlterarTipo', 'ProductsController@updateType')->middleware(['auth'])->name('Site.TypesUpdate');
+    Route::post('/Produtos/DeleteTipo', 'ProductsController@deleteType')->middleware(['auth'])->name('Site.TypesDelete');
 
-    Route::get('/Produtos/Tamanhos', 'ProductsController@indexTamanhos')->name('Site.ProductsSizes');
-    Route::post('/Produtos/CadastroTamanho', 'ProductsController@storeSize')->name('Site.SizeStore');
-    Route::post('/Produtos/AlterarTamanho', 'ProductsController@updateSize')->name('Site.SizeUpdate');
-    Route::post('/Produtos/DeleteTamanho', 'ProductsController@deleteSize')->name('Site.SizeDelete');
+    Route::get('/Produtos/Tamanhos', 'ProductsController@indexTamanhos')->middleware(['auth'])->name('Site.ProductsSizes');
+    Route::post('/Produtos/CadastroTamanho', 'ProductsController@storeSize')->middleware(['auth'])->name('Site.SizeStore');
+    Route::post('/Produtos/AlterarTamanho', 'ProductsController@updateSize')->middleware(['auth'])->name('Site.SizeUpdate');
+    Route::post('/Produtos/DeleteTamanho', 'ProductsController@deleteSize')->middleware(['auth'])->name('Site.SizeDelete');
+
+    Route::get('/Usuario','UserController@index')->middleware(['auth'])->name('Site.User');
 });
-    
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

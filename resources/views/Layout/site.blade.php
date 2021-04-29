@@ -106,7 +106,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="{{route('Site.User')}}" class="d-block">{{Auth::user()->name}}</a>
                     </div>
                 </div>
 
@@ -125,7 +125,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="{{route('Site.Home')}}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -161,6 +161,14 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('logout')}}" class="nav-link">
+                                <i class="nav-icon fas fa-door-open"></i>
+                                <p>
+                                    Sair
+                                </p>
+                            </a>
                         </li>
                     </ul>
                 </nav>
