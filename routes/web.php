@@ -51,7 +51,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/Clientes', 'ClientController@index')->middleware(['auth'])->name('Site.Clients');
     
 
-    Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.UserSales');
+    Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
 
 
     Route::get('/Contas', 'BillController@index')->middleware(['auth'])->name('Site.Bills');

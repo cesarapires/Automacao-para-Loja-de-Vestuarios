@@ -163,7 +163,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Site.Home')}}" class="nav-link">
+                            <a href="{{route('Site.Clients')}}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Clientes
@@ -171,7 +171,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Site.Home')}}" class="nav-link">
+                            <a href="{{route('Site.Sales')}}" class="nav-link">
                             <i class="nav-icon fas fa-store"></i>
                                 <p>
                                     Vendas
@@ -179,7 +179,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Site.Home')}}" class="nav-link">
+                            <a href="{{route('Site.Bills')}}" class="nav-link">
                                 <i class="nav-icon fas fa-landmark"></i>
                                 <p>
                                     Contas
@@ -187,7 +187,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Site.Home')}}" class="nav-link">
+                            <a href="{{route('Site.Cashier')}}" class="nav-link">
                                 <i class="nav-icon fas fa-money-bill"></i>
                                 <p>
                                     Caixa
@@ -195,7 +195,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Site.Home')}}" class="nav-link">
+                            <a href="{{route('Site.Report')}}" class="nav-link">
                                     <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Relatórios
