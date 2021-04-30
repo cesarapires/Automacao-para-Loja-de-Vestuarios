@@ -18,62 +18,45 @@
     </div>
 </section>
 
-<section class="content">
+<section class="content d-flex justify-content-xl-center">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Different Styles</h3>
                     </div>
+                    <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
+                    action="{{route('Site.ProductsStore')}}">
+                    @csrf
+                    @method('post')
                     <div class="card-body">
-                        <h4>Input</h4>
                         <div class="form-group">
-                            <label for="exampleInputBorder">Bottom Border only
-                                <code>.form-control-border</code></label>
-                            <input type="text" class="form-control form-control-border" id="exampleInputBorder"
-                                placeholder=".form-control-border">
+                            <label for="inputNameProduct">Nome</label>
+                            <input type="text" class="form-control" name="nameProduct" id="nameProduct"
+                                value="{{Auth::user()->name}}">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputBorderWidth2">Bottom Border only 2px Border
-                                <code>.form-control-border.border-width-2</code></label>
-                            <input type="text" class="form-control form-control-border border-width-2"
-                                id="exampleInputBorderWidth2" placeholder=".form-control-border.border-width-2">
+                            <label for="inputStockProduct">Email</label>
+                            <input type="email" class="form-control" name="stockProduct" id="stockProduct"
+                                value=''>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputRounded0">Flat <code>.rounded-0</code></label>
-                            <input type="text" class="form-control rounded-0" id="exampleInputRounded0"
-                                placeholder=".rounded-0">
-                        </div>
-                        <h4>Custom Select</h4>
-                        <div class="form-group">
-                            <label for="exampleSelectBorder">Bottom Border only
-                                <code>.form-control-border</code></label>
-                            <select class="custom-select form-control-border" id="exampleSelectBorder">
-                                <option>Value 1</option>
-                                <option>Value 2</option>
-                                <option>Value 3</option>
-                            </select>
+                            <label for="inputPrice_BuyProduct">Custo</label>
+                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
+                                placeholder="17.99">
                         </div>
                         <div class="form-group">
-                            <label for="exampleSelectBorderWidth2">Bottom Border only
-                                <code>.form-control-border.border-width-2</code></label>
-                            <select class="custom-select form-control-border border-width-2"
-                                id="exampleSelectBorderWidth2">
-                                <option>Value 1</option>
-                                <option>Value 2</option>
-                                <option>Value 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleSelectRounded0">Flat <code>.rounded-0</code></label>
-                            <select class="custom-select rounded-0" id="exampleSelectRounded0">
-                                <option>Value 1</option>
-                                <option>Value 2</option>
-                                <option>Value 3</option>
-                            </select>
+                            <label for="inputPrice_SellProduct">Venda</label>
+                            <input type="text" class="form-control" name="price_SellProduct" id="price_SellProduct"
+                                placeholder="54.99">
                         </div>
                     </div>
+                    <!-- /.card-body -->
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
