@@ -18,48 +18,88 @@
     </div>
 </section>
 
-<section class="content d-flex justify-content-xl-center">
+<section class="content">
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
+                        <h3 class="card-title"></h3>
                     </div>
-                    <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.ProductsStore')}}">
-                    @csrf
-                    @method('post')
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="inputNameProduct">Nome</label>
-                            <input type="text" class="form-control" name="nameProduct" id="nameProduct"
-                                value="{{Auth::user()->name}}">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="IDUser">ID</label>
+                                <input type="text" class="form-control" id="IDUser" Readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="nomeUser">Nome</label>
+                                <input type="text" class="form-control" id="nomeUser">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputStockProduct">Email</label>
-                            <input type="email" class="form-control" name="stockProduct" id="stockProduct"
-                                value=''>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="cpfUser">CPF</label>
+                                <input type="text" class="form-control" id="cpfUser">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="rgUser">RG</label>
+                                <input type="text" class="form-control" id="rgUser">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Custo</label>
-                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
-                                placeholder="17.99">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="cpfUser">Email</label>
+                                <input type="text" class="form-control" id="cpfUser">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="rgUser">Endereço</label>
+                                <input type="text" class="form-control" id="rgUser">
+                            </div>
+                            <div class="col-md-1">
+                                <label for="rgUser">Número</label>
+                                <input type="text" class="form-control" id="rgUser">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="inputPrice_SellProduct">Venda</label>
-                            <input type="text" class="form-control" name="price_SellProduct" id="price_SellProduct"
-                                placeholder="54.99">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="cpfUser">Senha</label>
+                                <input type="text" class="form-control" id="cpfUser">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="rgUser">Bairro</label>
+                                <input type="text" class="form-control" id="rgUser">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="rgUser">Cidade</label>
+                                <input type="text" class="form-control" id="rgUser">
+                            </div>
+                            <div class="col-md-1">
+                                <label for="rgUser">Estado</label>
+                                <input type="text" class="form-control" id="rgUser">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="cpfUser">Confirmar Senha</label>
+                                <input type="text" class="form-control" id="cpfUser">
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <br>
+                                    <br>
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Administrador</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
-                        <button type="submit" class="btn btn-success">Salvar</button>
-                    </div>
-                </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 

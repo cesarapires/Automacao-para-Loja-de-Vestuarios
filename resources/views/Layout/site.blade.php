@@ -183,12 +183,33 @@
                                 <i class="nav-icon fas fa-landmark"></i>
                                 <p>
                                     Contas
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('Site.Products')}}" class="nav-link">
+                                        <i class="fas fa-money-bill nav-icon"></i>
+                                        <p>Contas a receber</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('Site.ProductsTypes')}}" class="nav-link">
+                                        <i class="fas fa-calculator nav-icon"></i>
+                                        <p>Contas a pagar</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('Site.ProductsSizes')}}" class="nav-link">
+                                        <i class="fas fa-calendar-alt nav-icon"></i>
+                                        <p>Calendário</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('Site.Cashier')}}" class="nav-link">
-                                <i class="nav-icon fas fa-money-bill"></i>
+                                <i class="nav-icon fas fa-cash-register"></i>
                                 <p>
                                     Caixa
                                 </p>
