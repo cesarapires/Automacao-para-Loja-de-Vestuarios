@@ -102,8 +102,8 @@
     </div>
 </section>
 
-@include('Site.Produtos.ProdutosModais.new')
-@include('Site.Produtos.ProdutosModais.delete')
-@include('Site.Produtos.ProdutosModais.edit')
+@include('Site.Produtos.Modais.new')
+@include('Site.Produtos.Modais.delete')
+@include('Site.Produtos.Modais.edit')
 
 @endsection('content')

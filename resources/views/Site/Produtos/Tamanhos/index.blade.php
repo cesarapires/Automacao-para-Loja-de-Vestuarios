@@ -91,8 +91,8 @@
     </div>
 </section>
 
-@include('Site.Produtos.Tamanhos.ProdutosModais.new')
-@include('Site.Produtos.Tamanhos.ProdutosModais.delete')
-@include('Site.Produtos.Tamanhos.ProdutosModais.edit')
+@include('Site.Produtos.Tamanhos.Modais.new')
+@include('Site.Produtos.Tamanhos.Modais.delete')
+@include('Site.Produtos.Tamanhos.Modais.edit')
 
 @endsection('content')
