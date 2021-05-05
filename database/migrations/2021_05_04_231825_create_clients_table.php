@@ -14,12 +14,14 @@ class CreateClientsTable extends Migration
     public function up()
     {
         Schema::create('clients', function (Blueprint $table) {
-            $table->id('clients_id');
-            $table->string('phone');
-            $table->string('birth_date');
-            $table->string('city');
-            $table->string('sex');
-            $table->string('cpf');
+            $table->id('client_id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone')->nullable();
+            $table->string('birth_date')->nullable();
+            $table->string('city')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('cpf')->nullable();
             $table->string('balance_due');
             $table->timestamps();
         });
@@ -30,6 +32,8 @@ class CreateClientsTable extends Migration
      *
      * @return void
      */
+
+     
     public function down()
     {
         Schema::dropIfExists('clients');

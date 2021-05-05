@@ -9,43 +9,43 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.ProductsStore')}}">
+                    action="{{route('Site.ClientsStore')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputNameProduct">Nome</label>
-                            <input type="text" class="form-control" name="nameProduct" id="nameProduct"
+                            <label for="inputnameClient">Nome</label>
+                            <input type="text" class="form-control" name="nameClient" id="nameClient"
                                 placeholder="Rebeca Alana Débora Barbosa">
                         </div>
                         <div class="form-group">
-                            <label for="inputStockProduct">CPF</label>
-                            <input type="text" class="form-control" name="stockProduct" id="stockProduct"
+                            <label for="inputcpfClient">CPF</label>
+                            <input type="text" class="form-control" name="cpfClient" id="cpfClient"
                             placeholder="165.641.476-78">
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Email</label>
-                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
+                            <label for="inputemailClient">Email</label>
+                            <input type="text" class="form-control" name="emailClient" id="emailClient"
                                 placeholder="rebecaalanadebora@alihstore.com">
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Telefone</label>
-                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
+                            <label for="inputphoneClient">Telefone</label>
+                            <input type="text" class="form-control" name="phoneClient" id="phoneClient"
                                 placeholder="(35) 99987-4751">
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Data de Nascimento</label>
-                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
+                            <label for="inputbirth_DateClient">Data de Nascimento</label>
+                            <input type="text" class="form-control" name="birth_DateClient" id="birth_DateClient"
                                 placeholder="17/09/1967">
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Cidade</label>
-                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
+                            <label for="inputcityClient">Cidade</label>
+                            <input type="text" class="form-control" name="cityClient" id="cityClient"
                                 placeholder="Congonhal">
                         </div>
                         <div class="form-group">
                             <label>Sexo</label>
-                            <select class="form-control select2bs4" name="type_IdProduct" style="width: 100%;">
+                            <select class="form-control select2bs4" name="sexClient" style="width: 100%;">
                                 <option value="">Selecione um sexo:</option>
                                 <option value="1">Masculino</option>
                                 <option value="2">Feminimo</option>

@@ -48,8 +48,9 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Produtos/AlterarTamanho', 'ProductsController@updateSize')->middleware(['auth'])->name('Site.SizeUpdate');
     Route::post('/Produtos/DeleteTamanho', 'ProductsController@deleteSize')->middleware(['auth'])->name('Site.SizeDelete');
 
-    Route::get('/Clientes', 'ClientController@index')->middleware(['auth'])->name('Site.Clients');
-    
+    Route::get('/Clientes', 'ClientsController@index')->middleware(['auth'])->name('Site.Clients');
+    Route::post('/Clientes/CadastroClientes', 'ClientsController@store')->middleware(['auth'])->name('Site.ClientsStore');
+  
 
     Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
 

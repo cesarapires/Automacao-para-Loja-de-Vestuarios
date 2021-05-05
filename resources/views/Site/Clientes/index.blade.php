@@ -48,11 +48,44 @@
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>Telefone</th>
-                                    <th>Idade</th>
+                                    <th>Data Nascimento</th>
                                     <th>Cidade</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                @foreach($clients as $clients)
+                                <tr class="text-center">
+                                    <td class='idClient'>{{$clients->client_id }}</td>
+                                    <td class='nameClient'>{{$clients->name}}</td>
+                                    <td class='phoneClient'>{{$clients->phone}}</td>
+                                    <td class='ageClient'>{{$clients->birth_date}}</td>
+                                    <td class='ageCity'>{{$clients->city}}</td>
+                                    <td class="project-actions text-right text-center edit">
+                                        <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
+                                            data-target="#modalEditType" data-whatever='{
+                                                "idClient":"{{$clients->client_id}}",
+                                                "nameClient":"{{$clients->name}}",
+                                                "createdAtClient":"{{$clients->created_at}}",
+                                                "updatedAtClient":"{{$clients->updated_at}}"
+                                                }'>
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Editar
+                                        </button>
+                                        <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
+                                            data-target="#modalDeleteType" data-whatever='{
+                                                "idClient":"{{$clients->client_id }}",
+                                                "nameClient":"{{$clients->name}}"
+                                                }'>
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Apagar
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>                            
                         </table>
                     </div>
                 </div>
