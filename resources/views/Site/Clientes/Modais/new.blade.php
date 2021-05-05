@@ -24,6 +24,16 @@
                             placeholder="165.641.476-78">
                         </div>
                         <div class="form-group">
+                            <label for="inputPrice_BuyProduct">Email</label>
+                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
+                                placeholder="rebecaalanadebora@alihstore.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPrice_BuyProduct">Telefone</label>
+                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
+                                placeholder="(35) 99987-4751">
+                        </div>
+                        <div class="form-group">
                             <label for="inputPrice_BuyProduct">Data de Nascimento</label>
                             <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
                                 placeholder="17/09/1967">
