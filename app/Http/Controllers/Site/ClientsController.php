@@ -24,8 +24,35 @@ class ClientsController extends Controller
             'birth_date' => $request->birth_DateClient,  
             'city' => $request->cityClient,  
             'sex'=>$request->sexClient,
+            'created_at'=>date("Y-m-d H:i:s"),
+            'updated_at'=>date("Y-m-d H:i:s"),
             'balance_due'=> 00.00
         ]);
+        return redirect('Clientes');
+    }
+
+    public function update(Request $request)
+    {
+        DB::table('clients')->
+        where('client_id','=',$request->edtidClient)->
+        update([
+            'name'=>$request->edtnameClient,
+            'cpf'=>$request->edtcpfClient,
+            'email'=>$request->edtemailClient,
+            'phone'=>$request->edtphoneClient,
+            'birth_date' => $request->edtbirthdateClient,  
+            'city' => $request->edtcityClient,  
+            'sex'=>$request->edtsexClient, 
+            'updated_at' => date("Y-m-d H:i:s")  
+        ]);        
+        return redirect('Clientes');
+    }
+
+    public function delete(Request $request)
+    {
+        DB::table('clients')->
+        where('client_id','=',$request->delidClient)->
+        delete();
         return redirect('Clientes');
     }
 }

@@ -12,4 +12,10 @@ class SalesController extends Controller
         return view('Site.Vendas.index');
         #dd($products, $types, $sizes);
     }
+
+    public function indexNew()
+    {
+        return view('Site.Vendas.newsale');
+        #dd($products, $types, $sizes);
+    }
 }

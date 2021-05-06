@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label for="inputcityClient">Cidade</label>
-                            <input type="text" class="form-control" name="edtcityCity" id="edtcityCity">
+                            <input type="text" class="form-control" name="edtcityClient" id="edtcityClient">
                         </div>
                         <div class="form-group">
                             <label>Sexo</label>
@@ -94,7 +94,7 @@ $('#modalEditClient').on('show.bs.modal', function(event) {
     modal.find('#edtphoneClient').val(phoneClient)
     modal.find('#edtemailClient').val(emailClient)
     modal.find("#edtbirthdateClient").val(birthdateClient)
-    modal.find('#edtcityCity').val(cityCity)
+    modal.find('#edtcityClient').val(cityCity)
     modal.find('#edtsexClient').val(sexClient)
     modal.find('#edtbalance_duo').val(balance_due)
     modal.find('#edtcreatedAtClient').val(createdAtClient)

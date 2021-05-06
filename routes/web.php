@@ -32,6 +32,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     | e tipos até as rotas de cadastro.
     |
     */
+    
     #Aqui estão as rotas relacionadas ao CRUD de produtos, todos com as devidas autenticação de usuário
     Route::get('/Produtos', 'ProductsController@index')->middleware(['auth'])->name('Site.Products');
     Route::post('/Produtos/CadastroProduto', 'ProductsController@storeProduct')->middleware(['auth'])->name('Site.ProductsStore');
@@ -42,19 +43,19 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Produtos/CadastroTipo', 'ProductsController@storeType')->middleware(['auth'])->name('Site.TypesStore');
     Route::post('/Produtos/AlterarTipo', 'ProductsController@updateType')->middleware(['auth'])->name('Site.TypesUpdate');
     Route::post('/Produtos/DeleteTipo', 'ProductsController@deleteType')->middleware(['auth'])->name('Site.TypesDelete');
-    #Aqui estão as rolas relacionadas ao CRUD de tamanhos
+    #Aqui estão as rotas relacionadas ao CRUD de tamanhos
     Route::get('/Produtos/Tamanhos', 'ProductsController@indexTamanhos')->middleware(['auth'])->name('Site.ProductsSizes');
     Route::post('/Produtos/CadastroTamanho', 'ProductsController@storeSize')->middleware(['auth'])->name('Site.SizeStore');
     Route::post('/Produtos/AlterarTamanho', 'ProductsController@updateSize')->middleware(['auth'])->name('Site.SizeUpdate');
     Route::post('/Produtos/DeleteTamanho', 'ProductsController@deleteSize')->middleware(['auth'])->name('Site.SizeDelete');
-
+    #Aqui estão as rotas relacionadas ao CRUD de Clientes
     Route::get('/Clientes', 'ClientsController@index')->middleware(['auth'])->name('Site.Clients');
     Route::post('/Clientes/CadastroClientes', 'ClientsController@store')->middleware(['auth'])->name('Site.ClientsStore');
     Route::post('/Clientes/Alterarlientes', 'ClientsController@update')->middleware(['auth'])->name('Site.ClientsUpdate');
     Route::post('/Clientes/DeleteClientes', 'ClientsController@delete')->middleware(['auth'])->name('Site.ClientsDelete');
-
-
+    #Aqui estão as rotas relacionadas ao CRUD de Vendas
     Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
+    Route::get('/Vendas/Nova', 'SalesController@indexNew')->middleware(['auth'])->name('Site.NewSales');
 
 
     Route::get('/Contas', 'BillController@index')->middleware(['auth'])->name('Site.Bills');
