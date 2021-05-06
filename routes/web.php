@@ -50,7 +50,9 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     Route::get('/Clientes', 'ClientsController@index')->middleware(['auth'])->name('Site.Clients');
     Route::post('/Clientes/CadastroClientes', 'ClientsController@store')->middleware(['auth'])->name('Site.ClientsStore');
-  
+    Route::post('/Clientes/Alterarlientes', 'ClientsController@update')->middleware(['auth'])->name('Site.ClientsUpdate');
+    Route::post('/Clientes/DeleteClientes', 'ClientsController@delete')->middleware(['auth'])->name('Site.ClientsDelete');
+
 
     Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
 

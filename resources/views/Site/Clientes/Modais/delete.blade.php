@@ -1,26 +1,26 @@
-<div class="modal fade" id="modalDeleteProduct">
+<div class="modal fade" id="modalDeleteClient">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Apagar Produto</h4>
+                <h4 class="modal-title">Apagar Cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.ProductsDelete')}}">
+                    action="{{route('Site.ClientsDelete')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputIdType">ID</label>
-                            <input type="text" class="form-control" name="delidProduct" id="delidProduct" value=""
+                            <input type="text" class="form-control" name="delidClient" id="delidClient" value=""
                                 Readonly>
                         </div>
                         <div class="form-group">
-                            <label for="inputNameType">Descrição</label>
-                            <input type="text" class="form-control" name="delnameProduct" id="delnameProduct" value=""
+                            <label for="inputNameType">Nome</label>
+                            <input type="text" class="form-control" name="delnameClient" id="delnameClient" value=""
                                 Readonly>
                         </div>
                     </div>
@@ -36,15 +36,15 @@
 
 <script>
 /* When click edit user */
-$('#modalDeleteProduct').on('show.bs.modal', function(event) {
+$('#modalDeleteClient').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
-    var idProduct = button.data('whatever').idProduct
-    var nameProduct = button.data('whatever').nameProduct
+    var idClient = button.data('whatever').idClient
+    var nameclient = button.data('whatever').nameClient
 
-    modal.find('#delidProduct').val(idProduct)
-    modal.find('#delnameProduct').val(nameProduct)
+    modal.find('#delidClient').val(idClient)
+    modal.find('#delnameClient').val(nameclient)
 })
 </script>

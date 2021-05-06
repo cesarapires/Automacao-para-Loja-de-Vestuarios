@@ -1,51 +1,62 @@
-<div class="modal fade" id="modalEditProduct">
+<div class="modal fade" id="modalEditClient">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Alterar produtos</h4>
+                <h4 class="modal-title">Editar cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="FormEdtProducts" name="FormEdtProducts"
-                    action="{{route('Site.ProductsUpdate')}}">
+                <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
+                    action="{{route('Site.ClientsUpdate')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputNameProduct">ID</label>
-                            <input type="text" class="form-control" name="edtidProduct" id="edtidProduct" value=""
-                                Readonly>
+                            <label for="inputidClient">ID</label>
+                            <input type="text" class="form-control" name="edtidClient" id="edtidClient" Readonly>
                         </div>
                         <div class="form-group">
-                            <label for="inputNameProduct">Descrição</label>
-                            <input type="text" class="form-control" name="edtnameProduct" id="edtnameProduct" value="">
+                            <label for="inputnameClient">Nome</label>
+                            <input type="text" class="form-control" name="edtnameClient" id="edtnameClient">
                         </div>
                         <div class="form-group">
-                            <label for="inputStockProduct">Estoque</label>
-                            <input type="text" class="form-control" name="edtstockProduct" id="edtstockProduct"
-                                value="">
+                            <label for="inputcpfClient">CPF</label>
+                            <input type="text" class="form-control" name="edtcpfClient" id="edtcpfClient" Readonly>
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Custo</label>
-                            <input type="text" class="form-control" name="edtpricebuyProduct" id="edtpriceBuyProduct"
-                                value="">
+                            <label for="inputemailClient">Email</label>
+                            <input type="text" class="form-control" name="edtemailClient" id="edtemailClient">
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_SellProduct">Venda</label>
-                            <input type="text" class="form-control" name="edtpricesellProduct" id="edtpriceSellProduct"
-                                value="">
+                            <label for="inputphoneClient">Telefone</label>
+                            <input type="text" class="form-control" name="edtphoneClient" id="edtphoneClient">
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_SellProduct">Data da última atualização</label>
-                            <input type="text" class="form-control" name="edtupdateProduct" id="edtupdateProduct"
-                                value="" disabled>
+                            <label for="inputbirth_DateClient">Data de Nascimento</label>
+                            <input type="text" class="form-control" name="edtbirthdateClient" id="edtbirthdateClient">
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_SellProduct">Data de criação</label>
-                            <input type="text" class="form-control" name="edtcreateProduct" id="edtcreateProduct"
-                                value="" disabled>
+                            <label for="inputcityClient">Cidade</label>
+                            <input type="text" class="form-control" name="edtcityCity" id="edtcityCity">
+                        </div>
+                        <div class="form-group">
+                            <label>Sexo</label>
+                            <select class="form-control select2bs4" name="sexClient" style="width: 100%;">
+                                <option value="">Selecione um sexo:</option>
+                                <option value="1">Masculino</option>
+                                <option value="2">Feminimo</option>
+                                <option value="3">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputcreatedAtClient">Criado em</label>
+                            <input type="text" class="form-control" name="edtcreatedAtClient" id="edtcreatedAtClient" Readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputupdatedAtClient">Última alteração</label>
+                            <input type="text" class="form-control" name="edtupdatedAtClient" id="edtupdatedAtClient" Readonly>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -60,29 +71,33 @@
 
 <script>
 /* When click edit user */
-$('#modalEditProduct').on('show.bs.modal', function(event) {
+$('#modalEditClient').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
-    var idProduct = button.data('whatever').product_id
-    var nameProduct = button.data('whatever').name
-    var stockProduct = button.data('whatever').stock
-    var priceBuyProduct = button.data('whatever').price_buy
-    var priceSellProduct = button.data('whatever').price_sell
-    var updateAtProduct = button.data('whatever').update_at
-    var createAtProduct = button.data('whatever').create_at
-    var typeIdProduct = button.data('whatever').type_id
-    var sizeIdProduct = button.data('whatever').size_id
+    var idClient = button.data('whatever').idClient
+    var nameClient = button.data('whatever').nameClient
+    var cpfClient = button.data('whatever').cpfClient
+    var phoneClient = button.data('whatever').phoneClient
+    var emailClient = button.data('whatever').emailClient
+    var birthdateClient = button.data('whatever').birthdateClient
+    var cityCity = button.data('whatever').cityCity
+    var sexClient = button.data('whatever').sexClient
+    var balance_due = button.data('whatever').balance_due
+    var createdAtClient = button.data('whatever').createdAtClient
+    var updatedAtClient = button.data('whatever').updatedAtClient
 
-    modal.find('#edtidProduct').val(idProduct)
-    modal.find('#edtnameProduct').val(nameProduct)
-    modal.find('#edtstockProduct').val(stockProduct)
-    modal.find('#edtpriceBuyProduct').val(priceBuyProduct)
-    modal.find('#edtpriceSellProduct').val(priceSellProduct)
-    modal.find("#edtsizeIdSize").val(sizeIdProduct)
-    modal.find('#edttypeIdProduct').val(typeIdProduct)
-    modal.find('#edtupdateProduct').val(updateAtProduct)
-    modal.find('#edtcreateProduct').val(createAtProduct)
+    modal.find('#edtidClient').val(idClient)
+    modal.find('#edtnameClient').val(nameClient)
+    modal.find('#edtcpfClient').val(cpfClient)
+    modal.find('#edtphoneClient').val(phoneClient)
+    modal.find('#edtemailClient').val(emailClient)
+    modal.find("#edtbirthdateClient").val(birthdateClient)
+    modal.find('#edtcityCity').val(cityCity)
+    modal.find('#edtsexClient').val(sexClient)
+    modal.find('#edtbalance_duo').val(balance_due)
+    modal.find('#edtcreatedAtClient').val(createdAtClient)
+    modal.find('#edtupdatedAtClient').val(updatedAtClient)
 })
 </script>

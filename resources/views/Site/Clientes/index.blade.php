@@ -59,13 +59,20 @@
                                     <td class='idClient'>{{$clients->client_id }}</td>
                                     <td class='nameClient'>{{$clients->name}}</td>
                                     <td class='phoneClient'>{{$clients->phone}}</td>
-                                    <td class='ageClient'>{{$clients->birth_date}}</td>
-                                    <td class='ageCity'>{{$clients->city}}</td>
+                                    <td class='birthdateClient'>{{$clients->birth_date}}</td>
+                                    <td class='cityCity'>{{$clients->city}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modalEditType" data-whatever='{
+                                            data-target="#modalEditClient" data-whatever='{
                                                 "idClient":"{{$clients->client_id}}",
                                                 "nameClient":"{{$clients->name}}",
+                                                "cpfClient":"{{$clients->cpf}}",
+                                                "phoneClient":"{{$clients->phone}}",
+                                                "emailClient":"{{$clients->email}}",
+                                                "birthdateClient":"{{$clients->birth_date}}",
+                                                "cityCity":"{{$clients->city}}",
+                                                "sexClient":"{{$clients->sex}}",
+                                                "balance_due":"{{$clients->balance_due}}",
                                                 "createdAtClient":"{{$clients->created_at}}",
                                                 "updatedAtClient":"{{$clients->updated_at}}"
                                                 }'>
@@ -74,7 +81,7 @@
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#modalDeleteType" data-whatever='{
+                                            data-target="#modalDeleteClient" data-whatever='{
                                                 "idClient":"{{$clients->client_id }}",
                                                 "nameClient":"{{$clients->name}}"
                                                 }'>
@@ -95,7 +102,7 @@
 </section>
 
 @include('Site.Clientes.Modais.new')
-<!--@include('Site.Clientes.Modais.delete')-->
-<!--@include('Site.Clientes.Modais.edit')-->
+@include('Site.Clientes.Modais.delete')
+@include('Site.Clientes.Modais.edit')
 
 @endsection('content')
