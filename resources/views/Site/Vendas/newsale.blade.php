@@ -42,12 +42,21 @@
                                     <label for="cpfUser">ID Cliente</label>
                                     <input type="text" class="form-control" id="cpfUser" Readonly>
                                 </div>
-                                <div class="col-md-3">
-                                    <label for="rgUser">Cliente</label>
-                                    <input type="text" class="form-control" id="rgUser">
+                                <div class="form-group">
+                                    <label>Multiple</label>
+                                    <select class="select2bs4" multiple="multiple" data-placeholder="Select a State"
+                                        style="width: 100%;">
+                                        <option>Alabama</option>
+                                        <option>Alaska</option>
+                                        <option>California</option>
+                                        <option>Delaware</option>
+                                        <option>Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="rgUser">Meio da venda</label>
+                                    <label for="rgUser">Plataforma</label>
                                     <input type="text" class="form-control" id="rgUser">
                                 </div>
                             </div>
@@ -95,4 +104,3 @@
 @include('Site.Vendas.Modais.addproduct')
 
 @endsection('content')
-

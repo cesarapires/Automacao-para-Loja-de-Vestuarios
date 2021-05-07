@@ -47,7 +47,7 @@
                                 <tr class="text-center">
                                     <th>ID</th>
                                     <th>Cliente</th>
-                                    <th>Pagamento</th>
+                                    <th>Forma de Pagamento</th>
                                     <th>Itens</th>
                                     <th>Data</th>
                                     <th>Total</th>
