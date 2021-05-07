@@ -42,9 +42,9 @@
                                     <label for="cpfUser">ID Cliente</label>
                                     <input type="text" class="form-control" id="cpfUser" Readonly>
                                 </div>
-                                <div class="form-group">
+                                <div class="col-md-4">
                                     <label>Multiple</label>
-                                    <select class="select2bs4" multiple="multiple" data-placeholder="Select a State"
+                                    <select class="select2" multiple="multiple" data-placeholder="Select a State"
                                         style="width: 100%;">
                                         <option>Alabama</option>
                                         <option>Alaska</option>
