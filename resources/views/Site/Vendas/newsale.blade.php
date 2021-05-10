@@ -43,16 +43,12 @@
                                     <input type="text" class="form-control" id="cpfUser" Readonly>
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Multiple</label>
-                                    <select class="select2" multiple="multiple" data-placeholder="Select a State"
-                                        style="width: 100%;">
-                                        <option>Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
+                                    <label>Cliente</label>
+                                    <select class="form-control select2bs4" style="width: 100%;">
+                                        <option>Selecione o cliente</option>
+                                        @foreach($clients as $clients)
+                                        <option value="{{$clients->client_id}}">{{$clients->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-3">

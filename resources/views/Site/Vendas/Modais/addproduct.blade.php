@@ -8,25 +8,33 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="#">
+                <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts" action="#">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputnameClient">Produto</label>
+                            <label for="inputnameClient">ID Produto</label>
                             <input type="text" class="form-control" name="nameClient" id="nameClient"
                                 placeholder="Rebeca Alana Débora Barbosa">
                         </div>
                         <div class="form-group">
+                            <label>Produto</label>
+                            <select class="form-control select2bs4" style="width: 100%;">
+                                <option>Selecione o produto</option>
+                                @foreach($products as $products)
+                                <option value="{{$products->product_id}}">{{$products->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="inputcpfClient">Quantidade</label>
                             <input type="text" class="form-control" name="cpfClient" id="cpfClient"
-                            placeholder="165.641.476-78">
+                                placeholder="4">
                         </div>
                         <div class="form-group">
                             <label for="inputemailClient">Valor</label>
                             <input type="text" class="form-control" name="emailClient" id="emailClient"
-                                placeholder="rebecaalanadebora@alihstore.com">
+                                placeholder="79.44">
                         </div>
                     </div>
                     <!-- /.card-body -->
