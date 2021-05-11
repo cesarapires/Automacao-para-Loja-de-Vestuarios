@@ -1,22 +1,26 @@
-<div class="modal fade" id="modalNewTypes">
+<div class="modal fade" id="modalNewPayment">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tipos</h4>
+                <h4 class="modal-title">Pagamento</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormNewType" name="FormNewType"
-                    action="{{route('Site.TypesStore')}}">
+                    action="{{route('Site.PaymentStore')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputNameType">Descrição</label>
                             <input type="text" class="form-control" name="nameType" id="nameType"
-                                placeholder="Cojunto">
+                                placeholder="Sumup - Crédito">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNameType">Taxa</label>
+                            <input type="text" class="form-control" name="nameType" id="nameType" placeholder="3.4">
                         </div>
                     </div>
                     <!-- /.card-body -->

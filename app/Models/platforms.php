@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class platforms extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'id_type',
+        'id_size',
+        'price_buy',
+        'price_sell',
+        'date_buy',
+        'stock',
+    ];
 }

@@ -1,8 +1,8 @@
-<div class="modal fade" id="modalEditType">
+<div class="modal fade" id="modalEditPayment">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Alterar tipos</h4>
+                <h4 class="modal-title">Alterar Pagamento</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -15,20 +15,25 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputIdSize">ID</label>
-                            <input type="text" class="form-control" name="edtidType" id="edtidType" value="" Readonly>
+                            <input type="text" class="form-control" name="edtidPayment" id="edtidPayment" value="" Readonly>
                         </div>
                         <div class="form-group">
-                            <label for="inputNameSize">Tamanho</label>
-                            <input type="text" class="form-control" name="edtnameType" id="edtnameType" value="">
+                            <label for="inputNameType">Descrição</label>
+                            <input type="text" class="form-control" name="edtnamePayment" id="edtnamePayment"
+                                placeholder="Sumup - Crédito">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNameType">Taxa</label>
+                            <input type="text" class="form-control" name="edtratePayment" id="edtratePayment" placeholder="3.4">
                         </div>
                         <div class="form-group">
                             <label for="inputUpdateSize">Data da última atualização</label>
-                            <input type="text" class="form-control" name="edtupdateType" id="edtupdateType" value=""
+                            <input type="text" class="form-control" name="edtupdatedAtPayment" id="edtupdatedAtPayment" value=""
                                 disabled>
                         </div>
                         <div class="form-group">
                             <label for="inputCreateSize">Data de criação</label>
-                            <input type="text" class="form-control" name="edtcreateType" id="edtcreateType" value=""
+                            <input type="text" class="form-control" name="edtupdatedAtPayment" id="edtupdatedAtPayment" value=""
                                 disabled>
                         </div>
                     </div>
@@ -44,19 +49,21 @@
 
 <script>
 /* When click edit user */
-$('#modalEditType').on('show.bs.modal', function(event) {
+$('#modalEditPayment').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
-    var idType = button.data('whatever').idType
-    var nameType = button.data('whatever').nameType
-    var updatedAtType = button.data('whatever').updatedAtType
-    var createdAtType = button.data('whatever').createdAtType
+    var idPayment = button.data('whatever').idPayment
+    var namePayment = button.data('whatever').namePayment
+    var ratePayment = buttton.date('whatever').ratePayment
+    var updatedAtPayment = button.data('whatever').updatedAtPayment
+    var createdAtPayment = button.data('whatever').createdAtPayment
 
-    modal.find('#edtidType').val(idType)
-    modal.find('#edtnameType').val(nameType)
-    modal.find('#edtupdateType').val(updatedAtType)
-    modal.find('#edtcreateType').val(createdAtType)
+    modal.find('#edtidPayment').val(idPayment)
+    modal.find('#edtnamePayment').val(namePayment)
+    modal.find('#edtratePayment').val(ratePayment)
+    modal.find('#edtupdatedAtPayment').val(updatedAtPayment)
+    modal.find('#edtupdatedAtPayment').val(createdAtPayment)
 })
 </script>

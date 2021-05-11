@@ -89,8 +89,8 @@
     </div>
 </section>
 
-@include('Site.Produtos.Tipos.Modais.new')
-@include('Site.Produtos.Tipos.Modais.delete')
-@include('Site.Produtos.Tipos.Modais.edit')
+@include('Site.Configuracao.Parcelas.Modais.new')
+@include('Site.Configuracao.Parcelas.Modais.delete')
+@include('Site.Configuracao.Parcelas.Modais.edit')
 
 @endsection('content')

@@ -74,21 +74,21 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     
     #Aqui estão as rotas relacionadas ao CRUD de Plataformas
     Route::get('/Configuracao/Plataformas', 'SettingsController@indexPlatform')->middleware(['auth'])->name('Site.Platform');
-    Route::post('/Configuracao/CadastroPlataformas', 'SettingsController@index')->middleware(['auth'])->name('Site.PlatformStore');
-    Route::post('/Configuracao/AlterarPlataformas', 'SettingsController@index')->middleware(['auth'])->name('Site.PlatformUpdate');
-    Route::post('/Configuracao/DeletePlataformas', 'SettingsController@index')->middleware(['auth'])->name('Site.PlatformDelete');
+    Route::post('/Configuracao/CadastroPlataformas', 'SettingsController@storePlatform')->middleware(['auth'])->name('Site.PlatformStore');
+    Route::post('/Configuracao/AlterarPlataformas', 'SettingsController@updatePlatform')->middleware(['auth'])->name('Site.PlatformUpdate');
+    Route::post('/Configuracao/DeletePlataformas', 'SettingsController@deletePlatform')->middleware(['auth'])->name('Site.PlatformDelete');
 
     #Aqui estão as rotas relacionadas ao CRUD de Pagamentos
     Route::get('/Configuracao/Pagamento', 'SettingsController@indexPayment')->middleware(['auth'])->name('Site.Payment');
-    Route::post('/Configuracao/CadastroPagamento', 'SettingsController@index')->middleware(['auth'])->name('Site.PaymentStore');
-    Route::post('/Configuracao/AlterarPagamento', 'SettingsController@index')->middleware(['auth'])->name('Site.PaymentUpdate');
-    Route::post('/Configuracao/DeletePagamento', 'SettingsController@index')->middleware(['auth'])->name('Site.PaymentDelete');
+    Route::post('/Configuracao/CadastroPagamento', 'SettingsController@storePayment')->middleware(['auth'])->name('Site.PaymentStore');
+    Route::post('/Configuracao/AlterarPagamento', 'SettingsController@updatePayment')->middleware(['auth'])->name('Site.PaymentUpdate');
+    Route::post('/Configuracao/DeletePagamento', 'SettingsController@deletePayment')->middleware(['auth'])->name('Site.PaymentDelete');
 
     #Aqui estão as rotas relacionadas ao CRUD de Parcelas
     Route::get('/Configuracao/Parcelas', 'SettingsController@indexPlot')->middleware(['auth'])->name('Site.Plot');
-    Route::post('/Configuracao/CadastroParcelas', 'SettingsController@index')->middleware(['auth'])->name('Site.PlotStore');
-    Route::post('/Configuracao/AlterarParcelas', 'SettingsController@index')->middleware(['auth'])->name('Site.PlotUpdate');
-    Route::post('/Configuracao/DeleteParcelas', 'SettingsController@index')->middleware(['auth'])->name('Site.PlotDelete');
+    Route::post('/Configuracao/CadastroParcelas', 'SettingsController@storePlot')->middleware(['auth'])->name('Site.PlotStore');
+    Route::post('/Configuracao/AlterarParcelas', 'SettingsController@updatePlot')->middleware(['auth'])->name('Site.PlotUpdate');
+    Route::post('/Configuracao/DeleteParcelas', 'SettingsController@deletePlot')->middleware(['auth'])->name('Site.PlotDelete');
 
 });
 

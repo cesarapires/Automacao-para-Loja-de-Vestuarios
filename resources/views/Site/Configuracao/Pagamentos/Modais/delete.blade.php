@@ -1,8 +1,8 @@
-<div class="modal fade" id="modalDeleteType">
+<div class="modal fade" id="modalDeletePayment">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Apagar Tipos</h4>
+                <h4 class="modal-title">Apagar Pagamento</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -15,11 +15,11 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputIdType">ID</label>
-                            <input type="text" class="form-control" name="delidType" id="delidType" value="" Readonly>
+                            <input type="text" class="form-control" name="delidPayment" id="delidType" value="" Readonly>
                         </div>
                         <div class="form-group">
                             <label for="inputNameType">Descrição</label>
-                            <input type="text" class="form-control" name="delnameType" id="delnameType" value=""
+                            <input type="text" class="form-control" name="delnamePayment" id="delnameType" value=""
                                 Readonly>
                         </div>
                     </div>
@@ -37,15 +37,15 @@
 
 <script>
 /* When click edit user */
-$('#modalDeleteType').on('show.bs.modal', function(event) {
+$('#modalDeletePayment').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
-    var idType = button.data('whatever').idType
-    var nameType = button.data('whatever').nameType
+    var idPayment = button.data('whatever').idPayment
+    var namePayment = button.data('whatever').namePayment
 
-    modal.find('#delidType').val(idType)
-    modal.find('#delnameType').val(nameType)
+    modal.find('#delidPayment').val(idPayment)
+    modal.find('#delnamePayment').val(namePayment)
 })
 </script>

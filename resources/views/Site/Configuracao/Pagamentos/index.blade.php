@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Pagamentos | <button class="btn btn-success btn-sm" data-toggle="modal"
-                        data-target="#modalNewTypes">
+                        data-target="#modalNewPayment">
                         <i class="fas fa-plus"></i>
                         Novo</button>
                 </h1>
@@ -45,7 +45,7 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>ID</th>
-                                    <th>Tipos</th>
+                                    <th>Forma de Pagamento</th>
                                     <th>Data da última modificação</th>
                                     <th>Data da criação</th>
                                     <th>Ação</th>
@@ -59,7 +59,7 @@
                                     <td class='updatedAtType'></td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modalEditType" data-whatever='{
+                                            data-target="#modalEditPayment" data-whatever='{
                                                 "idType":"",
                                                 "nameType":"",
                                                 "createdAtType":"",
@@ -70,7 +70,7 @@
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#modalDeleteType" data-whatever='{
+                                            data-target="#modalDeletePayment" data-whatever='{
                                                 "idType":"",
                                                 "nameType":""
                                                 }'>
@@ -89,8 +89,8 @@
     </div>
 </section>
 
-@include('Site.Produtos.Tipos.Modais.new')
-@include('Site.Produtos.Tipos.Modais.delete')
-@include('Site.Produtos.Tipos.Modais.edit')
+@include('Site.Configuracao.Pagamentos.Modais.new')
+@include('Site.Configuracao.Pagamentos.Modais.delete')
+@include('Site.Configuracao.Pagamentos.Modais.edit')
 
 @endsection('content')
