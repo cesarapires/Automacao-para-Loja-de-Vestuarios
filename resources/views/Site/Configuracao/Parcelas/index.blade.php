@@ -52,19 +52,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($plot as $plot)
                                 <tr class="text-center">
-                                    <td class='idPlot'></td>
-                                    <td class='namePlot'></td>
-                                    <td class='createdAtPlot'></td>
-                                    <td class='updatedAtPlot'></td>
+                                
+                                    <td class='idPlot'>{{$plot->plot_id}}</td>
+                                    <td class='namePlot'>{{$plot->name}}</td>
+                                    <td class='createdAtPlot'>{{$plot->created_at}}</td>
+                                    <td class='updatedAtPlot'>{{$plot->updated_at}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
                                             data-target="#modalEditPlot" data-whatever='{
-                                                "idPlot":"",
-                                                "namePlot":"",
-                                                "timePlot":"",
-                                                "createdAtPlot":"",
-                                                "updatedAtPlot":""
+                                                "idPlot":"{{$plot->plot_id}}",
+                                                "namePlot":"{{$plot->name}}",
+                                                "numberPlot":"{{$plot->number}}",
+                                                "createdAtPlot":"{{$plot->created_at}}",
+                                                "updatedAtPlot":"{{$plot->updated_at}}"
                                                 }'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
@@ -72,8 +74,8 @@
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
                                             data-target="#modalDeletePlot" data-whatever='{
-                                                "idPlot":"",
-                                                "namePlot":""
+                                                "idPlot":"{{$plot->plot_id}}",
+                                                "namePlot":"{{$plot->name}}"
                                                 }'>
                                             <i class="fas fa-trash">
                                             </i>
@@ -81,6 +83,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

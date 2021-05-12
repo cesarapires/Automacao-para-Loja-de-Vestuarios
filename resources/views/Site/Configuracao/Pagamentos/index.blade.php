@@ -52,19 +52,20 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($payment as $payment)
                                 <tr class="text-center">
-                                    <td class='idType'></td>
-                                    <td class='nameType'></td>
-                                    <td class='createdAtType'></td>
-                                    <td class='updatedAtType'></td>
+                                    <td class='idType'>{{$payment->payment_id}}</td>
+                                    <td class='nameType'>{{$payment->name}}</td>
+                                    <td class='createdAtType'>{{$payment->created_at}}</td>
+                                    <td class='updatedAtType'>{{$payment->updated_at}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
                                             data-target="#modalEditPayment" data-whatever='{
-                                                "idPayment":"",
-                                                "namePayment":"",
-                                                "ratePayment":"",
-                                                "updatedAtPayment":"",
-                                                "createdAtPayment":""
+                                                "idPayment":"{{$payment->payment_id}}",
+                                                "namePayment":"{{$payment->name}}",
+                                                "ratePayment":"{{$payment->payment_rate}}",
+                                                "updatedAtPayment":"{{$payment->created_at}}",
+                                                "createdAtPayment":"{{$payment->updated_at}}"
                                                 }'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
@@ -72,8 +73,8 @@
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
                                             data-target="#modalDeletePayment" data-whatever='{
-                                                "idPayment":"",
-                                                "namePayment":""
+                                                "idPayment":"{{$payment->payment_id}}",
+                                                "namePayment":"{{$payment->name}}"
                                                 }'>
                                             <i class="fas fa-trash">
                                             </i>
@@ -81,6 +82,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -9,17 +9,17 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.TypesDelete')}}">
+                    action="{{route('Site.PaymentDelete')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputIdType">ID</label>
-                            <input type="text" class="form-control" name="delidPayment" id="delidType" value="" Readonly>
+                            <label for="inputIdPayment">ID</label>
+                            <input type="text" class="form-control" name="delidPayment" id="delidPayment" value="" Readonly>
                         </div>
                         <div class="form-group">
-                            <label for="inputNameType">Descrição</label>
-                            <input type="text" class="form-control" name="delnamePayment" id="delnameType" value=""
+                            <label for="inputNamePayment">Descrição</label>
+                            <input type="text" class="form-control" name="delnamePayment" id="delnamePayment" value=""
                                 Readonly>
                         </div>
                     </div>

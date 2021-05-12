@@ -15,6 +15,7 @@ class CreatePlatformsTable extends Migration
     {
         Schema::create('platforms', function (Blueprint $table) {
             $table->id('platform_id');
+            $table->float('platform_rate');
             $table->string('name');
             $table->timestamps();
         });

@@ -15,6 +15,7 @@ class CreatePlotsTable extends Migration
     {
         Schema::create('plots', function (Blueprint $table) {
             $table->id('plot_id');
+            $table->integer('number');
             $table->string('name');
             $table->timestamps();
         });

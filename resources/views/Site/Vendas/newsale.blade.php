@@ -53,17 +53,55 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="rgUser">Plataforma</label>
-                                    <input type="text" class="form-control" id="rgUser">
+                                    <select class="form-control select2bs4" style="width: 100%;">
+                                        <option>Selecione a plataforma</option>
+                                        @foreach($platforms as $platforms)
+                                        <option value="{{$platforms->platform_id}}">{{$platforms->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="rgUser">Taxa Plataforma</label>
+                                    <input type="text" class="form-control" id="IDUser" Readonly>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label for="cpfUser">Pagamento</label>
-                                    <input type="text" class="form-control" id="cpfUser">
+                                    <select class="form-control select2bs4" style="width: 100%;">
+                                        <option>Selecione a forma de pagamento</option>
+                                        @foreach($payments as $payments)
+                                        <option value="{{$payments->payment_id}}">{{$payments->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="rgUser">Parcelas</label>
-                                    <input type="text" class="form-control" id="rgUser">
+                                    <select class="form-control select2bs4" style="width: 100%;">
+                                        <option>Selecione a parcela</option>
+                                        @foreach($plots as $plots)
+                                        <option value="{{$plots->plot_id}}">{{$plots->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="rgUser">Desconto</label>
+                                    <input type="text" class="form-control" id="IDUser">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="cpfUser">Valor da Venda</label>
+                                    <input type="text" class="form-control" id="IDUser" Readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="rgUser">Taxa</label>
+                                    <input type="text" class="form-control" id="IDUser" Readonly>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="rgUser">Valor Final</label>
+                                    <input type="text" class="form-control" id="IDUser" Readonly>
                                 </div>
                             </div>
                             <br>

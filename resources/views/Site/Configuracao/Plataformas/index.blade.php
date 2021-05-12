@@ -45,34 +45,36 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>ID</th>
-                                    <th>Tipos</th>
+                                    <th>Plataforma</th>
                                     <th>Data da última modificação</th>
                                     <th>Data da criação</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($platform as $platform)
                                 <tr class="text-center">
-                                    <td class='idType'></td>
-                                    <td class='nameType'></td>
-                                    <td class='createdAtType'></td>
-                                    <td class='updatedAtType'></td>
+                                    <td class='idPlatform'>{{$platform->platform_id}}</td>
+                                    <td class='namePlatform'>{{$platform->name}}</td>
+                                    <td class='createdAtPlatform'>{{$platform->created_at}}</td>
+                                    <td class='updatedAtPlatform'>{{$platform->updated_at}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modalEditType" data-whatever='{
-                                                "idType":"",
-                                                "nameType":"",
-                                                "createdAtType":"",
-                                                "updatedAtType":""
+                                            data-target="#modalEditPlatform" data-whatever='{
+                                                "idPlatform":"{{$platform->platform_id}}",
+                                                "namePlatform":"{{$platform->name}}",
+                                                "ratePlatform":"{{$platform->platform_rate}}",
+                                                "createdAtPlatform":"{{$platform->created_at}}",
+                                                "updatedAtPlatform":"{{$platform->updated_at}}"
                                                 }'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#modalDeleteType" data-whatever='{
-                                                "idType":"",
-                                                "nameType":""
+                                            data-target="#modalDeletePlatform" data-whatever='{
+                                                "idPlatform":"{{$platform->platform_id}}",
+                                                "namePlatform":"{{$platform->name}}"
                                                 }'>
                                             <i class="fas fa-trash">
                                             </i>
@@ -80,6 +82,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

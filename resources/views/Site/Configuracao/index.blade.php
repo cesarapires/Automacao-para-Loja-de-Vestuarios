@@ -23,7 +23,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>{{$numberPayment}}</h3>
 
                         <p>Pagamento</p>
                     </div>
@@ -38,7 +38,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h3>{{$numberPlot}}</h3>
 
                         <p>Parcelas</p>
                     </div>
@@ -54,7 +54,7 @@
                 <!-- small card -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>{{$numberPlatform}}</h3>
 
                         <p>Plataformas</p>
                     </div>

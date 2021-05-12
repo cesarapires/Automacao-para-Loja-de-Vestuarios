@@ -19,8 +19,8 @@
                                 placeholder="30 dias">
                         </div>
                         <div class="form-group">
-                            <label for="inputTimePlot">Dias</label>
-                            <input type="text" class="form-control" name="timePlot" id="timePlot"
+                            <label for="inputNumberPlot">Parcelas</label>
+                            <input type="text" class="form-control" name="numberPlot" id="numberPlot"
                                 placeholder="30">
                         </div>
                     </div>

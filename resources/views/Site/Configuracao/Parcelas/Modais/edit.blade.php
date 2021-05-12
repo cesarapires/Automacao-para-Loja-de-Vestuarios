@@ -23,8 +23,8 @@
                                 placeholder="30 dias">
                         </div>
                         <div class="form-group">
-                            <label for="inputTimeplot">Dias</label>
-                            <input type="text" class="form-control" name="edttimeplot" id="edttimeplot"
+                            <label for="inputNumberPlot">Parcelas</label>
+                            <input type="text" class="form-control" name="edtnumberPlot" id="edtnumberPlot"
                                 placeholder="30">
                         </div>
                         <div class="form-group">
@@ -57,13 +57,13 @@ $('#modalEditPlot').on('show.bs.modal', function(event) {
 
     var idPlot = button.data('whatever').idPlot
     var namePlot = button.data('whatever').namePlot
-    var timePlot = button.data('whatever').timePlot
+    var numberPlot = button.data('whatever').numberPlot
     var updatedAtPlot = button.data('whatever').updatedAtPlot
     var createdAtPlot = button.data('whatever').createdAtPlot
 
     modal.find('#edtidPlot').val(idPlot)
     modal.find('#edtnamePlot').val(namePlot)
-    modal.find('#edttimeplot').val(timePlot)
+    modal.find('#edtnumberPlot').val(numberPlot)
     modal.find('#edtupdatedAtPlot').val(updatedAtPlot)
     modal.find('#edtcreatedAtPlot').val(createdAtPlot)
 })

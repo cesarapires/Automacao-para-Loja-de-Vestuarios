@@ -8,19 +8,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="FormNewType" name="FormNewType"
+                <form method="post" enctype="multipart/form-data" id="FormNewPayment" name="FormNewPayment"
                     action="{{route('Site.PaymentStore')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputNameType">Descrição</label>
-                            <input type="text" class="form-control" name="nameType" id="nameType"
+                            <label for="inputNamePayment">Descrição</label>
+                            <input type="text" class="form-control" name="namePayment" id="namePayment"
                                 placeholder="Sumup - Crédito">
                         </div>
                         <div class="form-group">
-                            <label for="inputNameType">Taxa</label>
-                            <input type="text" class="form-control" name="nameType" id="nameType" placeholder="3.4">
+                            <label for="inputNamePayment">Taxa</label>
+                            <input type="text" class="form-control" name="ratePayment" id="ratePayment" placeholder="3.4">
                         </div>
                     </div>
                     <!-- /.card-body -->

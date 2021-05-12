@@ -4,32 +4,51 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SettingsController extends Controller
 {
     public function index(){
-        return view('Site.Configuracao.index');
+        $numberPlatform = DB::table('platforms')->count();
+        $numberPlot = DB::table('plots')->count();
+        $numberPayment = DB::table('payments')->count();
+
+        return view('Site.Configuracao.index',[
+            'numberPlatform' => $numberPlatform,
+            'numberPlot'=> $numberPlot,
+            'numberPayment' => $numberPayment
+        ]);
     }
 
     public function indexPlatform(){
-        return view('Site.Configuracao.Plataformas.index');
+        $platform = DB::table('platforms')->get();
+        return view('Site.Configuracao.Plataformas.index',[
+            'platform' => $platform,
+        ]);
     }
 
     public function indexPlot(){
-        return view('Site.Configuracao.Parcelas.index');
+        $plot = DB::table('plots')->get();
+        return view('Site.Configuracao.Parcelas.index',[
+            'plot' => $plot,
+        ]);
     }
 
     public function indexPayment(){
-        return view('Site.Configuracao.Pagamentos.index');
+        $payment = DB::table('payments')->get();
+        return view('Site.Configuracao.Pagamentos.index',[
+            'payment' => $payment,
+        ]);
     }
 
     public function storePlots(Request $request){
         DB::table('plots')->insert([
             'name'=>$request->namePlot,
+            'number'=>$request->numberPlot,
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
         ]);        
-        return redirect('Produtos/Tipos');
+        return redirect('Configuracao/Parcelas');
     }
 
     public function updatePlots(Request $request){
@@ -39,24 +58,25 @@ class SettingsController extends Controller
             'name'=>$request->edtnamePlot, 
             'updated_at' => date("Y-m-d H:i:s")  
         ]);        
-        return redirect('Produtos/Tamanhos');
+        return redirect('Configuracao/Parcelas');
     }
 
     public function deletePlots(Request $request){
         DB::table('plots')->
         where('plot_id','=',$request->delidPlot)->
         delete();
-        return redirect('Produtos');
+        return redirect('Configuracao/Parcelas');
     }
 
 
     public function storePayments(Request $request){
         DB::table('payments')->insert([
             'name'=>$request->namePayment,
+            'payment_rate'=>$request->ratePayment,
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
         ]);        
-        return redirect('Produtos/Tipos');
+        return redirect('Configuracao/Pagamento');
     }
 
     public function updatePayments(Request $request){
@@ -66,24 +86,25 @@ class SettingsController extends Controller
             'name'=>$request->edtnamePayment, 
             'updated_at' => date("Y-m-d H:i:s")  
         ]);        
-        return redirect('Produtos/Tamanhos');
+        return redirect('Configuracao/Pagamento');
     }
 
     public function deletePayments(Request $request){
         DB::table('payments')->
         where('payment_id','=',$request->delidPayment)->
         delete();
-        return redirect('Produtos');
+        return redirect('Configuracao/Pagamento');
     }
 
 
     public function storePlatforms(Request $request){
         DB::table('platforms')->insert([
             'name'=>$request->namePlatform,
+            'platform_rate'=>$request->ratePlatform,
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
         ]);        
-        return redirect('Produtos/Tipos');
+        return redirect('Configuracao/Plataformas');
     }
 
     public function updatePlatforms(Request $request){
@@ -93,13 +114,13 @@ class SettingsController extends Controller
             'name'=>$request->edtnamePlatform, 
             'updated_at' => date("Y-m-d H:i:s")  
         ]);        
-        return redirect('Produtos/Tamanhos');
+        return redirect('Configuracao/Plataformas');
     }
 
     public function deletePlatforms(Request $request){
         DB::table('platforms')->
         where('platform_id','=',$request->delidPlatform)->
         delete();
-        return redirect('Produtos');
+        return redirect('Configuracao/Plataformas');
     }
 }
