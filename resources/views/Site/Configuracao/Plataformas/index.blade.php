@@ -89,8 +89,8 @@
     </div>
 </section>
 
-@include('Site.Configuracao.Plataforma.Modais.new')
-@include('Site.Configuracao.Plataforma.Modais.delete')
-@include('Site.Configuracao.Plataforma.Modais.edit')
+@include('Site.Configuracao.Plataformas.Modais.new')
+@include('Site.Configuracao.Plataformas.Modais.delete')
+@include('Site.Configuracao.Plataformas.Modais.edit')
 
 @endsection('content')

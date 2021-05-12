@@ -6,7 +6,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Parcelas | <button class="btn btn-success btn-sm" data-toggle="modal"
-                        data-target="#modalNewTypes">
+                        data-target="#modalNewPlot">
                         <i class="fas fa-plus"></i>
                         Novo</button>
                 </h1>
@@ -45,7 +45,7 @@
                             <thead>
                                 <tr class="text-center">
                                     <th>ID</th>
-                                    <th>Tipos</th>
+                                    <th>Parcela</th>
                                     <th>Data da última modificação</th>
                                     <th>Data da criação</th>
                                     <th>Ação</th>
@@ -53,26 +53,27 @@
                             </thead>
                             <tbody>
                                 <tr class="text-center">
-                                    <td class='idType'></td>
-                                    <td class='nameType'></td>
-                                    <td class='createdAtType'></td>
-                                    <td class='updatedAtType'></td>
+                                    <td class='idPlot'></td>
+                                    <td class='namePlot'></td>
+                                    <td class='createdAtPlot'></td>
+                                    <td class='updatedAtPlot'></td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modalEditType" data-whatever='{
-                                                "idType":"",
-                                                "nameType":"",
-                                                "createdAtType":"",
-                                                "updatedAtType":""
+                                            data-target="#modalEditPlot" data-whatever='{
+                                                "idPlot":"",
+                                                "namePlot":"",
+                                                "timePlot":"",
+                                                "createdAtPlot":"",
+                                                "updatedAtPlot":""
                                                 }'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#modalDeleteType" data-whatever='{
-                                                "idType":"",
-                                                "nameType":""
+                                            data-target="#modalDeletePlot" data-whatever='{
+                                                "idPlot":"",
+                                                "namePlot":""
                                                 }'>
                                             <i class="fas fa-trash">
                                             </i>

@@ -60,10 +60,11 @@
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
                                             data-target="#modalEditPayment" data-whatever='{
-                                                "idType":"",
-                                                "nameType":"",
-                                                "createdAtType":"",
-                                                "updatedAtType":""
+                                                "idPayment":"",
+                                                "namePayment":"",
+                                                "ratePayment":"",
+                                                "updatedAtPayment":"",
+                                                "createdAtPayment":""
                                                 }'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
@@ -71,8 +72,8 @@
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
                                             data-target="#modalDeletePayment" data-whatever='{
-                                                "idType":"",
-                                                "nameType":""
+                                                "idPayment":"",
+                                                "namePayment":""
                                                 }'>
                                             <i class="fas fa-trash">
                                             </i>

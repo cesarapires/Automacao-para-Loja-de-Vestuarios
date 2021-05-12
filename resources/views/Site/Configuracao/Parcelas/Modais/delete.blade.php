@@ -1,25 +1,25 @@
-<div class="modal fade" id="modalDeleteType">
+<div class="modal fade" id="modalDeletePlot">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Apagar Tipos</h4>
+                <h4 class="modal-title">Apagar Parcelas</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.TypesDelete')}}">
+                <form method="post" enctype="multipart/form-data" id="FormDelPlot" name="FormDelPlot"
+                    action="{{route('Site.PlotDelete')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputIdType">ID</label>
-                            <input type="text" class="form-control" name="delidType" id="delidType" value="" Readonly>
+                            <label for="inputIdPlot">ID</label>
+                            <input type="text" class="form-control" name="delidPlot" id="delidPlot" value="" Readonly>
                         </div>
                         <div class="form-group">
-                            <label for="inputNameType">Descrição</label>
-                            <input type="text" class="form-control" name="delnameType" id="delnameType" value=""
+                            <label for="inputNamePlot">Descrição</label>
+                            <input type="text" class="form-control" name="delnamePlot" id="delnamePlot" value=""
                                 Readonly>
                         </div>
                     </div>
@@ -37,15 +37,15 @@
 
 <script>
 /* When click edit user */
-$('#modalDeleteType').on('show.bs.modal', function(event) {
+$('#modalDeletePlot').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
-    var idType = button.data('whatever').idType
-    var nameType = button.data('whatever').nameType
+    var idPlot = button.data('whatever').idPlot
+    var namePlot = button.data('whatever').namePlot
 
-    modal.find('#delidType').val(idType)
-    modal.find('#delnameType').val(nameType)
+    modal.find('#delidPlot').val(idPlot)
+    modal.find('#delnamePlot').val(namePlot)
 })
 </script>

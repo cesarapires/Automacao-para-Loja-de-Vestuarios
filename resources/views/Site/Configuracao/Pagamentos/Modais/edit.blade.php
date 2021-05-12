@@ -15,7 +15,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputIdSize">ID</label>
-                            <input type="text" class="form-control" name="edtidPayment" id="edtidPayment" value="" Readonly>
+                            <input type="text" class="form-control" name="edtidPayment" id="edtidPayment" value=""
+                                Readonly>
                         </div>
                         <div class="form-group">
                             <label for="inputNameType">Descrição</label>
@@ -24,17 +25,18 @@
                         </div>
                         <div class="form-group">
                             <label for="inputNameType">Taxa</label>
-                            <input type="text" class="form-control" name="edtratePayment" id="edtratePayment" placeholder="3.4">
+                            <input type="text" class="form-control" name="edtratePayment" id="edtratePayment"
+                                placeholder="3.4">
                         </div>
                         <div class="form-group">
                             <label for="inputUpdateSize">Data da última atualização</label>
-                            <input type="text" class="form-control" name="edtupdatedAtPayment" id="edtupdatedAtPayment" value=""
-                                disabled>
+                            <input type="text" class="form-control" name="edtupdatedAtPayment" id="edtupdatedAtPayment"
+                                value="" disabled>
                         </div>
                         <div class="form-group">
                             <label for="inputCreateSize">Data de criação</label>
-                            <input type="text" class="form-control" name="edtupdatedAtPayment" id="edtupdatedAtPayment" value=""
-                                disabled>
+                            <input type="text" class="form-control" name="edtcreatedAtPayment" id="edtcreatedAtPayment"
+                                value="" disabled>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -56,7 +58,7 @@ $('#modalEditPayment').on('show.bs.modal', function(event) {
 
     var idPayment = button.data('whatever').idPayment
     var namePayment = button.data('whatever').namePayment
-    var ratePayment = buttton.date('whatever').ratePayment
+    var ratePayment = button.data('whatever').ratePayment
     var updatedAtPayment = button.data('whatever').updatedAtPayment
     var createdAtPayment = button.data('whatever').createdAtPayment
 
@@ -64,6 +66,6 @@ $('#modalEditPayment').on('show.bs.modal', function(event) {
     modal.find('#edtnamePayment').val(namePayment)
     modal.find('#edtratePayment').val(ratePayment)
     modal.find('#edtupdatedAtPayment').val(updatedAtPayment)
-    modal.find('#edtupdatedAtPayment').val(createdAtPayment)
+    modal.find('#edtcreatedAtPayment').val(createdAtPayment)
 })
 </script>

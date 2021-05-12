@@ -1,22 +1,27 @@
-<div class="modal fade" id="modalNewTypes">
+<div class="modal fade" id="modalNewPlot">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tipos</h4>
+                <h4 class="modal-title">Parcelas</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="FormNewType" name="FormNewType"
-                    action="{{route('Site.TypesStore')}}">
+                <form method="post" enctype="multipart/form-data" id="FormNewPlot" name="FormNewPlot"
+                    action="{{route('Site.PlotStore')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputNameType">Descrição</label>
-                            <input type="text" class="form-control" name="nameType" id="nameType"
-                                placeholder="Cojunto">
+                            <label for="inputNamePlot">Descrição</label>
+                            <input type="text" class="form-control" name="namePlot" id="namePlot"
+                                placeholder="30 dias">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputTimePlot">Dias</label>
+                            <input type="text" class="form-control" name="timePlot" id="timePlot"
+                                placeholder="30">
                         </div>
                     </div>
                     <!-- /.card-body -->

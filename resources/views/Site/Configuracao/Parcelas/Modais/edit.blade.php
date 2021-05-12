@@ -1,34 +1,40 @@
-<div class="modal fade" id="modalEditType">
+<div class="modal fade" id="modalEditPlot">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Alterar tipos</h4>
+                <h4 class="modal-title">Alterar Parcelas</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormEdtProducts" name="FormEdtProducts"
-                    action="{{route('Site.TypesUpdate')}}">
+                    action="{{route('Site.PlotUpdate')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputIdSize">ID</label>
-                            <input type="text" class="form-control" name="edtidType" id="edtidType" value="" Readonly>
+                            <label for="inputIdPlot">ID</label>
+                            <input type="text" class="form-control" name="edtidPlot" id="edtidPlot" value="" Readonly>
                         </div>
                         <div class="form-group">
-                            <label for="inputNameSize">Tamanho</label>
-                            <input type="text" class="form-control" name="edtnameType" id="edtnameType" value="">
+                            <label for="inputNamePlot">Descrição</label>
+                            <input type="text" class="form-control" name="edtnamePlot" id="edtnamePlot"
+                                placeholder="30 dias">
                         </div>
                         <div class="form-group">
-                            <label for="inputUpdateSize">Data da última atualização</label>
-                            <input type="text" class="form-control" name="edtupdateType" id="edtupdateType" value=""
+                            <label for="inputTimeplot">Dias</label>
+                            <input type="text" class="form-control" name="edttimeplot" id="edttimeplot"
+                                placeholder="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputUpdatePlot">Data da última atualização</label>
+                            <input type="text" class="form-control" name="edtupdatedAtPlot" id="edtupdatedAtPlot" value=""
                                 disabled>
                         </div>
                         <div class="form-group">
-                            <label for="inputCreateSize">Data de criação</label>
-                            <input type="text" class="form-control" name="edtcreateType" id="edtcreateType" value=""
+                            <label for="inputCreatePlot">Data de criação</label>
+                            <input type="text" class="form-control" name="edtcreatedAtPlot" id="edtcreatedAtPlot" value=""
                                 disabled>
                         </div>
                     </div>
@@ -44,19 +50,21 @@
 
 <script>
 /* When click edit user */
-$('#modalEditType').on('show.bs.modal', function(event) {
+$('#modalEditPlot').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
-    var idType = button.data('whatever').idType
-    var nameType = button.data('whatever').nameType
-    var updatedAtType = button.data('whatever').updatedAtType
-    var createdAtType = button.data('whatever').createdAtType
+    var idPlot = button.data('whatever').idPlot
+    var namePlot = button.data('whatever').namePlot
+    var timePlot = button.data('whatever').timePlot
+    var updatedAtPlot = button.data('whatever').updatedAtPlot
+    var createdAtPlot = button.data('whatever').createdAtPlot
 
-    modal.find('#edtidType').val(idType)
-    modal.find('#edtnameType').val(nameType)
-    modal.find('#edtupdateType').val(updatedAtType)
-    modal.find('#edtcreateType').val(createdAtType)
+    modal.find('#edtidPlot').val(idPlot)
+    modal.find('#edtnamePlot').val(namePlot)
+    modal.find('#edttimeplot').val(timePlot)
+    modal.find('#edtupdatedAtPlot').val(updatedAtPlot)
+    modal.find('#edtcreatedAtPlot').val(createdAtPlot)
 })
 </script>
