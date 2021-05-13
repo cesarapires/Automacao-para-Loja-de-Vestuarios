@@ -35,7 +35,7 @@ class SalesController extends Controller
     {
         DB::table('sales')->insert([
             'client_id'=> null,
-            'platform_id'=>null,
+            'platform_id'=>null,    
             'platform_rate'=>0,
             'payment_id'=>null,
             'plot_id'=>null,
