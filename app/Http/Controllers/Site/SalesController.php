@@ -21,6 +21,7 @@ class SalesController extends Controller
         $plots = DB::table('plots')->get();
         $payments = DB::table('payments')->get();
         $platforms = DB::table('platforms')->get();
+        $sales = DB::table('sales')
         return view('Site.Vendas.newsale',[
             'products' => $products,
             'clients' => $clients,
@@ -31,7 +32,7 @@ class SalesController extends Controller
         #dd($products, $types, $sizes);
     }
 
-    public function storeSale()
+    public function newSale()
     {
         DB::table('sales')->insert([
             'client_id'=> null,
