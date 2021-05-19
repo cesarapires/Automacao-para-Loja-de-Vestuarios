@@ -86,4 +86,11 @@ document.getElementById('edtpriceProduct').value = priceProduct
 document.getElementById('edtupdatedAtItenSale').value = updatedAtItenSale
 
 })
+
+$("#edtselectProduct").change(function() {
+    var priceProduct = ($(this).find(':selected').attr('data-priceSell'));
+    var idProduct = ($(this).find(':selected').attr('data-idProduct'));
+    document.getElementById('edtidProduct').value = idProduct;
+    document.getElementById('edtpriceProduct').value = priceProduct;
+});
 </script>

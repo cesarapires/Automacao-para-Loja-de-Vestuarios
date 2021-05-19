@@ -44,7 +44,7 @@
                                     <input type="text" class="form-control" id="idClient" name="idClient"
                                         value="{{$sales->client_id}}" Readonly>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label>Cliente</label>
                                     <select class="form-control select2bs4" id="client" style="width: 100%;">
                                         <option value="NULL">Selecione o cliente</option>
@@ -91,6 +91,23 @@
                                         <option value="{{$plots->plot_id}}">{{$plots->name}}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="rgUser">Frete</label>
+                                    <select class="form-control select2bs4" style="width: 100%;" id="shipping"
+                                        name="shipping">
+                                        <option>Selecione o frete</option>
+                                        <option value="1">Por conta do cliente</option>
+                                        <option value="2">Por conta da empresa</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="rgUser">Valor do frete</label>
+                                    <input type="text" class="form-control" id="shippingValue" name="shippingValue"
+                                        value="{{$sales->platform_rate}}">
                                 </div>
                             </div>
                             <div class="row">
@@ -191,7 +208,8 @@ function calcular() {
     var ratePlatform = parseFloat(document.getElementById('ratePlatform').value, 10);
 
     rateValue = ((ratePayment / 100) * (priceSale - discount)).toFixed(2);
-    amountSale = (priceSale - discount - rateValue - ratePlatform).toFixed(2);
+    if ()
+        amountSale = (priceSale - discount - rateValue - ratePlatform).toFixed(2);
 
     document.getElementById('ratePaymentValue').value = rateValue;
     document.getElementById('amountSale').value = amountSale;
@@ -205,6 +223,7 @@ $(document).ready(function() {
     });
 
     $("#priceSale").val(soma.toFixed(2));
+    calcular();
 
     if ("{{$sales->payment_id}}" == "") {
         documento.getElementById("payment").selectedIndex = "0";
@@ -216,13 +235,13 @@ $(document).ready(function() {
     } else {
         document.getElementById("client").value = "{{$sales->client_id}}";
     }
-    if ("{{$sales->payment_id}}" == "") {
-        document.getElementById("client").selectedIndex = "0";
+    if ("{{$sales->platform_id}}" == "") {
+        document.getElementById("platforms").selectedIndex = "0";
     } else {
-        document.getElementById("platforms").value = "{{$sales->payment_id}}";
+        document.getElementById("platforms").value = "{{$sales->platform_id}}";
     }
     alert("Esta sim");
-    calcular();
+
 });
 
 $("#discountSale").blur(function() {
