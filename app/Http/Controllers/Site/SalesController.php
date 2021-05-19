@@ -47,15 +47,19 @@ class SalesController extends Controller
     public function createNewSale()
     {
         DB::table('sales')->insert([
-            'client_id'=> null,
-            'platform_id'=>null,    
+            'client_id'=>null,
+            'platform_id'=>null,
             'platform_rate'=>0,
             'payment_id'=>null,
+            'rate_payment'=>0,
+            'shipping_id'=>null,
+            'shipping'=>0,
             'plot_id'=>null,
             'plot_rate'=>0,
             'sale_price'=>0,
             'discount'=>0,
-            'amount'=>0
+            'amount'=>0,
+            'created_at' => date("Y-m-d H:i:s")
         ]);
     }
 
@@ -72,4 +76,28 @@ class SalesController extends Controller
         ]);
         return redirect('Vendas/Nova');
     }
+
+    public function edtitensale(Request $request)
+    {
+            DB::table('saleitens')->
+            where('saleitens_id','=',$request->edtidItenSale)->
+            update([
+                'product_id'=>$request->edtidProduct,
+                'quantity'=>$request->edtquantityProduct,
+                'price'=>$request->edtpriceProduct,
+                'subtotal'=>($request->edtquantityProduct)*($request->edtpriceProduct), 
+                'updated_at' => date("Y-m-d H:i:s")  
+            ]);        
+        return redirect('Vendas/Nova');
+    }
+
+    public function delitensale(Request $request)
+    {
+        DB::table('saleitens')->
+        where('saleitens_id','=',$request->delsaleitens_id)->
+        delete();
+        return redirect('Vendas/Nova');
+    }
+
+
 }

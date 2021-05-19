@@ -20,7 +20,9 @@ class CreateSalesTable extends Migration
             $table->foreignId('platform_id')->nullable()->references('platform_id')->on('platforms');
             $table->float('platform_rate')->nullable();
             $table->foreignId('payment_id')->nullable()->references('payment_id')->on('payments');
-            $table->float('rate')->nullable();
+            $table->float('rate_payment')->nullable();
+            $table->integer('shipping_id')->nullable();
+            $table->float('shipping')->nullable();
             $table->foreignId('plot_id')->nullable()->references('plot_id')->on('plots');
             $table->float('plot_rate')->nullable();
             $table->float('sale_price')->nullable();
@@ -29,16 +31,19 @@ class CreateSalesTable extends Migration
             $table->timestamps();
         });
         DB::table('sales')->insert([
-            'client_id'=> null,
-            'platform_id'=>null,    
+            'client_id'=>null,
+            'platform_id'=>null,
             'platform_rate'=>0,
             'payment_id'=>null,
-            'rate'=>0,
+            'rate_payment'=>0,
+            'shipping_id'=>null,
+            'shipping'=>0,
             'plot_id'=>null,
             'plot_rate'=>0,
             'sale_price'=>0,
             'discount'=>0,
-            'amount'=>0
+            'amount'=>0,
+            'created_at' => date("Y-m-d H:i:s")
         ]);
     }
 

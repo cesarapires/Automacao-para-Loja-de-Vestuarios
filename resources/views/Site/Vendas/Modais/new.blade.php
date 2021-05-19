@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Adicionar Produto</h4>
+                <h4 class="modal-title">Adicionar Item</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label for="inputnameClient">ID Produto</label>
                             <input type="text" class="form-control" name="idProduct" id="idProduct"
-                                placeholder="Rebeca Alana Débora Barbosa">
+                                Readonly>
                             <input type="hidden" class="form-control" name="idSale" id="idSale"
                                 value="{{$sales->sale_id}}">
                         </div>
@@ -25,7 +25,7 @@
                             <select class="form-control select2bs4" id="selectProduct" style="width: 100%;">
                                 <option>Selecione o produto</option>
                                 @foreach($products as $products)
-                                <option value="{{$products->product_id}}" data-idProduct="{{$products->product_id}}" data-priceSell="{{$products->price_sell}}">{{$products->name}} - {{$products->size_name}} - {{$products->price_sell}}</option>
+                                <option value="{{$products->product_id}}" data-idProduct="{{$products->product_id}}" data-priceSell="{{$products->price_sell}}"><b>{{$products->product_id}} </b>{{$products->name}} - {{$products->size_name}} - {{$products->price_sell}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -59,6 +59,5 @@ $("#selectProduct").change(function() {
     var idProduct = ($(this).find(':selected').attr('data-idProduct'));
     document.getElementById('idProduct').value = idProduct;
     document.getElementById('priceProduct').value = priceProduct;
-
 });
 </script>

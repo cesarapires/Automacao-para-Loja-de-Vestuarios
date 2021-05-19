@@ -86,7 +86,7 @@
                                     <label for="rgUser">Parcelas</label>
                                     <select class="form-control select2bs4" style="width: 100%;"
                                         placeholder="Selecione a parcela">
-                                        <option >Selecione as parcelas</option>
+                                        <option>Selecione as parcelas</option>
                                         @foreach($plots as $plots)
                                         <option value="{{$plots->plot_id}}">{{$plots->name}}</option>
                                         @endforeach
@@ -145,12 +145,12 @@
                                             <td class='subtotal'>{{$saleitens->subtotal}}</td>
                                             <td class="project-actions text-right text-center edit">
                                                 <button type="button" class="btn btn-outline-warning btn-sm"
-                                                    data-toggle="modal" data-target="#modalEditPayment" data-whatever='{
-                                                "idPayment":"",
-                                                "namePayment":"",
-                                                "ratePayment":"",
-                                                "updatedAtPayment":"",
-                                                "createdAtPayment":""
+                                                    data-toggle="modal" data-target="#modalEditIten" data-whatever='{
+                                                "idSaleIten":"{{$saleitens->saleitens_id}}",
+                                                "idProduct":"{{$saleitens->product_id}}",
+                                                "quantityProduct":"{{$saleitens->quantity}}",
+                                                "priceProduct":"{{$saleitens->price}}",
+                                                "updatedAtItenSale":"{{$saleitens->updated_at}}"
                                                 }'>
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
@@ -158,8 +158,9 @@
                                                 </button>
                                                 <a class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
                                                     data-target="#modalDeleteIten" data-whatever='{
-                                                "idPayment":"",
-                                                "namePayment":""
+                                                "idSaleIten":"{{$saleitens->saleitens_id}}",
+                                                "idProduct":"{{$saleitens->product_id}}",
+                                                "nameProduct":"{{$saleitens->name}}"
                                                 }'>
                                                     <i class="fas fa-trash">
                                                     </i>
@@ -183,14 +184,6 @@
 </section>
 
 <script>
-var soma = 0;
-$('#saleitens > tbody tr .subtotal').each(function(i) {
-    soma += parseFloat($(this).text());
-});
-
-$("#priceSale").val(soma.toFixed(2));
-
-
 function calcular() {
     var ratePayment = parseFloat(document.getElementById('ratePayment').value, 10);
     var priceSale = parseFloat(document.getElementById('priceSale').value, 10);
@@ -205,6 +198,14 @@ function calcular() {
 }
 
 $(document).ready(function() {
+
+    var soma = 0;
+    $('#saleitens > tbody tr .subtotal').each(function(i) {
+        soma += parseFloat($(this).text());
+    });
+
+    $("#priceSale").val(soma.toFixed(2));
+
     if ("{{$sales->payment_id}}" == "") {
         documento.getElementById("payment").selectedIndex = "0";
     } else {
@@ -220,6 +221,7 @@ $(document).ready(function() {
     } else {
         document.getElementById("platforms").value = "{{$sales->payment_id}}";
     }
+    alert("Esta sim");
     calcular();
 });
 
@@ -245,7 +247,8 @@ $("#client").change(function() {
 });
 </script>
 
-@include('Site.Vendas.Modais.addproduct')
-@include('Site.Vendas.Modais.delproduct')
+@include('Site.Vendas.Modais.new')
+@include('Site.Vendas.Modais.edit')
+@include('Site.Vendas.Modais.delete')
 
 @endsection('content')

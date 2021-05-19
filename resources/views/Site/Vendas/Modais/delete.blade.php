@@ -2,24 +2,24 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Remover item da venda</h4>
+                <h4 class="modal-title">Remover item</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.ProductsDelete')}}">
+                    action="{{route('Site.DelIten')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputIdType">ID </label>
-                            <input type="hidden" class="form-control" name="delidProduct" id="delidProduct" value=""
+                            <label id="labelIdProduct"></label>
+                            <input type="hidden" class="form-control" name="delsaleitens_id" id="delsaleitens_id" value=""
                                 Readonly>
                         </div>
                         <div>
-                            <p>Tem certeza que deseja remover o item</p>
+                            <p id="nameProduct"></p>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -34,15 +34,17 @@
 
 <script>
 /* When click edit user */
-$('#modalDeleteProduct').on('show.bs.modal', function(event) {
+$('#modalDeleteIten').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
+    var idSaleIten = button.data('whatever').idSaleIten
     var idProduct = button.data('whatever').idProduct
     var nameProduct = button.data('whatever').nameProduct
 
-    modal.find('#delidProduct').val(idProduct)
-    modal.find('#delnameProduct').val(nameProduct)
+    modal.find("#delsaleitens_id").val(idSaleIten)
+    $("#labelIdProduct").text("ID "+idProduct)
+    $("#nameProduct").html("Tem certeza que deseja remover o item <strong> "+nameProduct+"</strong> da venda")
 })
 </script>
