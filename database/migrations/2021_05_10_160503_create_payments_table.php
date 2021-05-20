@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id('payment_id');
             $table->float('payment_rate');
             $table->float('payment_fixrate');
+            $table->float('payment_ratevariable');
             $table->string('name');
             $table->timestamps();
         });

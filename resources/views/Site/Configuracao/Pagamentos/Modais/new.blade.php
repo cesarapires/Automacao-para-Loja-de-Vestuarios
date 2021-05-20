@@ -20,11 +20,30 @@
                         </div>
                         <div class="form-group">
                             <label for="inputNamePayment">Taxa Fixa</label>
-                            <input type="text" class="form-control" name="fixratePayment" id="fixratePayment" placeholder="3.4">
+                            <input type="text" class="form-control" name="fixratePayment" id="fixratePayment"
+                                placeholder="3.4">
                         </div>
-                        <div class="form-group">
-                            <label for="inputNamePayment">Taxa Variável</label>
-                            <input type="text" class="form-control" name="ratePayment" id="ratePayment" placeholder="3.4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="inputNamePayment">Taxa Variável</label>
+                                <input type="text" class="form-control" name="ratePayment" id="ratePayment"
+                                    placeholder="3.4">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputNamePayment">Taxa ao mês</label>
+                                <input type="text" class="form-control" name="ratemonthPayment" id="ratemonthPayment"
+                                    placeholder="3.4">
+                            </div>
+
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="credit" name="credit" value="false">
+                            <label class="form-check-label" for="exampleCheck1">Pagamento gerará crédito</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="ratetype" name="ratetype" value="true"
+                                checked>
+                            <label class="form-check-label" for="exampleCheck1">Taxa única</label>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -39,3 +58,13 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<script>
+$("#ratetype").change(function() {
+    if ($("#ratetype").prop("checked") == "checked") {
+        $("#ratemonthPayment").prop('readonly', true);
+    } else {
+        $("#ratemonthPayment").prop('readonly', false);
+    }
+});
+</script>

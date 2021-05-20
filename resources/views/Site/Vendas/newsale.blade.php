@@ -78,7 +78,7 @@
                                         </option>
                                         @foreach($payments as $payments)
                                         <option value="{{$payments->payment_id}}"
-                                            data-ratePayment="{{$payments->payment_rate}}" data-ratefixPayment="{{$payments->payment_fixrate}}">{{$payments->name}}</option>
+                                            data-ratePayment="{{$payments->payment_rate}}" data-ratefixPayment="{{$payments->payment_fixrate}}" data-ratevariablePayment="{{$payments->payment_ratevariable}}">{{$payments->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -103,20 +103,6 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="rgUser">Frete</label>
-<<<<<<< HEAD
-                                    <select class="form-control select2bs4" style="width: 100%;" id="shipping"
-                                        name="shipping">
-                                        <option>Selecione o frete</option>
-                                        <option value="1">Por conta do cliente</option>
-                                        <option value="2">Por conta da empresa</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <label for="rgUser">Valor do frete</label>
-                                    <input type="text" class="form-control" id="shippingValue" name="shippingValue"
-                                        value="{{$sales->platform_rate}}">
-=======
                                     <select class="form-control select2bs4" style="width: 100%;" name="shipping" id="shipping">
                                         <option>Selecione o frete</option>
                                         <option value="0">Por conta da empresa</option>
@@ -127,27 +113,30 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Frete</label>
                                     <input type="text" class="form-control" name="shippingValue" id="shippingValue" value="{{$sales->shipping}}">
->>>>>>> 09762663b8e1049c9e366bff31cfd61dd24e5b20
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-2">
                                     <label for="rgUser">Desconto</label>
                                     <input type="text" class="form-control" id="discountSale" name="discountSale" value="{{$sales->discount}}">
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="rgUser">Total Itens</label>
+                                    <input type="text" class="form-control" id="itensTotal" name="itensTotal" value="0" readonly>
+                                </div>
                                 <div class="col-md-2">
                                     <label for="cpfUser">Valor da Venda</label>
-                                    <input type="text" class="form-control" id="priceSale" name="priceSale" value="{{$sales->sale_price}}" Readonly>
+                                    <input type="text" class="form-control" id="priceSale" name="priceSale" value="{{$sales->sale_price}}" readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa</label>
                                     <input type="text" class="form-control" id="ratePaymentValue"
-                                        name="ratePaymentValue" value="{{$sales->plot_rate}}" Readonly>
+                                        name="ratePaymentValue" value="{{$sales->plot_rate}}" readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Final</label>
                                     <input type="text" class="form-control" id="amountSale" name="amountSale"
-                                        value="{{$sales->amount}}" Readonly>
+                                        value="{{$sales->amount}}" readonly>
                                 </div>
                             </div>
                             <br>
@@ -219,70 +208,53 @@
 <script>
 function calcular() {
 
-<<<<<<< HEAD
-    rateValue = ((ratePayment / 100) * (priceSale - discount)).toFixed(2);
-    if ()
-        amountSale = (priceSale - discount - rateValue - ratePlatform).toFixed(2);
-=======
     var sumItens = 0;
 
     $('#saleitens > tbody tr .subtotal').each(function(i) {
         sumItens += parseFloat($(this).text());
     });
 
-    $("#priceSale").val(sumItens);
-
-    var priceSale =  parseFloat($("#priceSale").val());
+    $("#itensTotal").val(sumItens);
+    
     var discount =  parseFloat($("#discountSale").val());
     var ratefixPayment = parseFloat($("#ratefixPayment").val());
     var ratePayment =  parseFloat($("#ratePayment").val());
     var ratePlatform =  parseFloat($("#ratePlatform").val());
     var idShipping = ($("#shipping").find(':selected').val());
     var shippingValue =  parseFloat($("#shippingValue").val());
-    rateValue = ((ratePayment/100) * (priceSale - discount + shippingValue) + ratefixPayment);
->>>>>>> 09762663b8e1049c9e366bff31cfd61dd24e5b20
 
+    /*
+    Frete por conta da empresa:
+
+    Caso o frete esteja sendo feito por conta da empresa, ele não irá somar no valor da venda para o cliente,
+    ou seja não terá implicancia de taxa sobre esse frete, mas no valor recebido referente a venda ele terá o
+    desconto, já que ele será pago pela empresa.
+    */
     if(idShipping == 0){
-        amountSale = (priceSale - discount - rateValue - ratePlatform - shippingValue);
+        var priceSale = (sumItens-discount);
+        var rateValue = ((ratePayment/100) * (priceSale) + ratefixPayment);
+        var amountSale =(priceSale - rateValue - ratePlatform - shippingValue);
     }
+    /*
+    Frete por conta de qualquer pessoa, não incluido a empresa
+
+    Porém, caso o frete esteja sendo pago por qualquer pessoa não incluido a empresa ele terá implicancia de
+    taxa, sendo assim o valor do frete terá que ser somado no valor da venda, todavia no valor a ser recebido
+    pela empresa não estará o valor referente a esse frete, pois ele terá que ser usado para pagar esse frete.
+    */
     else{
-        amountSale = (priceSale - discount - rateValue - ratePlatform);
+        var priceSale = (sumItens+shippingValue-discount);
+        var rateValue = ((ratePayment/100) * (priceSale) + ratefixPayment);
+        var amountSale = (priceSale - rateValue - ratePlatform)
     }
-    
+
+    $("#priceSale").val((priceSale).toFixed(2));
     $("#ratePaymentValue").val((rateValue).toFixed(2));
     $("#amountSale").val((amountSale).toFixed(2));
 }
 
 $(document).ready(function() {
-
-<<<<<<< HEAD
-    var soma = 0;
-    $('#saleitens > tbody tr .subtotal').each(function(i) {
-        soma += parseFloat($(this).text());
-    });
-
-    $("#priceSale").val(soma.toFixed(2));
-=======
->>>>>>> 09762663b8e1049c9e366bff31cfd61dd24e5b20
     calcular();
-
-    if ("{{$sales->payment_id}}" == "") {
-        documento.getElementById("payment").selectedIndex = "0";
-    } else {
-        document.getElementById("payment").value = "{{$sales->payment_id}}";
-    }
-    if ("{{$sales->client_id}}" == "") {
-        documento.getElementById("client").selectedIndex = "0";
-    } else {
-        document.getElementById("client").value = "{{$sales->client_id}}";
-    }
-    if ("{{$sales->platform_id}}" == "") {
-        document.getElementById("platforms").selectedIndex = "0";
-    } else {
-        document.getElementById("platforms").value = "{{$sales->platform_id}}";
-    }
-    alert("Esta sim");
-
 });
 
 $("#discountSale").blur(function() {
@@ -296,6 +268,7 @@ $("#shippingValue").blur(function() {
 $("#payment").change(function() {
     var ratePlatform = ($(this).find(':selected').attr('data-ratePayment'));
     var ratefixPayment = ($(this).find(':selected').attr('data-ratefixPayment'));
+    var ratevariablePayment = ($(this).find(':selected').attr('data-ratevariablePayment'));
     $('#ratePayment').val(ratePlatform);
     $('#ratefixPayment').val(ratefixPayment);
     calcular();
