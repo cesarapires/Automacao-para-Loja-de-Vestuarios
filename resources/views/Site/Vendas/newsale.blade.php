@@ -78,14 +78,21 @@
                                         </option>
                                         @foreach($payments as $payments)
                                         <option value="{{$payments->payment_id}}"
-                                            data-ratePayment="{{$payments->payment_rate}}">{{$payments->name}}</option>
+                                            data-ratePayment="{{$payments->payment_rate}}" data-ratefixPayment="{{$payments->payment_fixrate}}">{{$payments->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="col-md-2">
+                                    <label for="rgUser">Taxa Fixa</label>
+                                    <input type="text" class="form-control" name="ratefixPayment" id="ratefixPayment" value="{{$sales->fixrate_payment}}" readonly>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="rgUser">Taxa Variável</label>
+                                    <input type="text" class="form-control" name="ratePayment" id="ratePayment" value="{{$sales->rate_payment}}" readonly>
+                                </div>
                                 <div class="col-md-3">
                                     <label for="rgUser">Parcelas</label>
-                                    <select class="form-control select2bs4" style="width: 100%;"
-                                        placeholder="Selecione a parcela">
+                                    <select class="form-control select2bs4" style="width: 100%;">
                                         <option>Selecione as parcelas</option>
                                         @foreach($plots as $plots)
                                         <option value="{{$plots->plot_id}}">{{$plots->name}}</option>
@@ -96,6 +103,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="rgUser">Frete</label>
+<<<<<<< HEAD
                                     <select class="form-control select2bs4" style="width: 100%;" id="shipping"
                                         name="shipping">
                                         <option>Selecione o frete</option>
@@ -108,23 +116,31 @@
                                     <label for="rgUser">Valor do frete</label>
                                     <input type="text" class="form-control" id="shippingValue" name="shippingValue"
                                         value="{{$sales->platform_rate}}">
+=======
+                                    <select class="form-control select2bs4" style="width: 100%;" name="shipping" id="shipping">
+                                        <option>Selecione o frete</option>
+                                        <option value="0">Por conta da empresa</option>
+                                        <option value="1">Por conta do cliente</option>
+                                        <option value="9">Sem frete</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="rgUser">Valor Frete</label>
+                                    <input type="text" class="form-control" name="shippingValue" id="shippingValue" value="{{$sales->shipping}}">
+>>>>>>> 09762663b8e1049c9e366bff31cfd61dd24e5b20
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
                                     <label for="rgUser">Desconto</label>
-                                    <input type="text" class="form-control" id="discountSale" name="discountSale"
-                                        value="{{$sales->discount}}">
+                                    <input type="text" class="form-control" id="discountSale" name="discountSale" value="{{$sales->discount}}">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="cpfUser">Valor da Venda</label>
-                                    <input type="text" class="form-control" id="priceSale" name="priceSale"
-                                        value="{{$sales->sale_price}}" Readonly>
+                                    <input type="text" class="form-control" id="priceSale" name="priceSale" value="{{$sales->sale_price}}" Readonly>
                                 </div>
-
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa</label>
-                                    <input type="hidden" id="ratePayment" name="ratePayment" value="0">
                                     <input type="text" class="form-control" id="ratePaymentValue"
                                         name="ratePaymentValue" value="{{$sales->plot_rate}}" Readonly>
                                 </div>
@@ -202,27 +218,52 @@
 
 <script>
 function calcular() {
-    var ratePayment = parseFloat(document.getElementById('ratePayment').value, 10);
-    var priceSale = parseFloat(document.getElementById('priceSale').value, 10);
-    var discount = parseFloat(document.getElementById('discountSale').value, 10);
-    var ratePlatform = parseFloat(document.getElementById('ratePlatform').value, 10);
 
+<<<<<<< HEAD
     rateValue = ((ratePayment / 100) * (priceSale - discount)).toFixed(2);
     if ()
         amountSale = (priceSale - discount - rateValue - ratePlatform).toFixed(2);
+=======
+    var sumItens = 0;
 
-    document.getElementById('ratePaymentValue').value = rateValue;
-    document.getElementById('amountSale').value = amountSale;
+    $('#saleitens > tbody tr .subtotal').each(function(i) {
+        sumItens += parseFloat($(this).text());
+    });
+
+    $("#priceSale").val(sumItens);
+
+    var priceSale =  parseFloat($("#priceSale").val());
+    var discount =  parseFloat($("#discountSale").val());
+    var ratefixPayment = parseFloat($("#ratefixPayment").val());
+    var ratePayment =  parseFloat($("#ratePayment").val());
+    var ratePlatform =  parseFloat($("#ratePlatform").val());
+    var idShipping = ($("#shipping").find(':selected').val());
+    var shippingValue =  parseFloat($("#shippingValue").val());
+    rateValue = ((ratePayment/100) * (priceSale - discount + shippingValue) + ratefixPayment);
+>>>>>>> 09762663b8e1049c9e366bff31cfd61dd24e5b20
+
+    if(idShipping == 0){
+        amountSale = (priceSale - discount - rateValue - ratePlatform - shippingValue);
+    }
+    else{
+        amountSale = (priceSale - discount - rateValue - ratePlatform);
+    }
+    
+    $("#ratePaymentValue").val((rateValue).toFixed(2));
+    $("#amountSale").val((amountSale).toFixed(2));
 }
 
 $(document).ready(function() {
 
+<<<<<<< HEAD
     var soma = 0;
     $('#saleitens > tbody tr .subtotal').each(function(i) {
         soma += parseFloat($(this).text());
     });
 
     $("#priceSale").val(soma.toFixed(2));
+=======
+>>>>>>> 09762663b8e1049c9e366bff31cfd61dd24e5b20
     calcular();
 
     if ("{{$sales->payment_id}}" == "") {
@@ -248,9 +289,15 @@ $("#discountSale").blur(function() {
     calcular();
 });
 
+$("#shippingValue").blur(function() {
+    calcular();
+});
+
 $("#payment").change(function() {
     var ratePlatform = ($(this).find(':selected').attr('data-ratePayment'));
-    document.getElementById('ratePayment').value = ratePlatform;
+    var ratefixPayment = ($(this).find(':selected').attr('data-ratefixPayment'));
+    $('#ratePayment').val(ratePlatform);
+    $('#ratefixPayment').val(ratefixPayment);
     calcular();
 });
 
@@ -263,6 +310,18 @@ $("#platforms").change(function() {
 $("#client").change(function() {
     var idClient = ($(this).find(':selected').val());
     document.getElementById('idClient').value = idClient;
+});
+
+$("#shipping").change(function(){
+    var idShipping = ($(this).find(':selected').val());
+    if(idShipping == 9){
+        $("#shippingValue").prop('readonly', true);
+        $("#shippingValue").val(0);
+    }
+    else{
+        $("#shippingValue").prop('readonly', false);
+    }
+    calcular();
 });
 </script>
 

@@ -73,6 +73,7 @@ class SettingsController extends Controller
         DB::table('payments')->insert([
             'name'=>$request->namePayment,
             'payment_rate'=>$request->ratePayment,
+            'payment_fixrate'=>$request->fixratePayment,
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
         ]);        
@@ -84,6 +85,8 @@ class SettingsController extends Controller
         where('payment_id','=',$request->edtidPayment)->
         update([
             'name'=>$request->edtnamePayment, 
+            'payment_rate'=>$request->edtratePayment,
+            'payment_fixrate'=>$request->edtfixratePayment,
             'updated_at' => date("Y-m-d H:i:s")  
         ]);        
         return redirect('Configuracao/Pagamento');

@@ -21,6 +21,7 @@ class CreateSalesTable extends Migration
             $table->float('platform_rate')->nullable();
             $table->foreignId('payment_id')->nullable()->references('payment_id')->on('payments');
             $table->float('rate_payment')->nullable();
+            $table->float('fixrate_payment')->nullable();
             $table->integer('shipping_id')->nullable();
             $table->float('shipping')->nullable();
             $table->foreignId('plot_id')->nullable()->references('plot_id')->on('plots');
@@ -36,6 +37,7 @@ class CreateSalesTable extends Migration
             'platform_rate'=>0,
             'payment_id'=>null,
             'rate_payment'=>0,
+            'fixrate_payment'=>0,
             'shipping_id'=>null,
             'shipping'=>0,
             'plot_id'=>null,

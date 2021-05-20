@@ -52,6 +52,7 @@ class SalesController extends Controller
             'platform_rate'=>0,
             'payment_id'=>null,
             'rate_payment'=>0,
+            'fixrate_payment'=>0,
             'shipping_id'=>null,
             'shipping'=>0,
             'plot_id'=>null,

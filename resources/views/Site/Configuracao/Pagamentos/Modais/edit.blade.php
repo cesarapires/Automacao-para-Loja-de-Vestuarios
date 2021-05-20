@@ -24,9 +24,12 @@
                                 placeholder="Sumup - Crédito">
                         </div>
                         <div class="form-group">
-                            <label for="inputNameType">Taxa</label>
-                            <input type="text" class="form-control" name="edtratePayment" id="edtratePayment"
-                                placeholder="3.4">
+                            <label for="inputNamePayment">Taxa Fixa</label>
+                            <input type="text" class="form-control" name="edtfixratePayment" id="edtfixratePayment" placeholder="3.4">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNamePayment">Taxa Variável</label>
+                            <input type="text" class="form-control" name="edtratePayment" id="edtratePayment" placeholder="3.4">
                         </div>
                         <div class="form-group">
                             <label for="inputUpdateSize">Data da última atualização</label>
@@ -59,12 +62,14 @@ $('#modalEditPayment').on('show.bs.modal', function(event) {
     var idPayment = button.data('whatever').idPayment
     var namePayment = button.data('whatever').namePayment
     var ratePayment = button.data('whatever').ratePayment
+    var fixratePayment = button.data('whatever').fixratePayment
     var updatedAtPayment = button.data('whatever').updatedAtPayment
     var createdAtPayment = button.data('whatever').createdAtPayment
 
     modal.find('#edtidPayment').val(idPayment)
     modal.find('#edtnamePayment').val(namePayment)
     modal.find('#edtratePayment').val(ratePayment)
+    modal.find('#edtfixratePayment').val(fixratePayment)
     modal.find('#edtupdatedAtPayment').val(updatedAtPayment)
     modal.find('#edtcreatedAtPayment').val(createdAtPayment)
 })
