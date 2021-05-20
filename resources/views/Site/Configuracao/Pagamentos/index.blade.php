@@ -64,6 +64,7 @@
                                                 "idPayment":"{{$payment->payment_id}}",
                                                 "namePayment":"{{$payment->name}}",
                                                 "ratePayment":"{{$payment->payment_rate}}",
+                                                "fixratePayment":"{{$payment->payment_fixrate}}",
                                                 "updatedAtPayment":"{{$payment->created_at}}",
                                                 "createdAtPayment":"{{$payment->updated_at}}"
                                                 }'>

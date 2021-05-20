@@ -19,7 +19,11 @@
                                 placeholder="Sumup - Crédito">
                         </div>
                         <div class="form-group">
-                            <label for="inputNamePayment">Taxa</label>
+                            <label for="inputNamePayment">Taxa Fixa</label>
+                            <input type="text" class="form-control" name="fixratePayment" id="fixratePayment" placeholder="3.4">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNamePayment">Taxa Variável</label>
                             <input type="text" class="form-control" name="ratePayment" id="ratePayment" placeholder="3.4">
                         </div>
                     </div>
