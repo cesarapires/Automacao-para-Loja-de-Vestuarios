@@ -70,10 +70,19 @@ class SettingsController extends Controller
 
 
     public function storePayments(Request $request){
+        if($request->credit == null){
+            $request->credit = 0;
+        }
+        if($request->ratetypePayment == null){
+            $request->ratetypePayment = 0;
+        }
         DB::table('payments')->insert([
             'name'=>$request->namePayment,
             'payment_rate'=>$request->ratePayment,
             'payment_fixrate'=>$request->fixratePayment,
+            'payment_ratevariable'=>$request->ratemonthPayment,
+            'payment_ratetype'=>$request->ratetypePayment,
+            'credit'=>$request->credit,
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
         ]);        
@@ -81,12 +90,21 @@ class SettingsController extends Controller
     }
 
     public function updatePayments(Request $request){
+        if($request->edtcredit == null){
+            $request->edtcredit = 0;
+        }
+        if($request->edtratetypePayment == null){
+            $request->edtratetypePayment = 0;
+        }
         DB::table('payments')->
         where('payment_id','=',$request->edtidPayment)->
         update([
             'name'=>$request->edtnamePayment, 
             'payment_rate'=>$request->edtratePayment,
             'payment_fixrate'=>$request->edtfixratePayment,
+            'payment_ratevariable'=>$request->edtratemonthPayment,
+            'payment_ratetype'=>$request->edtratetypePayment,
+            'credit'=>$request->edtcredit,
             'updated_at' => date("Y-m-d H:i:s")  
         ]);        
         return redirect('Configuracao/Pagamento');

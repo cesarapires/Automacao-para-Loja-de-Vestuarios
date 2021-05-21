@@ -25,23 +25,23 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="inputNamePayment">Taxa Variável</label>
+                                <label for="inputNamePayment">Taxa variável</label>
                                 <input type="text" class="form-control" name="ratePayment" id="ratePayment"
                                     placeholder="3.4">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa ao mês</label>
                                 <input type="text" class="form-control" name="ratemonthPayment" id="ratemonthPayment"
-                                    placeholder="3.4">
+                                    value="0" readonly>
                             </div>
 
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="credit" name="credit" value="false">
+                            <input type="checkbox" class="form-check-input" id="credit" name="credit" value="0">
                             <label class="form-check-label" for="exampleCheck1">Pagamento gerará crédito</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="ratetype" name="ratetype" value="true"
+                            <input type="checkbox" class="form-check-input" id="ratetypePayment" name="ratetypePayment" value="1"
                                 checked>
                             <label class="form-check-label" for="exampleCheck1">Taxa única</label>
                         </div>
@@ -60,11 +60,37 @@
 </div>
 
 <script>
-$("#ratetype").change(function() {
-    if ($("#ratetype").prop("checked") == "checked") {
-        $("#ratemonthPayment").prop('readonly', true);
-    } else {
-        $("#ratemonthPayment").prop('readonly', false);
-    }
+$(document).ready(function() {
+    var ratetype = $('#ratetype');
+    var credit = $('#credit');
+
+    $('#ratetype').on('click', function() {
+        if (ratetype.is(':checked')) {
+
+            $("#ratemonthPayment").prop('readonly', true);
+            $("#ratemonthPayment").val(0);
+            $("#ratetype").val(1);
+        } else {
+            $("#ratemonthPayment").prop('readonly', false);
+            $("#ratetype").val(0);
+        }
+    });
+
+    $('#credit').on('click', function() {
+        /*
+        Se gerar crédito irá salver no banco 1 avisando que essa forma de pagamento
+        terá a geração de contas a receber.
+        */
+        if (credit.is(':checked')) {
+            $("#credit").val(1);
+        }
+        /*
+        Se não gerar crédito irá salver no banco 0 avisando que essa forma de pagamento
+        não terá a geração de contas a receber.
+        */
+        else {
+            $("#credit").val(0);
+        }
+    });
 });
 </script>

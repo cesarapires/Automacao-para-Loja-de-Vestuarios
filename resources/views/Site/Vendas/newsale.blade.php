@@ -68,6 +68,8 @@
                                     <label for="rgUser">Taxa Plataforma</label>
                                     <input type="text" class="form-control" id="ratePlatform" name="ratePlatform"
                                         value="{{$sales->platform_rate}}" Readonly>
+                                    <input type="hidden" class="form-control" id="ratevariablePayment" name="ratevariablePayment"
+                                        value="{{$sales->ratevariable_payment}}" Readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -78,17 +80,22 @@
                                         </option>
                                         @foreach($payments as $payments)
                                         <option value="{{$payments->payment_id}}"
-                                            data-ratePayment="{{$payments->payment_rate}}" data-ratefixPayment="{{$payments->payment_fixrate}}" data-ratevariablePayment="{{$payments->payment_ratevariable}}">{{$payments->name}}</option>
+                                            data-ratePayment="{{$payments->payment_rate}}"
+                                            data-ratefixPayment="{{$payments->payment_fixrate}}"
+                                            data-ratevariablePayment="{{$payments->payment_ratevariable}}">
+                                            {{$payments->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Fixa</label>
-                                    <input type="text" class="form-control" name="ratefixPayment" id="ratefixPayment" value="{{$sales->fixrate_payment}}" readonly>
+                                    <input type="text" class="form-control" name="ratefixPayment" id="ratefixPayment"
+                                        value="{{$sales->fixrate_payment}}" readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Variável</label>
-                                    <input type="text" class="form-control" name="ratePayment" id="ratePayment" value="{{$sales->rate_payment}}" readonly>
+                                    <input type="text" class="form-control" name="ratePayment" id="ratePayment"
+                                        value="{{$sales->rate_payment}}" readonly>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="rgUser">Parcelas</label>
@@ -103,7 +110,8 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="rgUser">Frete</label>
-                                    <select class="form-control select2bs4" style="width: 100%;" name="shipping" id="shipping">
+                                    <select class="form-control select2bs4" style="width: 100%;" name="shipping"
+                                        id="shipping">
                                         <option>Selecione o frete</option>
                                         <option value="0">Por conta da empresa</option>
                                         <option value="1">Por conta do cliente</option>
@@ -112,26 +120,30 @@
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Frete</label>
-                                    <input type="text" class="form-control" name="shippingValue" id="shippingValue" value="{{$sales->shipping}}">
+                                    <input type="text" class="form-control" name="shippingValue" id="shippingValue"
+                                        value="{{$sales->shipping}}">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Desconto</label>
-                                    <input type="text" class="form-control" id="discountSale" name="discountSale" value="{{$sales->discount}}">
+                                    <input type="text" class="form-control" id="discountSale" name="discountSale"
+                                        value="{{$sales->discount}}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
                                     <label for="rgUser">Total Itens</label>
-                                    <input type="text" class="form-control" id="itensTotal" name="itensTotal" value="0" readonly>
+                                    <input type="text" class="form-control" id="itensTotal" name="itensTotal" value="0"
+                                        readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="cpfUser">Valor da Venda</label>
-                                    <input type="text" class="form-control" id="priceSale" name="priceSale" value="{{$sales->sale_price}}" readonly>
+                                    <input type="text" class="form-control" id="priceSale" name="priceSale"
+                                        value="{{$sales->sale_price}}" readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa</label>
                                     <input type="text" class="form-control" id="ratePaymentValue"
-                                        name="ratePaymentValue" value="{{$sales->plot_rate}}" readonly>
+                                        name="ratePaymentValue" value="0" readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Final</label>
@@ -215,13 +227,13 @@ function calcular() {
     });
 
     $("#itensTotal").val(sumItens);
-    
-    var discount =  parseFloat($("#discountSale").val());
+
+    var discount = parseFloat($("#discountSale").val());
     var ratefixPayment = parseFloat($("#ratefixPayment").val());
-    var ratePayment =  parseFloat($("#ratePayment").val());
-    var ratePlatform =  parseFloat($("#ratePlatform").val());
+    var ratePayment = parseFloat($("#ratePayment").val());
+    var ratePlatform = parseFloat($("#ratePlatform").val());
     var idShipping = ($("#shipping").find(':selected').val());
-    var shippingValue =  parseFloat($("#shippingValue").val());
+    var shippingValue = parseFloat($("#shippingValue").val());
 
     /*
     Frete por conta da empresa:
@@ -230,10 +242,10 @@ function calcular() {
     ou seja não terá implicancia de taxa sobre esse frete, mas no valor recebido referente a venda ele terá o
     desconto, já que ele será pago pela empresa.
     */
-    if(idShipping == 0){
-        var priceSale = (sumItens-discount);
-        var rateValue = ((ratePayment/100) * (priceSale) + ratefixPayment);
-        var amountSale =(priceSale - rateValue - ratePlatform - shippingValue);
+    if (idShipping == 0) {
+        var priceSale = (sumItens - discount);
+        var rateValue = ((ratePayment / 100) * (priceSale) + ratefixPayment);
+        var amountSale = (priceSale - rateValue - ratePlatform - shippingValue);
     }
     /*
     Frete por conta de qualquer pessoa, não incluido a empresa
@@ -242,9 +254,9 @@ function calcular() {
     taxa, sendo assim o valor do frete terá que ser somado no valor da venda, todavia no valor a ser recebido
     pela empresa não estará o valor referente a esse frete, pois ele terá que ser usado para pagar esse frete.
     */
-    else{
-        var priceSale = (sumItens+shippingValue-discount);
-        var rateValue = ((ratePayment/100) * (priceSale) + ratefixPayment);
+    else {
+        var priceSale = (sumItens + shippingValue - discount);
+        var rateValue = ((ratePayment / 100) * (priceSale) + ratefixPayment);
         var amountSale = (priceSale - rateValue - ratePlatform)
     }
 
@@ -271,6 +283,7 @@ $("#payment").change(function() {
     var ratevariablePayment = ($(this).find(':selected').attr('data-ratevariablePayment'));
     $('#ratePayment').val(ratePlatform);
     $('#ratefixPayment').val(ratefixPayment);
+    $('#ratevariablePayment').val(ratevariablePayment);
     calcular();
 });
 
@@ -285,13 +298,12 @@ $("#client").change(function() {
     document.getElementById('idClient').value = idClient;
 });
 
-$("#shipping").change(function(){
+$("#shipping").change(function() {
     var idShipping = ($(this).find(':selected').val());
-    if(idShipping == 9){
+    if (idShipping == 9) {
         $("#shippingValue").prop('readonly', true);
         $("#shippingValue").val(0);
-    }
-    else{
+    } else {
         $("#shippingValue").prop('readonly', false);
     }
     calcular();

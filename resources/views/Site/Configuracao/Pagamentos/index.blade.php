@@ -65,6 +65,11 @@
                                                 "namePayment":"{{$payment->name}}",
                                                 "ratePayment":"{{$payment->payment_rate}}",
                                                 "fixratePayment":"{{$payment->payment_fixrate}}",
+
+                                                "variableratePayment":"{{$payment->payment_ratevariable}}",
+                                                "rateTypePayment":"{{$payment->payment_ratetype}}",
+                                                "creditPayment":"{{$payment->credit}}",
+
                                                 "updatedAtPayment":"{{$payment->created_at}}",
                                                 "createdAtPayment":"{{$payment->updated_at}}"
                                                 }'>
