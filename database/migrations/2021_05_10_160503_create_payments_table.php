@@ -18,8 +18,10 @@ class CreatePaymentsTable extends Migration
             $table->float('payment_rate');
             $table->float('payment_fixrate');
             $table->float('payment_ratevariable');
+            $table->integer('plot_id');
             $table->boolean('payment_ratetype');
             $table->boolean('credit');
+            $table->boolean('exemption');
             $table->string('name');
             $table->timestamps();
         });

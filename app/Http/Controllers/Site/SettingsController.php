@@ -36,7 +36,9 @@ class SettingsController extends Controller
 
     public function indexPayment(){
         $payment = DB::table('payments')->get();
+        $plots = DB::table('plots')->get();
         return view('Site.Configuracao.Pagamentos.index',[
+            'plots' => $plots,
             'payment' => $payment,
         ]);
     }
@@ -76,6 +78,12 @@ class SettingsController extends Controller
         if($request->ratetypePayment == null){
             $request->ratetypePayment = 0;
         }
+        if($request->exemptionPayment == null){
+            $request->exemptionPayment = 0;
+        }
+        if($request->idplots == null){
+            $request->idplots = 0;
+        }
         DB::table('payments')->insert([
             'name'=>$request->namePayment,
             'payment_rate'=>$request->ratePayment,
@@ -83,6 +91,8 @@ class SettingsController extends Controller
             'payment_ratevariable'=>$request->ratemonthPayment,
             'payment_ratetype'=>$request->ratetypePayment,
             'credit'=>$request->credit,
+            'plot_id'=>$request->idplots,
+            'exemption'=>$request->exemptionPayment,
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
         ]);        

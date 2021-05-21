@@ -82,7 +82,10 @@
                                         <option value="{{$payments->payment_id}}"
                                             data-ratePayment="{{$payments->payment_rate}}"
                                             data-ratefixPayment="{{$payments->payment_fixrate}}"
-                                            data-ratevariablePayment="{{$payments->payment_ratevariable}}">
+                                            data-ratevariablePayment="{{$payments->payment_ratevariable}}"
+                                            data-plot_id="{{$payments->plot_id}}"
+                                            data-payment_ratetype="{{$payments->payment_ratetype}}"
+                                            >
                                             {{$payments->name}}</option>
                                         @endforeach
                                     </select>
@@ -102,7 +105,7 @@
                                     <select class="form-control select2bs4" style="width: 100%;">
                                         <option>Selecione as parcelas</option>
                                         @foreach($plots as $plots)
-                                        <option value="{{$plots->plot_id}}">{{$plots->name}}</option>
+                                        <option value="{{$plots->plot_id}}" data-numPlot="{{$plots->number}}">{{$plots->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

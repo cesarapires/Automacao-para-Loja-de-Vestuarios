@@ -82,9 +82,9 @@ $('#modalEditPayment').on('show.bs.modal', function(event) {
     var ratePayment = button.data('whatever').ratePayment
     var fixratePayment = button.data('whatever').fixratePayment
 
-    var variableratePayment = button.date('whatever').variableratePayment
-    var rateTypePayment = button.date('whatever').rateTypePayment
-    var creditPayment = button.date('whatever').creditPayment
+    var variableratePayment = button.data('whatever').variableratePayment
+    var rateTypePayment = button.data('whatever').rateTypePayment
+    var creditPayment = button.data('whatever').creditPayment
 
     var updatedAtPayment = button.data('whatever').updatedAtPayment
     var createdAtPayment = button.data('whatever').createdAtPayment
@@ -94,45 +94,11 @@ $('#modalEditPayment').on('show.bs.modal', function(event) {
     modal.find('#edtratePayment').val(ratePayment)
     modal.find('#edtfixratePayment').val(fixratePayment)
 
-    modal.find('#edtratemonthPayment').val()
-    modal.find('#edtratetypePayment').val()
-    modal.find('#edtcredit').val()
+    modal.find('#edtratemonthPayment').val(variableratePayment)
+    modal.find('#edtratetypePayment').val(rateTypePayment)
+    modal.find('#edtcredit').val(creditPayment)
 
     modal.find('#edtupdatedAtPayment').val(updatedAtPayment)
     modal.find('#edtcreatedAtPayment').val(createdAtPayment)
 })
-
-$(document).ready(function() {
-    var ratetype = $('#edtratetype');
-    var credit = $('#edtcredit');
-
-    $('#edtratetype').on('click', function() {
-        if (ratetype.is(':checked')) {
-
-            $("#edtratemonthPayment").prop('readonly', true);
-            $("#edtratemonthPayment").val(0);
-            $("#edtratetype").val(1);
-        } else {
-            $("#edtratemonthPayment").prop('readonly', false);
-            $("#edtratetype").val(0);
-        }
-    });
-
-    $('#edtcredit').on('click', function() {
-        /*
-        Se gerar crédito irá salver no banco 1 avisando que essa forma de pagamento
-        terá a geração de contas a receber.
-        */
-        if (credit.is(':checked')) {
-            $("#edtcredit").val(1);
-        }
-        /*
-        Se não gerar crédito irá salver no banco 0 avisando que essa forma de pagamento
-        não terá a geração de contas a receber.
-        */
-        else {
-            $("#edtcredit").val(0);
-        }
-    });
-});
 </script>

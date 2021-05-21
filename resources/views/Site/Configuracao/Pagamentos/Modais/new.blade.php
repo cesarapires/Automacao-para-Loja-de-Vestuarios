@@ -18,32 +18,49 @@
                             <input type="text" class="form-control" name="namePayment" id="namePayment"
                                 placeholder="Sumup - Crédito">
                         </div>
-                        <div class="form-group">
-                            <label for="inputNamePayment">Taxa Fixa</label>
-                            <input type="text" class="form-control" name="fixratePayment" id="fixratePayment"
-                                placeholder="3.4">
-                        </div>
                         <div class="row">
+                            <div class="col-md-6">
+                                <label for="inputNamePayment">Taxa Fixa</label>
+                                <input type="text" class="form-control" name="fixratePayment" id="fixratePayment"
+                                    placeholder="3.4">
+                            </div>
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa variável</label>
                                 <input type="text" class="form-control" name="ratePayment" id="ratePayment"
                                     placeholder="3.4">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa ao mês</label>
                                 <input type="text" class="form-control" name="ratemonthPayment" id="ratemonthPayment"
                                     value="0" readonly>
                             </div>
-
+                            <div class="col-md-6">
+                                <label for="rgUser">Parcelas</label>
+                                <select class="form-control select2bs4" id="idplots" name="idplots"
+                                    style="width: 100%;" disabled>
+                                    <option value="-1">Selecione as parcelas</option>
+                                    @foreach($plots as $plots)
+                                    <option value="{{$plots->plot_id}}" data-numPlot="{{$plots->number}}">
+                                        {{$plots->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="credit" name="credit" value="0">
                             <label class="form-check-label" for="exampleCheck1">Pagamento gerará crédito</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="ratetypePayment" name="ratetypePayment" value="1"
-                                checked>
+                            <input type="checkbox" class="form-check-input" id="ratetypePayment" name="ratetypePayment"
+                                value="1" checked>
                             <label class="form-check-label" for="exampleCheck1">Taxa única</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exemptionPayment"
+                                name="exemptionPayment" value="1">
+                            <label class="form-check-label" for="exampleCheck1">Acréscimo para o comprador</label>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -61,36 +78,89 @@
 
 <script>
 $(document).ready(function() {
-    var ratetype = $('#ratetype');
+    var ratetype = $('#ratetypePayment');
     var credit = $('#credit');
+    var expetion = $("#exemptionPayment");
 
-    $('#ratetype').on('click', function() {
+    $('#ratetypePayment').on('click', function() {
         if (ratetype.is(':checked')) {
-
             $("#ratemonthPayment").prop('readonly', true);
             $("#ratemonthPayment").val(0);
-            $("#ratetype").val(1);
+            $("#ratetypePayment").val(1);
         } else {
             $("#ratemonthPayment").prop('readonly', false);
-            $("#ratetype").val(0);
+            $("#ratetypePayment").val(0);
         }
     });
 
     $('#credit').on('click', function() {
         /*
-        Se gerar crédito irá salver no banco 1 avisando que essa forma de pagamento
+        Se gerar crédito irá salvar no banco 1 avisando que essa forma de pagamento
         terá a geração de contas a receber.
         */
         if (credit.is(':checked')) {
             $("#credit").val(1);
         }
         /*
-        Se não gerar crédito irá salver no banco 0 avisando que essa forma de pagamento
+        Se não gerar crédito irá salvar no banco 0 avisando que essa forma de pagamento
         não terá a geração de contas a receber.
         */
         else {
             $("#credit").val(0);
         }
     });
+
+    $('#exemptionPayment').on('click', function() {
+        /*
+        Caso essa opção esteja marcada irá salvar no banco 1 dizendo que o cliente não terá isenção
+        de taxa, ou seja, a taxa será repassada aos clientes e o usuária terá que verificar "marcar" a 
+        partir de qual prestação ele começara a pagar a taxa caso se aplique, caso a taxa seja repassada
+        de forma integral ele pode deixar a opção.
+        */
+        if (expetion.is(':checked')) {
+            $("#idplots").val("-1");
+            $("#idplots").prop('disabled', false);
+            $("#exemptionPayment").val(1);
+        /*
+        Se o checkbox estiver desmarcado o cliente terá isenção de texa, assim ele não terá acrescimo na parcela
+        independente da quantidade de prestações.
+        */
+        } else {
+            $("#idplots").val("1");
+            $("#idplots").prop('disabled', true);
+            $("#exemptionPayment").val(0);
+        }
+    });
+
+var edtratetype = $('#edtratetypePayment');
+var edtcredit = $('#edtcredit');
+
+$('#edtratetypePayment').on('click', function() {
+    if (edtratetype.is(':checked')) {
+
+        $("#edtratemonthPayment").prop('readonly', true);
+        $("#edtratetypePayment").val(1);
+    } else {
+        $("#edtratemonthPayment").prop('readonly', false);
+        $("#edtratetypePayment").val(0);
+    }
+});
+
+$('#edtcredit').on('click', function() {
+    /*
+    Se gerar crédito irá salver no banco 1 avisando que essa forma de pagamento
+    terá a geração de contas a receber.
+    */
+    if (credit.is(':checked')) {
+        $("#edtcredit").val(1);
+    }
+    /*
+    Se não gerar crédito irá salver no banco 0 avisando que essa forma de pagamento
+    não terá a geração de contas a receber.
+    */
+    else {
+        $("#edtcredit").val(0);
+    }
+});
 });
 </script>
