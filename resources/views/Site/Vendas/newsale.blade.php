@@ -68,8 +68,6 @@
                                     <label for="rgUser">Taxa Plataforma</label>
                                     <input type="text" class="form-control" id="ratePlatform" name="ratePlatform"
                                         value="{{$sales->platform_rate}}" Readonly>
-                                    <input type="hidden" class="form-control" id="ratevariablePayment" name="ratevariablePayment"
-                                        value="{{$sales->ratevariable_payment}}" Readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -83,9 +81,8 @@
                                             data-ratePayment="{{$payments->payment_rate}}"
                                             data-ratefixPayment="{{$payments->payment_fixrate}}"
                                             data-ratevariablePayment="{{$payments->payment_ratevariable}}"
-                                            data-plot_id="{{$payments->plot_id}}"
-                                            data-payment_ratetype="{{$payments->payment_ratetype}}"
-                                            >
+                                            data-exemption="{{$payments->plot_id}}"
+                                            data-payment_ratetype="{{$payments->payment_ratetype}}">
                                             {{$payments->name}}</option>
                                         @endforeach
                                     </select>
@@ -100,12 +97,20 @@
                                     <input type="text" class="form-control" name="ratePayment" id="ratePayment"
                                         value="{{$sales->rate_payment}}" readonly>
                                 </div>
+                                <div class="col-md-2">
+                                <label for="rgUser">Taxa Mensal</label>
+                                <input type="text" class="form-control" id="ratevariablePayment"
+                                        name="ratevariablePayment" value="{{$sales->ratevariable_payment}}" Readonly>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-3">
                                     <label for="rgUser">Parcelas</label>
-                                    <select class="form-control select2bs4" style="width: 100%;">
+                                    <select class="form-control select2bs4" id="plots" name="plots" style="width: 100%;">
                                         <option>Selecione as parcelas</option>
                                         @foreach($plots as $plots)
-                                        <option value="{{$plots->plot_id}}" data-numPlot="{{$plots->number}}">{{$plots->name}}</option>
+                                        <option value="{{$plots->plot_id}}" data-numPlot="{{$plots->number}}" data-namePlot="{{$plots->name}}">
+                                            {{$plots->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -233,10 +238,15 @@ function calcular() {
 
     var discount = parseFloat($("#discountSale").val());
     var ratefixPayment = parseFloat($("#ratefixPayment").val());
+    var ratevariablePayment = parseFloat($('#ratevariablePayment').val());
     var ratePayment = parseFloat($("#ratePayment").val());
     var ratePlatform = parseFloat($("#ratePlatform").val());
     var idShipping = ($("#shipping").find(':selected').val());
     var shippingValue = parseFloat($("#shippingValue").val());
+
+    var plotExemption = ($("#payment").find(':selected').attr('data-exemption'));
+    var plotID = ($("#plots").find(':selected').val());
+    var numberPlot = ($("#plots").find(':selected').attr('data-numPlot'));
 
     /*
     Frete por conta da empresa:
@@ -263,6 +273,34 @@ function calcular() {
         var amountSale = (priceSale - rateValue - ratePlatform)
     }
 
+    
+
+    /* ----- Cálculo do PagSeguro ----------*/
+    ratevariablePayment = parseFloat(1+(ratevariablePayment/100)).toFixed(4);
+    var valorParcela = parseFloat(priceSale/numberPlot).toFixed(4);
+    var totalPlot = 0;
+        for(plot = 1; plot<=numberPlot;plot++){
+            totalPlot += valorParcela/Math.pow(ratevariablePayment,plot);
+        }
+    var rateVariable = priceSale - totalPlot;
+
+    /*
+    Caso as parcelas selecionadas forem menor do que a exceção da forma de pagamento o cliente
+    terá o desconto, assim quem estará pagando a parcela é a empresa. Por outro lado o cliente 
+    não terá acréscimo no valor final, todavia o valor recebido pela empresa será menor.
+    */
+    if(plotID<plotExemption){
+        amountSale = amountSale - rateVariable;
+    }
+    /*
+    Automaticamente caso o número de parcelas seleciondas for maior ou igual ao número
+    selecionada previamente quem estará pagando a conta é o cliente, assim ele terá um 
+    acrescimo no valor final.
+    */
+    else{
+        priceSale = priceSale + rateVariable;
+    }
+
     $("#priceSale").val((priceSale).toFixed(2));
     $("#ratePaymentValue").val((rateValue).toFixed(2));
     $("#amountSale").val((amountSale).toFixed(2));
@@ -284,6 +322,7 @@ $("#payment").change(function() {
     var ratePlatform = ($(this).find(':selected').attr('data-ratePayment'));
     var ratefixPayment = ($(this).find(':selected').attr('data-ratefixPayment'));
     var ratevariablePayment = ($(this).find(':selected').attr('data-ratevariablePayment'));
+    var plotexemption = ($(this).find(':selected').attr('data-plotid'));
     $('#ratePayment').val(ratePlatform);
     $('#ratefixPayment').val(ratefixPayment);
     $('#ratevariablePayment').val(ratevariablePayment);
@@ -300,6 +339,11 @@ $("#client").change(function() {
     var idClient = ($(this).find(':selected').val());
     document.getElementById('idClient').value = idClient;
 });
+
+$("#plots").change(function() {
+   calcular();
+});
+
 
 $("#shipping").change(function() {
     var idShipping = ($(this).find(':selected').val());
