@@ -42,7 +42,7 @@
                                     style="width: 100%;" disabled>
                                     <option value="-1">Selecione as parcelas</option>
                                     @foreach($plots as $plots)
-                                    <option value="{{$plots->plot_id}}" data-numPlot="{{$plots->number}}">
+                                    <option value="{{$plots->number}}">
                                         {{$plots->name}}</option>
                                     @endforeach
                                 </select>
