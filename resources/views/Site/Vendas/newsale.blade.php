@@ -114,6 +114,16 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="col-md-2">
+                                <label for="rgUser">Taxa Cliente</label>
+                                <input type="text" class="form-control" id="rateClient"
+                                        name="rateClient" value="{{$sales->ratevariable_payment}}" Readonly>
+                                </div>
+                                <div class="col-md-2">
+                                <label for="rgUser">Taxa Vendedor</label>
+                                <input type="text" class="form-control" id="rateVendor"
+                                        name="rateVendor" value="{{$sales->ratevariable_payment}}" Readonly>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
@@ -277,29 +287,28 @@ function calcular() {
 
     /* ----- Cálculo do PagSeguro ----------*/
     ratevariablePayment = parseFloat(1+(ratevariablePayment/100)).toFixed(4);
-    var valorParcela = parseFloat(priceSale/numberPlot).toFixed(4);
-    var totalPlot = 0;
+    var valorParcela = parseFloat((priceSale-ratefixPayment)/numberPlot).toFixed(4);
+    var rateVariableCompany = parseFloat(0);
+    var rateVariableClient = parseFloat(0);
+    
+    if(numberPlot != 1){
         for(plot = 1; plot<=numberPlot;plot++){
-            totalPlot += valorParcela/Math.pow(ratevariablePayment,plot);
+            if(plot<plotExemption){
+                rateVariableCompany += valorParcela-(valorParcela/Math.pow(ratevariablePayment,plot));
+            }
+            else{
+                rateVariableClient += valorParcela-(valorParcela/Math.pow(ratevariablePayment,plot));
+            }
         }
-    var rateVariable = priceSale - totalPlot;
+    }
 
-    /*
-    Caso as parcelas selecionadas forem menor do que a exceção da forma de pagamento o cliente
-    terá o desconto, assim quem estará pagando a parcela é a empresa. Por outro lado o cliente 
-    não terá acréscimo no valor final, todavia o valor recebido pela empresa será menor.
-    */
-    if(plotID<plotExemption){
-        amountSale = amountSale - rateVariable;
-    }
-    /*
-    Automaticamente caso o número de parcelas seleciondas for maior ou igual ao número
-    selecionada previamente quem estará pagando a conta é o cliente, assim ele terá um 
-    acrescimo no valor final.
-    */
-    else{
-        priceSale = priceSale + rateVariable;
-    }
+    var priceSale = priceSale + rateVariableClient;
+    var amountSale = amountSale - rateVariableCompany;
+
+    alert(rateVariableCompany.toFixed(2));
+
+    $("#rateClient").val((rateVariableClient).toFixed(2));
+    $("#rateVendor").val((rateVariableCompany).toFixed(2));
 
     $("#priceSale").val((priceSale).toFixed(2));
     $("#ratePaymentValue").val((rateValue).toFixed(2));
