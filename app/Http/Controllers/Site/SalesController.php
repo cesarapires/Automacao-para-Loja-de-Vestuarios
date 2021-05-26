@@ -13,7 +13,8 @@ class SalesController extends Controller
         $sales = DB::table('sales')
         ->join('clients', 'sales.client_id', '=', 'clients.client_id')
         ->join('payments', 'sales.payment_id', '=', 'payments.payment_id')
-        ->select('sales.*','clients.name as nameClient', 'payments.name as namePayment')
+        ->select('sales.*','clients.name as nameClient', 'payments.name as namePayment',
+        (DB::raw("(SELECT  COUNT(*) FROM saleitens WHERE sale_id = sales.sale_id) as quantityitens")))
         ->where('status','<>','0')
         ->get();
         return view('Site.Vendas.index',[
@@ -50,6 +51,16 @@ class SalesController extends Controller
             'saleitens' => $saleitens
         ]);
        
+    }
+
+    public function openSale()
+    {
+
+    }
+
+    public function closeSale()
+    {
+        
     }
 
     public function createNewSale()
