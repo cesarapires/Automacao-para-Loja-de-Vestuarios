@@ -27,7 +27,7 @@
                         <h3 class="card-title"></h3>
                     </div>
                     <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                        action="{{route('Site.ProductsStore')}}">
+                        action="{{route('Site.SaveSales')}}">
                         @csrf
                         @method('post')
                         <div class="card-body">
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="rgUser">Plataforma</label>
-                                    <select class="form-control select2bs4" id="platforms" style="width: 100%;">
+                                    <select class="form-control select2bs4" id="platforms" name="platforms" style="width: 100%;">
                                         <option data-ratePlatform="0">Selecione a plataforma</option>
                                         @foreach($platforms as $platforms)
                                         <option value="{{$platforms->platform_id}}"
@@ -73,7 +73,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="cpfUser">Pagamento</label>
-                                    <select class="form-control select2bs4" id="payment" style="width: 100%;">
+                                    <select class="form-control select2bs4" id="payment" name="payment" style="width: 100%;">
                                         <option data-ratePayment="100">Selecione a forma de pagamento
                                         </option>
                                         @foreach($payments as $payments)
@@ -90,17 +90,17 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Fixa</label>
                                     <input type="number" class="form-control" name="ratefixPayment" id="ratefixPayment"
-                                        value="{{$sales->fixrate_payment}}" readonly>
+                                        value="0" readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Variável</label>
                                     <input type="number" class="form-control" name="ratePayment" id="ratePayment"
-                                        value="{{$sales->rate_payment}}" readonly>
+                                        value="0" readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Mensal</label>
                                     <input type="number" class="form-control" id="ratevariablePayment"
-                                        name="ratevariablePayment" value="{{$sales->ratevariable_payment}}" Readonly>
+                                        name="ratevariablePayment" value="0" Readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -119,12 +119,12 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Cliente</label>
                                     <input type="number" class="form-control" id="rateClient" name="rateClient"
-                                        value="{{$sales->ratevariable_payment}}" Readonly>
+                                        value="0" Readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Vendedor</label>
-                                    <input type="number" class="form-control" id="rateVendor" name="rateVendor"
-                                        value="{{$sales->ratevariable_payment}}" Readonly>
+                                    <input type="number" class="form-control" id="rateCompany" name="rateCompany"
+                                        value="0" Readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -141,12 +141,12 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Frete</label>
                                     <input type="number" class="form-control" name="shippingValue" id="shippingValue"
-                                        value="{{$sales->shipping}}">
+                                        value="0">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Desconto</label>
                                     <input type="number" class="form-control" id="discountSale" name="discountSale"
-                                        value="{{$sales->discount}}">
+                                        value="0">
                                 </div>
                             </div>
                             <div class="row">
@@ -158,7 +158,7 @@
                                 <div class="col-md-2">
                                     <label for="cpfUser">Valor da Venda</label>
                                     <input type="number" class="form-control" id="priceSale" name="priceSale"
-                                        value="{{$sales->sale_price}}" readonly>
+                                        value="0" readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa</label>
@@ -168,7 +168,7 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Final</label>
                                     <input type="number" class="form-control" id="amountSale" name="amountSale"
-                                        value="{{$sales->amount}}" readonly>
+                                        value="0" readonly>
                                 </div>
                             </div>
                             <br>
@@ -293,35 +293,36 @@ function calcular() {
     var rateVariableCompany = parseFloat(0);
     var rateVariableClient = parseFloat(0);
     var mult = 1;
+    var priceRate = priceSale;
 
     if (numberPlot > 1) {
         for (plot = 1; plot <= numberPlot; plot++) {
-            rateVariableCompany = rateVariableCompany + valorParcela / (Math.pow(1 + parseFloat(ratevariablePayment),
-                plot));
+            rateVariableCompany = rateVariableCompany + valorParcela / (Math.pow(1 + parseFloat(ratevariablePayment), plot));
         }
+        rateVariableCompany = priceSale - rateVariableCompany;
         if (parseInt(numberPlot) > parseInt(plotExemption)) {
-
-
 
             mult = numberPlot - plotExemption;
             var p1 = priceSale * parseFloat(ratevariablePayment);
-            var p2 = (Math.pow(1 + parseFloat(ratevariablePayment), mult)).toFixed(10);
-            var p3 = (Math.pow(1 + parseFloat(ratevariablePayment), mult) - 1).toFixed(10);
+            var p2 = (Math.pow(1 + parseFloat(ratevariablePayment), mult));
+            var p3 = (Math.pow(1 + parseFloat(ratevariablePayment), mult) - 1);
 
             valorParcela = (p1 * (p2 / p3));
 
-
+            rateVariableClient = (valorParcela * mult) - priceSale;
+            priceRate = valorParcela * mult;
         }
-        rateVariableClient = (valorParcela * mult) - priceSale;
-        rateVariableCompany = (rateVariableClient + rateVariableCompany) - priceSale
-        priceSale = valorParcela * mult;
+
+        rateVariableCompany =  rateVariableCompany - rateVariableClient;
+        priceSale = priceRate;
+
     }
 
     amountSale = amountSale - rateVariableCompany;
-
+    rateValue = rateValue + rateVariableCompany;
 
     $("#rateClient").val((rateVariableClient).toFixed(2));
-    $("#rateVendor").val((rateVariableCompany).toFixed(2));
+    $("#rateCompany").val((rateVariableCompany).toFixed(2));
 
     $("#priceSale").val((priceSale).toFixed(2));
     $("#ratePaymentValue").val((rateValue).toFixed(2));

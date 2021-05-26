@@ -20,15 +20,20 @@ class CreateSalesTable extends Migration
             $table->foreignId('platform_id')->nullable()->references('platform_id')->on('platforms');
             $table->float('platform_rate')->nullable();
             $table->foreignId('payment_id')->nullable()->references('payment_id')->on('payments');
-            $table->float('rate_payment')->nullable();
-            $table->float('fixrate_payment')->nullable();
+            $table->float('payment_rate_fix')->nullable();
+            $table->float('payment_rate_variable')->nullable();
+            $table->float('payment_rate_month')->nullable();   
+            $table->foreignId('plot_id')->nullable()->references('plot_id')->on('plots');         
+            $table->float('rate_client_plot')->nullable();
+            $table->float('rate_company_plot')->nullable();
             $table->integer('shipping_id')->nullable();
-            $table->float('shipping')->nullable();
-            $table->float('ratevariable_payment')->nullable();
-            $table->foreignId('plot_id')->nullable()->references('plot_id')->on('plots');
-            $table->float('sale_price')->nullable();
+            $table->float('price_shipping')->nullable();
             $table->float('discount')->nullable();
+            $table->float('subtotalitens')->nullable();
+            $table->float('price_sale')->nullable();
+            $table->float('rate_total')->nullable();
             $table->float('amount')->nullable();
+            $table->char('status');
             $table->timestamps();
         });
         DB::table('sales')->insert([
@@ -36,16 +41,21 @@ class CreateSalesTable extends Migration
             'platform_id'=>null,
             'platform_rate'=>0,
             'payment_id'=>null,
-            'rate_payment'=>0,
-            'fixrate_payment'=>0,
-            'shipping_id'=>null,
-            'shipping'=>0,
-            'ratevariable_payment'=>0,
+            'payment_rate_fix'=>0,
+            'payment_rate_variable'=>0,
+            'payment_rate_month'=>0,
             'plot_id'=>null,
-            'sale_price'=>0,
+            'rate_client_plot'=>0,
+            'rate_company_plot'=>0,
+            'shipping_id'=>null,
+            'price_shipping'=>0,
             'discount'=>0,
+            'subtotalitens'=>0,
+            'price_sale'=>0,
+            'rate_total'=>0,
             'amount'=>0,
-            'created_at' => date("Y-m-d H:i:s")
+            'status'=>0,
+            'created_at' => date("Y-m-d H:i:s"),
         ]);
     }
 

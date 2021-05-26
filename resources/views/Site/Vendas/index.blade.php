@@ -51,10 +51,34 @@
                                     <th>Itens</th>
                                     <th>Data</th>
                                     <th>Total</th>
+                                    <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
-                                          
+                            <tbody>
+                                @foreach($sales as $sales)
+                                <tr class="text-center">
+                                    <td class='sale_id'>{{$sales->sale_id}}</td>
+                                    <td class='nameClient'>{{$sales->nameClient}}</td>
+                                    <td class='namePayment'>{{$sales->namePayment}}</td>
+                                    <td></td>
+                                    <td class='sale_data'>{{$sales->updated_at}}</td>
+                                    <td class='sale_amount'>R$ {{$sales->amount}}</td>
+                                    <td>
+                                    @if($sales->status == "A")
+                                        <a class="btnEdit btn btn-outline-info btn-sm">
+                                            <i class="fas fa-lock-open"></i>
+                                        </a>
+                                    @else
+                                        <a class="btnEdit btn btn-outline-info btn-sm">
+                                        <i class="fas fa-lock"></i>
+                                        </a>
+                                    @endif
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>

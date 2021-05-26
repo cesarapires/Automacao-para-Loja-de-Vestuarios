@@ -10,8 +10,15 @@ class SalesController extends Controller
 {
     public function index()
     {
-        return view('Site.Vendas.index');
-        #dd($products, $types, $sizes);
+        $sales = DB::table('sales')
+        ->join('clients', 'sales.client_id', '=', 'clients.client_id')
+        ->join('payments', 'sales.payment_id', '=', 'payments.payment_id')
+        ->select('sales.*','clients.name as nameClient', 'payments.name as namePayment')
+        ->where('status','<>','0')
+        ->get();
+        return view('Site.Vendas.index',[
+            'sales' => $sales
+        ]);
     }
 
     public function indexNew()
@@ -31,6 +38,7 @@ class SalesController extends Controller
         ->join('products', 'saleitens.product_id', '=', 'products.product_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
         ->select('saleitens.*', 'products.name', 'sizes.name as size')
+        ->where('sale_id','=',$sales->sale_id)
         ->get();
         return view('Site.Vendas.newsale',[
             'products' => $products,
@@ -51,17 +59,51 @@ class SalesController extends Controller
             'platform_id'=>null,
             'platform_rate'=>0,
             'payment_id'=>null,
-            'rate_payment'=>0,
-            'fixrate_payment'=>0,
-            'shipping_id'=>null,
-            'shipping'=>0,
+            'payment_rate_fix'=>0,
+            'payment_rate_variable'=>0,
+            'payment_rate_month'=>0,
             'plot_id'=>null,
-            'plot_rate'=>0,
-            'sale_price'=>0,
+            'rate_client_plot'=>0,
+            'rate_company_plot'=>0,
+            'shipping_id'=>null,
+            'price_shipping'=>0,
             'discount'=>0,
+            'subtotalitens'=>0,
+            'price_sale'=>0,
+            'rate_total'=>0,
             'amount'=>0,
-            'created_at' => date("Y-m-d H:i:s")
+            'status'=>0,
+            'created_at' => date("Y-m-d H:i:s"),
         ]);
+    }
+
+    public function saveSale(Request $request){
+        DB::table('sales')->
+        where('sale_id','=',$request->idSale)->
+        update([
+            'client_id'=>$request->idClient,
+            'platform_id'=>$request->platforms,
+            'platform_rate'=>$request->ratePlatform,
+            'payment_id'=>$request->payment,
+            'payment_rate_fix'=>$request->ratefixPayment,
+            'payment_rate_variable'=>$request->ratevariablePayment,
+            'payment_rate_month'=>$request->ratevariablePayment,
+            'plot_id'=>$request->plots,
+            'rate_client_plot'=>$request->rateClient,
+            'rate_company_plot'=>$request->rateCompany,
+            'shipping_id'=>$request->shipping,
+            'price_shipping'=>$request->shippingValue,
+            'discount'=>$request->discountSale,
+            'subtotalitens'=>$request->itensTotal,
+            'price_sale'=>$request->priceSale,
+            'rate_total'=>$request->ratePaymentValue,
+            'amount'=>$request->amountSale,
+            'status'=>'A',
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+
+        $this->createNewSale();
+        return redirect('Vendas');
     }
 
     public function additensale(Request $request)

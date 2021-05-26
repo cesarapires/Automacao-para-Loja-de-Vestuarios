@@ -56,6 +56,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     #Aqui estão as rotas relacionadas ao CRUD de Vendas
     Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
     Route::get('/Vendas/Nova', 'SalesController@indexNew')->middleware(['auth'])->name('Site.NewSales');
+    Route::post('/Vendas/Salvar', 'SalesController@saveSale')->middleware(['auth'])->name('Site.SaveSales');
     
     Route::post('/Vendas/AdicionarItem', 'SalesController@additensale')->middleware(['auth'])->name('Site.AddIten');
     Route::post('/Vendas/EditarItem', 'SalesController@edtitensale')->middleware(['auth'])->name('Site.EdtIten');
