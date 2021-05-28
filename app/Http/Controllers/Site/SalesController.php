@@ -53,14 +53,36 @@ class SalesController extends Controller
        
     }
 
-    public function openSale()
+    public function openSale(Request $request)
     {
-
+        DB::table('sales')->
+        where('sale_id','=',$request->opensaleid)->
+        update([
+            'status'=>'A',
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+        return redirect('Vendas');
     }
 
-    public function closeSale()
+    public function closeSale(Request $request)
     {
-        
+        DB::table('sales')->
+        where('sale_id','=',$request->closesaleid)->
+        update([
+            'status'=>'F',
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+        return redirect('Vendas');
+    }
+
+    public function deleteSale(Request $request){
+        DB::table('saleitens')->
+        where('sale_id','=',$request->delesaleid)->
+        delete();
+        DB::table('sales')->
+        where('sale_id','=',$request->delesaleid)->
+        delete();
+        return redirect('Vendas');
     }
 
     public function createNewSale()

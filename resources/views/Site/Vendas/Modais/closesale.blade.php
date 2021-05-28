@@ -9,18 +9,19 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.DelIten')}}">
+                    action="{{route('Site.CloseSale')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
-                    <div class="form-group">
-                            <input type="hidden" class="form-control" name="delsaleitens_id" id="delsaleitens_id"
-                                value="" Readonly>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="closesaleid" id="closesaleid" value=""
+                                Readonly>
                             <p id="nameProduct">Ao fechar a venda todos os itens terão saída do
                                 estoque!
                                 <br>
                                 <br>
-                                Você deseja prosseguir?</p>
+                                Você deseja prosseguir?
+                            </p>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -32,3 +33,15 @@
         </div>
     </div>
 </div>
+
+<script>
+$('#modalclosesale').on('show.bs.modal', function(event) {
+
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var modal = $(this)
+
+    var saleId = button.data('whatever').saleId
+
+    modal.find('#closesaleid').val(saleId)
+})
+</script>

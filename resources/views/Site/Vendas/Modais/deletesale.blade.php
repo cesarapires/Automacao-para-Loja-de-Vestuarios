@@ -1,26 +1,21 @@
-<div class="modal fade" id="modalopensale">
-    <div class="modal-dialog modal-dialog-centered modal-md">
+<div class="modal fade" id="modaldeletesale">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Abrir venda</h4>
+                <h4 class="modal-title">Apagar venda</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.OpenSale')}}">
+                    action="{{route('Site.DeleteSale')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <input type="hidden" class="form-control" name="opensaleid" id="opensaleid" value="" Readonly>
-                            <p id="nameProduct">Ao abrir a venda todos os itens retornarão para o
-                                estoque!
-                                <br>
-                                <br>
-                                Você deseja prosseguir?
-                            </p>
+                            <input type="hidden" class="form-control" name="delesaleid" id="delesaleid" value="" Readonly>
+                            <p id="nameProduct">Tem certeza que deseja apagar a venda?</p>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -34,13 +29,13 @@
 </div>
 
 <script>
-$('#modalopensale').on('show.bs.modal', function(event) {
+$('#modaldeletesale').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
 
     var saleId = button.data('whatever').saleId
 
-    modal.find('#opensaleid').val(saleId)
+    modal.find('#delesaleid').val(saleId)
 })
 </script>

@@ -62,6 +62,10 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Vendas/EditarItem', 'SalesController@edtitensale')->middleware(['auth'])->name('Site.EdtIten');
     Route::post('/Vendas/DeletarItem', 'SalesController@delitensale')->middleware(['auth'])->name('Site.DelIten');
 
+    Route::post('/Vendas/AbrirVenda', 'SalesController@openSale')->middleware(['auth'])->name('Site.OpenSale');
+    Route::post('/Vendas/FecharVenda', 'SalesController@closeSale')->middleware(['auth'])->name('Site.CloseSale');
+    Route::post('/Vendas/DeletarVenda', 'SalesController@deleteSale')->middleware(['auth'])->name('Site.DeleteSale');
+
     Route::get('/Contas', 'BillController@index')->middleware(['auth'])->name('Site.Bills');
 
 
