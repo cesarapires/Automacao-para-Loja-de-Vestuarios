@@ -61,7 +61,18 @@ class SalesController extends Controller
             'status'=>'A',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
-        return redirect('Vendas');
+        $saleitens = DB::table('saleitens')
+        ->select()
+        ->where('saleitens.sale_id', '=', $request->opensaleid)
+        ->get();
+        foreach ($saleitens as $saleitens){
+            $products = DB::table('products')
+            ->select('*')
+            ->where('products.product_id', '=', $saleitens->product_id)
+            ->get();  
+            echo "Produto: ",$saleitens->product_id,"Estoque Atual: ",$products->['stock'], "Quantidade Venda: ",$saleitens->quantity,"<br>";
+        }
+        //return redirect('Vendas');
     }
 
     public function closeSale(Request $request)
@@ -72,7 +83,19 @@ class SalesController extends Controller
             'status'=>'F',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
-        return redirect('Vendas');
+        $saleitens = DB::table('saleitens')
+        ->select()
+        ->where('saleitens.sale_id', '=', $request->opensaleid)
+        ->get();
+        foreach ($saleitens as $saleitens){
+            $products = DB::table('products')
+            ->select()
+            ->where('products.product_id', '=', $saleitens->product_id)
+            ->get(); 
+            dd($products);     
+            //echo "Produto: ",$saleitens->product_id,"Estoque Atual: ",$products->stock, "Quantidade Venda: ",$saleitens->quantity,"<br>";
+        }
+       //return redirect('Vendas');
     }
 
     public function deleteSale(Request $request){
@@ -82,7 +105,7 @@ class SalesController extends Controller
         DB::table('sales')->
         where('sale_id','=',$request->delesaleid)->
         delete();
-        return redirect('Vendas');
+        //return redirect('Vendas');
     }
 
     public function createNewSale()
