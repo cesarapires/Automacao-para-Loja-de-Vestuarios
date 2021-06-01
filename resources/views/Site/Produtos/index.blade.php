@@ -54,10 +54,10 @@
                                 @foreach($products as $products)
                                 <tr class="text-center">
                                     <td class='product_id'>{{$products->product_id}}</td>
-                                    <td class='url'></td>
+                                    <td class='url'>{{$products->urk}}</td>
                                     <td class='name'>{{$products->name}}</td>
                                     <td class='size_name'>{{$products->size_name}}</td>
-                                    <td class='color_name'></td>
+                                    <td class='color_name'>{{$products->color}}</td>
                                     <td class='stock'>{{$products->stock}}</td>
                                     <td class='price_buy'>R$ {{$products->price_buy}}</td>
                                     <td class='price_sell'>R$ {{$products->price_sell}}</td>

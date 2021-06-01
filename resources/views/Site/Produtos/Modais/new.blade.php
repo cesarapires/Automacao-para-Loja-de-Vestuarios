@@ -14,42 +14,66 @@
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputNameProduct">Descrição</label>
-                            <input type="text" class="form-control" name="nameProduct" id="nameProduct"
-                                placeholder="Conjunto Alice Ruby">
+                            <div class='row'>
+                                <div class='col-12'>
+                                    <label for="inputNameProduct">Descrição</label>
+                                    <input type="text" class="form-control" name="nameProduct" id="nameProduct"
+                                        placeholder="Conjunto Alice Ruby">
+                                </div>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <div class='row'>
+                                <div class='col-9'>
+                                    <label for="inputStockProduct">Cor</label>
+                                    <input type="text" class="form-control" name="stockProduct" id="stockProduct"
+                                        placeholder="Verme Militar/Nude">
+                                </div>
+                                <div class='col-3'>
+                                    <label for="inputStockProduct">Estoque</label>
+                                    <input type="text" class="form-control" name="stockProduct" id="stockProduct"
+                                        placeholder="1">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputStockProduct">Estoque</label>
-                            <input type="text" class="form-control" name="stockProduct" id="stockProduct"
-                                placeholder="1">
+                            <div class="row">
+                                <div class='col-6'>
+                                    <label for="inputPrice_BuyProduct">Custo</label>
+                                    <input type="text" class="form-control" name="price_BuyProduct"
+                                        id="price_BuyProduct" placeholder="17.99">
+                                </div>
+                                <div class='col-6'>
+                                    <label for="inputPrice_SellProduct">Venda</label>
+                                    <input type="text" class="form-control" name="price_SellProduct"
+                                        id="price_SellProduct" placeholder="54.99">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Custo</label>
-                            <input type="text" class="form-control" name="price_BuyProduct" id="price_BuyProduct"
-                                placeholder="17.99">
+                            <div class="row">
+                                <div class='col-6'>
+                                    <label>Tamanho</label>
+                                    <select class="form-control select2bs4" name="size_IdProduct" style="width: 100%;">
+                                        <option value="">Selecione um tamanho:</option>
+                                        @foreach($sizes as $sizes)
+                                        <option value="{{$sizes->size_id}}">{{$sizes->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class='col-6'>
+                                    <label>Tipo</label>
+                                    <select class="form-control select2bs4" name="type_IdProduct" style="width: 100%;">
+                                        <option value="">Selecione um tipo:</option>
+                                        @foreach($types as $types)
+                                        <option value="{{$types->type_id}}">{{$types->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPrice_SellProduct">Venda</label>
-                            <input type="text" class="form-control" name="price_SellProduct" id="price_SellProduct"
-                                placeholder="54.99">
-                        </div>
-                        <div class="form-group">
-                            <label>Tamanho</label>
-                            <select class="form-control select2bs4" name="size_IdProduct" style="width: 100%;">
-                                <option value="">Selecione um tamanho:</option>
-                                @foreach($sizes as $sizes)
-                                <option value="{{$sizes->size_id}}">{{$sizes->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tipo</label>
-                            <select class="form-control select2bs4" name="type_IdProduct" style="width: 100%;">
-                                <option value="">Selecione um tipo:</option>
-                                @foreach($types as $types)
-                                <option value="{{$types->type_id}}">{{$types->name}}</option>
-                                @endforeach
-                            </select>
+
                         </div>
                     </div>
                     <!-- /.card-body -->
