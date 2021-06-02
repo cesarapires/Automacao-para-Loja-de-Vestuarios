@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,15 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('Site.Home.index');
+        $numberStock = DB::table('products')->sum('stock');
+        $stockValue = DB::table('products')->get();
+        $stockPrice = 0;
+        foreach($stockValue as $stockValue){
+            $stockPrice = $stockPrice+($stockValue->stock*$stockValue->price_buy);
+        }
+        return view('Site.Home.index',[
+            'numberStock' => $numberStock,
+            'stockPrice' => $stockPrice
+        ]);
     }
 }

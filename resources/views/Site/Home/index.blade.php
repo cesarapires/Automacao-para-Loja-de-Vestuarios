@@ -23,7 +23,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>{{$numberStock}}</h3>
 
                         <p>Estoque</p>
                     </div>
@@ -35,9 +35,9 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h3>{{$stockPrice}}<sup style="font-size: 20px">  nR$</sup></h3>
 
-                        <p>Bounce Rate</p>
+                        <p>Valor do estoque</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
@@ -61,7 +61,7 @@
                     <div class="inner">
                         <h3>65</h3>
 
-                        <p>Unique Visitors</p>
+                        <p>Contas a receber</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
