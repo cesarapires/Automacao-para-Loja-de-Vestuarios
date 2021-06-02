@@ -54,7 +54,7 @@
                                 @foreach($products as $products)
                                 <tr class="text-center">
                                     <td class='product_id'>{{$products->product_id}}</td>
-                                    <td class='url'>{{$products->urk}}</td>
+                                    <td class='url'>{{$products->url}}</td>
                                     <td class='name'>{{$products->name}}</td>
                                     <td class='size_name'>{{$products->size_name}}</td>
                                     <td class='color_name'>{{$products->color}}</td>
@@ -66,6 +66,7 @@
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
                                             data-target="#modalEditProduct" data-whatever='{
                                                 "product_id":"{{$products->product_id}}",
+                                                "color":"{{$products->color}}",
                                                 "name":"{{$products->name}}",
                                                 "size_id":"{{$products->size_id}}",
                                                 "stock":"{{$products->stock}}",
@@ -118,6 +119,12 @@
 <script>
 $(function() {
     $("#produtos").DataTable({
+        "columnDefs": [
+            {
+                "targets": [1],
+                "visible": false,
+                "searchable": false
+            }],
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",

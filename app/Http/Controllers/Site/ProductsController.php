@@ -63,7 +63,12 @@ class ProductsController extends Controller
     public function storeProduct(Request $request)
     {
         DB::table('products')->insert([
+            'url'=>strtolower( preg_replace("/[^a-zA-Z0-9-]/", "-", 
+            strtr(utf8_decode(trim($request->nameProduct)), 
+            utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
+            "aaaaeeiooouuncAAAAEEIOOOUUNC-"))),
             'name'=>$request->nameProduct,
+            'color'=>$request->colorProduct,
             'type_id'=>$request->type_IdProduct,
             'size_id'=>$request->size_IdProduct,
             'price_buy'=>$request->price_BuyProduct,
@@ -108,12 +113,17 @@ class ProductsController extends Controller
         DB::table('products')->
         where('product_id','=',$request->edtidProduct)->
         update([
+            'url'=>strtolower( preg_replace("/[^a-zA-Z0-9-]/", "-", 
+            strtr(utf8_decode(trim($request->edtnameProduct)), 
+            utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
+            "aaaaeeiooouuncAAAAEEIOOOUUNC-")) ),
             'name'=>$request->edtnameProduct,
-            'type_id'=>$request->edttypeidProduct,
-            'size_id'=>$request->edtsizeidSize,
+            'color'=>$request->edtcolorProduct,
+            'type_id'=>$request->edttypeIdProduct,
+            'size_id'=>$request->edtsizeIdProduct,
             'stock'=>$request->edtstockProduct,
-            'price_buy'=>$request->edtpricebuyProduct,
-            'price_sell'=>$request->edtpricesellProduct, 
+            'price_buy'=>$request->edtpriceBuyProduct,
+            'price_sell'=>$request->edtpriceSellProduct, 
             'updated_at' => date("Y-m-d H:i:s")
             
         ]);

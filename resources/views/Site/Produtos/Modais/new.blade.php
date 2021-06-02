@@ -26,8 +26,8 @@
                             <div class='row'>
                                 <div class='col-9'>
                                     <label for="inputStockProduct">Cor</label>
-                                    <input type="text" class="form-control" name="stockProduct" id="stockProduct"
-                                        placeholder="Verme Militar/Nude">
+                                    <input type="text" class="form-control" name="colorProduct" id="colorProduct"
+                                        placeholder="Verde Militar/Nude">
                                 </div>
                                 <div class='col-3'>
                                     <label for="inputStockProduct">Estoque</label>
@@ -71,9 +71,6 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-
                         </div>
                     </div>
                     <!-- /.card-body -->

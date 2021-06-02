@@ -25,7 +25,7 @@
                             <select class="form-control select2bs4" id="edtselectProduct" style="width: 100%;">
                                 <option>Selecione o produto</option>
                                 @foreach($products as $products)
-                                <option value="{{$products->product_id}}" data-idProduct="{{$products->product_id}}" data-priceSell="{{$products->price_sell}}">{{$products->name}} - {{$products->size_name}} - {{$products->price_sell}}</option>
+                                <option value="{{$products->product_id}}" data-idProduct="{{$products->product_id}}" data-priceSell="{{$products->price_sell}}">{{$products->name}} - {{$products->size_name}} - {{$products->price_sell}} ({{$products->color}})</option>
                                 @endforeach
                             </select>
                         </div>
