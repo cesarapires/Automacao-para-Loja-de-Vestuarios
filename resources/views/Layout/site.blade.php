@@ -172,14 +172,14 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('Site.Sales')}}" class="nav-link">
-                            <i class="nav-icon fas fa-store"></i>
+                                <i class="nav-icon fas fa-store"></i>
                                 <p>
                                     Vendas
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Site.Bills')}}" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="nav-icon fas fa-landmark"></i>
                                 <p>
                                     Contas
@@ -188,19 +188,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('Site.Products')}}" class="nav-link">
+                                    <a href="{{route('Site.Receiable')}}" class="nav-link">
                                         <i class="fas fa-money-bill nav-icon"></i>
                                         <p>Contas a receber</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('Site.ProductsTypes')}}" class="nav-link">
+                                    <a href="{{route('Site.Payable')}}" class="nav-link">
                                         <i class="fas fa-calculator nav-icon"></i>
                                         <p>Contas a pagar</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('Site.ProductsSizes')}}" class="nav-link">
+                                    <a href="" class="nav-link">
                                         <i class="fas fa-calendar-alt nav-icon"></i>
                                         <p>Calendário</p>
                                     </a>
@@ -217,9 +217,17 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('Site.Report')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Relatórios
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('Site.Setting')}}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Configuração
                                 </p>
                             </a>
                         </li>

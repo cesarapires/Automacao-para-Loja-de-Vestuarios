@@ -12,68 +12,85 @@
                     action="{{route('Site.ProductsUpdate')}}">
                     @csrf
                     @method('post')
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="inputNameProduct">ID</label>
-                            <input type="text" class="form-control" name="edtidProduct" id="edtidProduct" value=""
-                                Readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputNameProduct">Descrição</label>
-                            <input type="text" class="form-control" name="edtnameProduct" id="edtnameProduct" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputStockProduct">Estoque</label>
-                            <input type="text" class="form-control" name="edtstockProduct" id="edtstockProduct"
-                                value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPrice_BuyProduct">Custo</label>
-                            <input type="text" class="form-control" name="edtpricebuyProduct" id="edtpriceBuyProduct"
-                                value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPrice_SellProduct">Venda</label>
-                            <input type="text" class="form-control" name="edtpricesellProduct" id="edtpriceSellProduct"
-                                value="">
-                        </div>
-                        <div class="form-group">
-                            <label>Tamanho</label>
-                            <select class="form-control select2bs4" name="edtsizeidSize" id="edtsizeidSize"
-                                style="width: 100%;">
-                                <option value="">Selecione um tamanho:</option>
-                                @foreach($sizes as $sizes)
-                                <option value="{{$sizes->size_id}}">{{$sizes->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tipo</label>
-                            <select class="form-control select2bs4" name="edttypeidProduct" id="edttypeidProduct"
-                                style="width: 100%;">
-                                <option value="">Selecione um tipo:</option>
-                                @foreach($types as $types)
-                                <option value="{{$types->type_id}}">{{$types->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPrice_SellProduct">Data da última atualização</label>
-                            <input type="text" class="form-control" name="edtupdateProduct" id="edtupdateProduct"
-                                value="" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPrice_SellProduct">Data de criação</label>
-                            <input type="text" class="form-control" name="edtcreateProduct" id="edtcreateProduct"
-                                value="" disabled>
+
+                    <div class="form-group">
+                        <div class='row'>
+                            <div class='col-12'>
+                                <input type="hidden" id="edtidProduct" name="edtidProduct">
+                                <label for="inputNameProduct">Descrição</label>
+                                <input type="text" class="form-control" name="edtnameProduct" id="edtnameProduct"
+                                    placeholder="Conjunto Alice Ruby">
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
-                        <button type="submit" class="btn btn-success">Salvar</button>
+                    <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-9'>
+                                <label for="inputStockProduct">Cor</label>
+                                <input type="text" class="form-control" name="edtcolorProduct" id="edtcolorProduct"
+                                    placeholder="Verde Militar/Nude">
+                            </div>
+                            <div class='col-3'>
+                                <label for="inputStockProduct">Estoque</label>
+                                <input type="text" class="form-control" name="edtstockProduct" id="edtstockProduct"
+                                    placeholder="1">
+                            </div>
+                        </div>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class='col-6'>
+                                <label for="inputPrice_BuyProduct">Custo</label>
+                                <input type="text" class="form-control" name="edtpriceBuyProduct"
+                                    id="edtpriceBuyProduct" placeholder="17.99">
+                            </div>
+                            <div class='col-6'>
+                                <label for="inputPrice_SellProduct">Venda</label>
+                                <input type="text" class="form-control" name="edtpriceSellProduct"
+                                    id="edtpriceSellProduct" placeholder="54.99">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class='col-6'>
+                                <label>Tamanho</label>
+                                <select class="form-control select2bs4" name="edtsizeIdProduct" id="edtsizeIdProduct"
+                                    style="width: 100%;">
+                                    <option value="">Selecione um tamanho:</option>
+                                    @foreach($sizes as $sizes)
+                                    <option value="{{$sizes->size_id}}">{{$sizes->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class='col-6'>
+                                <label>Tipo</label>
+                                <select class="form-control select2bs4" name="edttypeIdProduct" id="edttypeIdProduct"
+                                    style="width: 100%;">
+                                    <option value="">Selecione um tipo:</option>
+                                    @foreach($types as $types)
+                                    <option value="{{$types->type_id}}">{{$types->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPrice_SellProduct">Data da última atualização</label>
+                        <input type="text" class="form-control" name="edtupdateProduct" id="edtupdateProduct" value=""
+                            disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPrice_SellProduct">Data de criação</label>
+                        <input type="text" class="form-control" name="edtcreateProduct" id="edtcreateProduct" value=""
+                            disabled>
+                    </div>
             </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -87,6 +104,7 @@ $('#modalEditProduct').on('show.bs.modal', function(event) {
 
     var idProduct = button.data('whatever').product_id
     var nameProduct = button.data('whatever').name
+    var colorProduct = button.data('whatever').color
     var stockProduct = button.data('whatever').stock
     var priceBuyProduct = button.data('whatever').price_buy
     var priceSellProduct = button.data('whatever').price_sell
@@ -97,10 +115,11 @@ $('#modalEditProduct').on('show.bs.modal', function(event) {
 
     modal.find('#edtidProduct').val(idProduct)
     modal.find('#edtnameProduct').val(nameProduct)
+    modal.find('#edtcolorProduct').val(colorProduct)
     modal.find('#edtstockProduct').val(stockProduct)
     modal.find('#edtpriceBuyProduct').val(priceBuyProduct)
     modal.find('#edtpriceSellProduct').val(priceSellProduct)
-    modal.find("#edtsizeIdSize").val(sizeIdProduct)
+    modal.find("#edtsizeIdProduct").val(sizeIdProduct)
     modal.find('#edttypeIdProduct').val(typeIdProduct)
     modal.find('#edtupdateProduct').val(updateAtProduct)
     modal.find('#edtcreateProduct').val(createAtProduct)

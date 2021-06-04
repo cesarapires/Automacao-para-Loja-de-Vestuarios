@@ -51,10 +51,68 @@
                                     <th>Itens</th>
                                     <th>Data</th>
                                     <th>Total</th>
+                                    <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
-                                          
+                            <tbody>
+                                @foreach($sales as $sales)
+                                <tr class="text-center">
+                                    <td class='sale_id'>{{$sales->sale_id}}</td>
+                                    <td class='nameClient'>{{$sales->nameClient}}</td>
+                                    <td class='namePayment'>{{$sales->namePayment}}</td>
+                                    <td class='quantityItens'>{{$sales->quantityitens}}</td>
+                                    <td class='sale_data'>{{$sales->updated_at}}</td>
+                                    <td class='sale_amount'>R$ {{$sales->amount}}</td>
+                                    <td>
+                                    @if($sales->status == "A")
+                                        <a class="btnEdit btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modalclosesale"
+                                        data-whatever='{
+                                                "saleId":"{{$sales->sale_id}}"
+                                                }'>
+                                            <i class="fas fa-lock-open"></i>
+                                        </a>
+                                        </td>
+                                        <td>
+                                        <a class="btnEdit btn btn-outline-warning btn-sm" data-toggle="modal"
+                                                    data-whatever='{
+                                                "saleId":"{{$sales->sale_id}}"
+                                                }'>
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Editar
+                                            </a>
+                                        <a class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
+                                                    data-target="#modaldeletesale" data-whatever='{
+                                                "saleId":"{{$sales->sale_id}}"
+                                                }'>
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Apagar
+                                            </a>
+                                        </td>
+                                    @else
+                                        <a class="btnEdit btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modalopensale"
+                                        data-whatever='{
+                                                "saleId":"{{$sales->sale_id}}"
+                                                }'>
+                                            <i class="fas fa-lock"></i>
+                                        </a>
+                                        </td>
+                                        <td>
+                                            <a class="btnEdit btn btn-outline-success btn-sm" data-toggle="modal"
+                                                    data-target="#modalviewsale" data-whatever='{
+                                                "saleId":"{{$sales->sale_id}}"
+                                                }'>
+                                                <i class="fas fa-eye">
+                                                </i>
+                                                Visualizar
+                                            </a>
+                                        </td>
+                                        @endif
+                                </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -62,6 +120,10 @@
         </div>
     </div>
 </section>
+
+@include('Site.Vendas.Modais.deletesale')
+@include('Site.Vendas.Modais.opensale')
+@include('Site.Vendas.Modais.closesale')
 
 
 @endsection('content')

@@ -1,6 +1,11 @@
 @extends('Layout.site')
 
 @section('content')
+
+<link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -28,25 +33,16 @@
                         <h3 class="card-title">
 
                         </h3>
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right"
-                                    placeholder="Pesquisar">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover text-nowrap">
+                    <div class="card-body">
+                        <table id="produtos" class="table table-bordered table-striped">
                             <thead>
-                                <tr class="text-center">
+                                <tr>
                                     <th>ID</th>
+                                    <th>URL</th>
                                     <th>Descrição</th>
                                     <th>Tamanho</th>
+                                    <th>Cor</th>
                                     <th>Estoque</th>
                                     <th>Custo</th>
                                     <th>Venda</th>
@@ -58,8 +54,10 @@
                                 @foreach($products as $products)
                                 <tr class="text-center">
                                     <td class='product_id'>{{$products->product_id}}</td>
+                                    <td class='url'>{{$products->url}}</td>
                                     <td class='name'>{{$products->name}}</td>
                                     <td class='size_name'>{{$products->size_name}}</td>
+                                    <td class='color_name'>{{$products->color}}</td>
                                     <td class='stock'>{{$products->stock}}</td>
                                     <td class='price_buy'>R$ {{$products->price_buy}}</td>
                                     <td class='price_sell'>R$ {{$products->price_sell}}</td>
@@ -68,6 +66,7 @@
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
                                             data-target="#modalEditProduct" data-whatever='{
                                                 "product_id":"{{$products->product_id}}",
+                                                "color":"{{$products->color}}",
                                                 "name":"{{$products->name}}",
                                                 "size_id":"{{$products->size_id}}",
                                                 "stock":"{{$products->stock}}",
@@ -101,6 +100,222 @@
         </div>
     </div>
 </section>
+
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{asset('plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{asset('plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{asset('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+
+<script>
+$(function() {
+    $("#produtos").DataTable({
+        "columnDefs": [
+            {
+                "targets": [1],
+                "visible": false,
+                "searchable": false
+            }],
+        language: {
+            "emptyTable": "Nenhum registro encontrado",
+            "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "infoFiltered": "(Filtrados de _MAX_ registros)",
+            "infoThousands": ".",
+            "loadingRecords": "Carregando...",
+            "processing": "Processando...",
+            "zeroRecords": "Nenhum registro encontrado",
+            "search": "Pesquisar",
+            "paginate": {
+                "next": "Próximo",
+                "previous": "Anterior",
+                "first": "Primeiro",
+                "last": "Último"
+            },
+            "aria": {
+                "sortAscending": ": Ordenar colunas de forma ascendente",
+                "sortDescending": ": Ordenar colunas de forma descendente"
+            },
+            "select": {
+                "rows": {
+                    "_": "Selecionado %d linhas",
+                    "0": "Nenhuma linha selecionada",
+                    "1": "Selecionado 1 linha"
+                },
+                "1": "%d linha selecionada",
+                "_": "%d linhas selecionadas",
+                "cells": {
+                    "1": "1 célula selecionada",
+                    "_": "%d células selecionadas"
+                },
+                "columns": {
+                    "1": "1 coluna selecionada",
+                    "_": "%d colunas selecionadas"
+                }
+            },
+            "buttons": {
+                "copySuccess": {
+                    "1": "Uma linha copiada com sucesso",
+                    "_": "%d linhas copiadas com sucesso"
+                },
+                "collection": "Coleção  <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+                "colvis": "Visibilidade da Coluna",
+                "colvisRestore": "Restaurar Visibilidade",
+                "copy": "Copiar",
+                "copyKeys": "Pressione ctrl ou u2318 + C para copiar os dados da tabela para a área de transferência do sistema. Para cancelar, clique nesta mensagem ou pressione Esc..",
+                "copyTitle": "Copiar para a Área de Transferência",
+                "csv": "CSV",
+                "excel": "Excel",
+                "pageLength": {
+                    "-1": "Mostrar todos os registros",
+                    "1": "Mostrar 1 registro",
+                    "_": "Mostrar %d registros"
+                },
+                "pdf": "PDF",
+                "print": "Imprimir"
+            },
+            "autoFill": {
+                "cancel": "Cancelar",
+                "fill": "Preencher todas as células com",
+                "fillHorizontal": "Preencher células horizontalmente",
+                "fillVertical": "Preencher células verticalmente"
+            },
+            "lengthMenu": "Exibir _MENU_ resultados por página",
+            "searchBuilder": {
+                "add": "Adicionar Condição",
+                "button": {
+                    "0": "Construtor de Pesquisa",
+                    "_": "Construtor de Pesquisa (%d)"
+                },
+                "clearAll": "Limpar Tudo",
+                "condition": "Condição",
+                "conditions": {
+                    "date": {
+                        "after": "Depois",
+                        "before": "Antes",
+                        "between": "Entre",
+                        "empty": "Vazio",
+                        "equals": "Igual",
+                        "not": "Não",
+                        "notBetween": "Não Entre",
+                        "notEmpty": "Não Vazio"
+                    },
+                    "number": {
+                        "between": "Entre",
+                        "empty": "Vazio",
+                        "equals": "Igual",
+                        "gt": "Maior Que",
+                        "gte": "Maior ou Igual a",
+                        "lt": "Menor Que",
+                        "lte": "Menor ou Igual a",
+                        "not": "Não",
+                        "notBetween": "Não Entre",
+                        "notEmpty": "Não Vazio"
+                    },
+                    "string": {
+                        "contains": "Contém",
+                        "empty": "Vazio",
+                        "endsWith": "Termina Com",
+                        "equals": "Igual",
+                        "not": "Não",
+                        "notEmpty": "Não Vazio",
+                        "startsWith": "Começa Com"
+                    },
+                    "array": {
+                        "contains": "Contém",
+                        "empty": "Vazio",
+                        "equals": "Igual à",
+                        "not": "Não",
+                        "notEmpty": "Não vazio",
+                        "without": "Não possui"
+                    }
+                },
+                "data": "Data",
+                "deleteTitle": "Excluir regra de filtragem",
+                "logicAnd": "E",
+                "logicOr": "Ou",
+                "title": {
+                    "0": "Construtor de Pesquisa",
+                    "_": "Construtor de Pesquisa (%d)"
+                },
+                "value": "Valor"
+            },
+            "searchPanes": {
+                "clearMessage": "Limpar Tudo",
+                "collapse": {
+                    "0": "Painéis de Pesquisa",
+                    "_": "Painéis de Pesquisa (%d)"
+                },
+                "count": "{total}",
+                "countFiltered": "{shown} ({total})",
+                "emptyPanes": "Nenhum Painel de Pesquisa",
+                "loadMessage": "Carregando Painéis de Pesquisa...",
+                "title": "Filtros Ativos"
+            },
+            "searchPlaceholder": "",
+            "thousands": ".",
+            "datetime": {
+                "previous": "Anterior",
+                "next": "Próximo",
+                "hours": "Hora",
+                "minutes": "Minuto",
+                "seconds": "Segundo",
+                "amPm": [
+                    "am",
+                    "pm"
+                ],
+                "unknown": "-"
+            },
+            "editor": {
+                "close": "Fechar",
+                "create": {
+                    "button": "Novo",
+                    "submit": "Criar",
+                    "title": "Criar novo registro"
+                },
+                "edit": {
+                    "button": "Editar",
+                    "submit": "Atualizar",
+                    "title": "Editar registro"
+                },
+                "error": {
+                    "system": "Ocorreu um erro no sistema (<a target=\"\\\" rel=\"nofollow\" href=\"\\\">Mais informações<\/a>)."
+                },
+                "multi": {
+                    "noMulti": "Essa entrada pode ser editada individualmente, mas não como parte do grupo",
+                    "restore": "Desfazer alterações",
+                    "title": "Multiplos valores",
+                    "info": "Os itens selecionados contêm valores diferentes para esta entrada. Para editar e definir todos os itens para esta entrada com o mesmo valor, clique ou toque aqui, caso contrário, eles manterão seus valores individuais."
+                },
+                "remove": {
+                    "button": "Remover",
+                    "confirm": {
+                        "_": "Tem certeza que quer deletar %d linhas?",
+                        "1": "Tem certeza que quer deletar 1 linha?"
+                    },
+                    "submit": "Remover",
+                    "title": "Remover registro"
+                }
+            },
+            "decimal": ","
+        },
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": ["csv","excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#produtos_wrapper .col-md-6:eq(0)');
+});
+</script>
+
 
 @include('Site.Produtos.Modais.new')
 @include('Site.Produtos.Modais.delete')
