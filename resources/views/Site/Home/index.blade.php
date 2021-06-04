@@ -35,7 +35,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{$stockPrice}}<sup style="font-size: 20px">  nR$</sup></h3>
+                        <h3>{{$stockPrice}}<sup style="font-size: 20px"> R$</sup></h3>
 
                         <p>Valor do estoque</p>
                     </div>

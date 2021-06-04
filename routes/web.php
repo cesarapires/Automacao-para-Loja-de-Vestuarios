@@ -53,21 +53,39 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Clientes/CadastroClientes', 'ClientsController@store')->middleware(['auth'])->name('Site.ClientsStore');
     Route::post('/Clientes/Alterarlientes', 'ClientsController@update')->middleware(['auth'])->name('Site.ClientsUpdate');
     Route::post('/Clientes/DeleteClientes', 'ClientsController@delete')->middleware(['auth'])->name('Site.ClientsDelete');
-    #Aqui estão as rotas relacionadas ao CRUD de Vendas
-    Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
-    Route::get('/Vendas/Nova', 'SalesController@indexNew')->middleware(['auth'])->name('Site.NewSales');
-    Route::post('/Vendas/Salvar', 'SalesController@saveSale')->middleware(['auth'])->name('Site.SaveSales');
-    
-    Route::post('/Vendas/AdicionarItem', 'SalesController@additensale')->middleware(['auth'])->name('Site.AddIten');
-    Route::post('/Vendas/EditarItem', 'SalesController@edtitensale')->middleware(['auth'])->name('Site.EdtIten');
-    Route::post('/Vendas/DeletarItem', 'SalesController@delitensale')->middleware(['auth'])->name('Site.DelIten');
+   
+    /* 
+    |--------------------------------------------------------------------------
+    | Web Routes Vendas
+    |--------------------------------------------------------------------------
+    | 
+    | Neste trecho você encontra as rotas relacionadas a venda, como abrir e 
+    | fechar venda, apagar, editar e salvar uma nova. Além também de poder 
+    | ter acesso ao CRUD de itens da venda onde será salvo todos os itens que
+    | foram marcado em alguma veda.
+    |
+    */
+         #Aqui estão as rotas relacionadas ao CRUD de Vendas
+        Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
+        Route::get('/Vendas/Nova', 'SalesController@indexNew')->middleware(['auth'])->name('Site.NewSales');
+        Route::post('/Vendas/Salvar', 'SalesController@saveSale')->middleware(['auth'])->name('Site.SaveSales');
 
-    Route::post('/Vendas/AbrirVenda', 'SalesController@openSale')->middleware(['auth'])->name('Site.OpenSale');
-    Route::post('/Vendas/FecharVenda', 'SalesController@closeSale')->middleware(['auth'])->name('Site.CloseSale');
-    Route::post('/Vendas/DeletarVenda', 'SalesController@deleteSale')->middleware(['auth'])->name('Site.DeleteSale');
+        Route::post('/Vendas/AdicionarItem', 'SalesController@additensale')->middleware(['auth'])->name('Site.AddIten');
+        Route::post('/Vendas/EditarItem', 'SalesController@edtitensale')->middleware(['auth'])->name('Site.EdtIten');
+        Route::post('/Vendas/DeletarItem', 'SalesController@delitensale')->middleware(['auth'])->name('Site.DelIten');
+
+        Route::post('/Vendas/AbrirVenda', 'SalesController@openSale')->middleware(['auth'])->name('Site.OpenSale');
+        Route::post('/Vendas/FecharVenda', 'SalesController@closeSale')->middleware(['auth'])->name('Site.CloseSale');
+        Route::post('/Vendas/DeletarVenda', 'SalesController@deleteSale')->middleware(['auth'])->name('Site.DeleteSale');
 
     Route::get('/Contas', 'BillController@index')->middleware(['auth'])->name('Site.Bills');
 
+    #Aqui estão as rotas relacionadas ao CRUD de Contas a Pagar
+    Route::get('/ContasPagar', 'PayableController@index')->middleware(['auth'])->name('Site.Payable');
+
+
+    #Aqui estão as rotas relacionadas ao CRUD de Contas a Receber
+    Route::get('/ContasReceber', 'ReceiableController@index')->middleware(['auth'])->name('Site.Receiable');
 
     Route::get('/Caixa', 'CashierController@index')->middleware(['auth'])->name('Site.Cashier');
 
