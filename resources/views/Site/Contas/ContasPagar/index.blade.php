@@ -56,26 +56,28 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($payables as $payables)
                                 <tr class="text-center">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$payables->payable_id}}</td>
+                                    <td>{{$payables->name}}</td>
+                                    <td>{{$payables->date_buypayable}}</td>
+                                    <td>{{$payables->date_duepayable}}</td>
+                                    <td>R$ {{$payables->value}}</td>
+                                    <td>{{$payables->status}}</td>
                                     <td>
                                         <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modaledtpayable" data-whatever=''>
+                                            data-target="#modaledtpayable" data-whatever='{{$payables->payable_id}}'>
                                             <i class="fas fa-pencil-alt"></i>
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="" data-whatever=''>
+                                            data-target="" data-whatever='{{$payables->payable_id}}'>
                                             <i class="fas fa-trash"></i>
                                             Apagar
                                         </button>
                                     </td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

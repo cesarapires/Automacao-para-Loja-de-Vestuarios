@@ -15,9 +15,14 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class='row'>
-                                <div class='col-12'>
+                                <div class='col-2'>
+                                    <label for="inputNameProduct">ID</label>
+                                    <input type="text" class="form-control" name="edtidPayable" id="edtidPayable"
+                                        readonly>
+                                </div>
+                                <div class='col-10'>
                                     <label for="inputNameProduct">Credor</label>
-                                    <input type="text" class="form-control" name="nameProduct" id="nameProduct"
+                                    <input type="text" class="form-control" name="edtnamePayable" id="edtnamePayable"
                                         placeholder="Núcleo Sistemas Digitais">
                                 </div>
                             </div>
@@ -25,14 +30,14 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class='col-6'>
-                                    <label for="inputPrice_BuyProduct">Vencimento</label>
-                                    <input type="text" class="form-control" name="price_BuyProduct"
-                                        id="price_BuyProduct" placeholder="04/05/2021">
+                                    <label for="inputPrice_SellProduct">Data da Compra</label>
+                                    <input type="text" class="form-control" name="edtbuyPayable" id="edtbuyPayable"
+                                        placeholder="01/05/2021">
                                 </div>
                                 <div class='col-6'>
-                                    <label for="inputPrice_SellProduct">Pagamento</label>
-                                    <input type="text" class="form-control" name="price_SellProduct"
-                                        id="price_SellProduct" placeholder="01/05/2021">
+                                    <label for="inputPrice_BuyProduct">Vencimento</label>
+                                    <input type="text" class="form-control" name="edtduePayable" id="edtduePayable"
+                                        placeholder="04/05/2021">
                                 </div>
                             </div>
                         </div>
@@ -40,16 +45,31 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label>Valor</label>
-                                    <input type="text" class="form-control" name="price_BuyProduct"
-                                        id="price_BuyProduct" placeholder="R$ 127.00">
+                                    <input type="text" class="form-control" name="edtpricePayable" id="edtpricePayable"
+                                        placeholder="R$ 127.00">
                                 </div>
                                 <div class='col-5'>
                                     <label>Status</label>
                                     <br>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox">
+                                        <input class="form-check-input" type="checkbox" name="edtstatusPayable"
+                                            id="edtstatusPayable">
                                         <label class="form-check-label">Efetivação</label>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class='col-6'>
+                                    <label>Data Pagamento</label>
+                                    <input type="text" class="form-control" name="edtdatePayable" id="edtdatePayable"
+                                        placeholder="04/06/2021" disabled>
+                                </div>
+                                <div class='col-6'>
+                                    <label>Última Modificação</label>
+                                    <input type="text" class="form-control" name="lastupdatedPayable"
+                                        id="lastupdatedPayable" placeholder="04/06/2021" disabled>
                                 </div>
                             </div>
                         </div>
@@ -65,3 +85,40 @@
     </div>
     <!-- /.modal-content -->
 </div>
+
+<script>
+/* When click edit user */
+$('#modaledtpayable').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var modal = $(this);
+
+    var idPayable = button.data('whatever');
+    modal.find('#edtidPayable').val(idPayable);
+
+    $.ajax({
+        type: "GET",
+        url: "ContasPagar/Buscar/"+idPayable,
+        data: dataString,
+        cache: true
+        /*success: function(data) {
+            console.log(data);
+           // modal.find('.dash').html(data);
+        },*/
+        /*error: function(err) {
+            console.log(err);
+        }*/
+    });
+});
+
+var edtpayablestatus = $('#edtstatusPayable');
+
+$('#edtstatusPayable').on('click', function() {
+    if (edtpayablestatus.is(':checked')) {
+        $("#edtdatePayable").prop('disabled', false);
+        $('#edtstatusPayable').val(1)
+    } else {
+        $("#edtdatePayable").prop('disabled', true);
+        $('#edtstatusPayable').val(0)
+    }
+});
+</script>

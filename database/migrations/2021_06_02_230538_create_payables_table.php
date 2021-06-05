@@ -16,9 +16,10 @@ class CreatePayablesTable extends Migration
         Schema::create('payables', function (Blueprint $table) {
             $table->id('payable_id');
             $table->char('name',25);
-            $table->date('date_payable');
+            $table->date('date_buypayable');
+            $table->date('date_duepayable');
+            $table->date('date_payable')->nullable();
             $table->float('value');
-            $table->date('dateDuePayables');
             $table->char('status',2);
             $table->timestamps();
         });
