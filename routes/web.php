@@ -84,6 +84,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/ContasPagar', 'PayableController@index')->middleware(['auth'])->name('Site.Payable');
     Route::get('/ContasPagar/Buscar/{idPayable}', 'PayableController@modalselectpayable')->middleware(['auth'])->name('Site.PayableSelectUpdate');
     Route::post('/ContasPagar/Cadastrar', 'PayableController@store')->middleware(['auth'])->name('Site.PayableStore');
+    Route::post('/ContasPagar/Editar', 'PayableController@update')->middleware(['auth'])->name('Site.PayableUpdate');
 
     #Aqui estão as rotas relacionadas ao CRUD de Contas a Receber
     Route::get('/ContasReceber', 'ReceiableController@index')->middleware(['auth'])->name('Site.Receiable');

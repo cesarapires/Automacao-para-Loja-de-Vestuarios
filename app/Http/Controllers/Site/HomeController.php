@@ -19,12 +19,16 @@ class HomeController extends Controller
         $numberStock = DB::table('products')->sum('stock');
         $stockValue = DB::table('products')->get();
         $stockPrice = 0;
+        $payable = DB::table('payables')
+        ->where('payables.status','=',0)
+        ->sum('value');
         foreach($stockValue as $stockValue){
             $stockPrice = $stockPrice+($stockValue->stock*$stockValue->price_buy);
         }
         return view('Site.Home.index',[
             'numberStock' => $numberStock,
-            'stockPrice' => $stockPrice
+            'stockPrice' => $stockPrice,
+            'payable' => $payable,
         ]);
     }
 }

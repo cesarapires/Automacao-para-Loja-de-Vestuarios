@@ -34,11 +34,31 @@ class PayableController extends Controller
         return redirect('ContasPagar');
     }
 
+    public function update(Request $request){
+        $dateconvert = implode('-', array_reverse(explode('/', $request->edtdatePayable)));
+        if($request->edtstatusPayable==null){
+            $request->edtstatusPayable=0;
+            $dateconvert=NULL;
+        }
+        DB::table('payables')
+        ->where('payables.payable_id','=',$request->edtidPayable)
+        ->update([
+            'name'=>$request->edtnamePayable,
+            'date_buypayable'=>implode('-', array_reverse(explode('/', $request->edtbuyPayable))),
+            'date_duepayable'=>implode('-', array_reverse(explode('/', $request->edtduePayable))),
+            'date_payable'=>$dateconvert,
+            'value'=>$request->edtpricePayable,
+            'status'=>$request->edtstatusPayable,
+            'updated_at' => date("Y-m-d H:i:s"),  
+        ]);        
+        return redirect('ContasPagar');
+    }
+
     public function modalselectpayable($idPayable){
         $selectpayable = DB::table('payables')
         ->select()
         ->where('payable_id','=',$idPayable)
         ->get();
-        return response()->json(['dataString' => $selectpayable]);
+        return response()->json($selectpayable);
     }
 }

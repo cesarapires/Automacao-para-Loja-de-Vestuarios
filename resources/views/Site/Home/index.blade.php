@@ -40,7 +40,7 @@
                         <p>Valor do estoque</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                        <i class="fas fa-money-check"></i>
                     </div>
                 </div>
             </div>
@@ -49,19 +49,19 @@
                     <div class="inner">
                         <h3>44</h3>
 
-                        <p>Vendas no mês</p>
+                        <p>Contas a receber</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i class="fas fa-hand-holding-usd"></i>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3>{{$payable}}<sup style="font-size: 20px"> R$</sup></h3>
 
-                        <p>Contas a receber</p>
+                        <p>Contas a pagar</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>

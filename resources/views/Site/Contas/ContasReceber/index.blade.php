@@ -5,7 +5,8 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Contas a Receber | <a class="btn btn-success btn-sm" href="">
+                <h1 class="m-0">Contas a Receber | <a class="btn btn-success btn-sm" data-toggle="modal"
+                        data-target="#modalnewreceiable">
                         <i class="fas fa-plus"></i>
                         Nova</a>
                 </h1>
@@ -66,5 +67,8 @@
         </div>
     </div>
 </section>
+
+@include('Site.Contas.ContasReceber.Modal.new')
+@include('Site.Contas.ContasReceber.Modal.edit')
 
 @endsection('content')
