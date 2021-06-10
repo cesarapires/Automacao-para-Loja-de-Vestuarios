@@ -58,26 +58,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                    data-target="#modaledtreceiable" data-whatever='1'>
-                                    <i class="fas fa-pencil-alt"></i>
-                                    Editar
-                                    </button>
-                                    <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                        data-target="modaldelreceiable" data-whatever='1'>
-                                        <i class="fas fa-trash"></i>
-                                        Apagar
-                                    </button>
-                                </td>
+                            @foreach($receivables as $receivables)
+                                <tr  class="text-center">
+                                    <td>{{$receivables->receivable_id}}</td>
+                                    <td>{{$receivables->nameClient}}</td>
+                                    <td>{{$receivables->sale_id}}</td>
+                                    <td>{{date('d/m/Y', strtotime($receivables->date_sale))}}</td>
+                                    <td>{{$receivables->numberplot }}</td>
+                                    <td>{{date('d/m/Y', strtotime($receivables->date_duereceivable))}}</td>
+                                    <td>R$ {{$receivables->value}}</td>
+                                    <td>
+                                        @if($receivables->status == 1)
+                                        <i class="far fa-check-square"></i>
+                                        @else
+                                        <i class="far fa-square"></i>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
+                                            data-target="#modaledtreceivable" data-whatever='{{$receivables->receivable_id}}'>
+                                            <i class="fas fa-pencil-alt"></i>
+                                            Editar
+                                        </button>
+                                        <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
+                                            data-target="modaldelreceivable" data-whatever='{{$receivables->receivable_id}}'>
+                                            <i class="fas fa-trash"></i>
+                                            Apagar
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

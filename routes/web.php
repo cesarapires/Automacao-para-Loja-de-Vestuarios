@@ -85,12 +85,14 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('/ContasPagar/Buscar/{idPayable}', 'PayableController@modalselectpayable')->middleware(['auth'])->name('Site.PayableSelectUpdate');
     Route::post('/ContasPagar/Cadastrar', 'PayableController@store')->middleware(['auth'])->name('Site.PayableStore');
     Route::post('/ContasPagar/Editar', 'PayableController@update')->middleware(['auth'])->name('Site.PayableUpdate');
+    Route::post('/ContasPagar/Deletar', 'PayableController@delete')->middleware(['auth'])->name('Site.PayableDelete');
 
     #Aqui estão as rotas relacionadas ao CRUD de Contas a Receber
-    Route::get('/ContasReceber', 'ReceiableController@index')->middleware(['auth'])->name('Site.Receiable');
-    Route::get('/ContasReceber/Buscar/{idReceiable}', 'ReceiableController@modalselectreceiable')->middleware(['auth'])->name('Site.ReceiableSelectUpdate');
-    Route::post('/ContasReceber/Cadastrar', 'ReceiableController@store')->middleware(['auth'])->name('Site.ReceiableStore');
-    Route::post('/ContasReceber/Editar', 'ReceiableController@update')->middleware(['auth'])->name('Site.ReceiableUpdate');
+    Route::get('/ContasReceber', 'ReceivableController@index')->middleware(['auth'])->name('Site.Receivable');
+    Route::get('/ContasReceber/Buscar/{idReceivable}', 'ReceivableController@modalselectreceiable')->middleware(['auth'])->name('Site.ReceivableSelectUpdate');
+    Route::post('/ContasReceber/Cadastrar', 'ReceivableController@store')->middleware(['auth'])->name('Site.ReceivableStore');
+    Route::post('/ContasReceber/Editar', 'ReceivableController@update')->middleware(['auth'])->name('Site.ReceivableUpdate');
+    Route::post('/ContasReceber/Deletar', 'ReceivableController@delete')->middleware(['auth'])->name('Site.ReceivableDelete');
 
     Route::get('/Caixa', 'CashierController@index')->middleware(['auth'])->name('Site.Cashier');
 

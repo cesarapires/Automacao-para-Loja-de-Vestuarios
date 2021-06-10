@@ -61,4 +61,12 @@ class PayableController extends Controller
         ->get();
         return response()->json($selectpayable);
     }
+
+    public function delete(Request $request)
+    {
+        DB::table('payables')->
+        where('payables.payable_id','=',$request->delidPayable)->
+        delete();
+        return redirect('ContasPagar');
+    }
 }

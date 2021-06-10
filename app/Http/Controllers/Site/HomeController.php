@@ -22,6 +22,9 @@ class HomeController extends Controller
         $payable = DB::table('payables')
         ->where('payables.status','=',0)
         ->sum('value');
+        $receivable = DB::table('receivables')
+        ->where('receivables.status','=',0)
+        ->sum('value');
         foreach($stockValue as $stockValue){
             $stockPrice = $stockPrice+($stockValue->stock*$stockValue->price_buy);
         }
@@ -29,6 +32,7 @@ class HomeController extends Controller
             'numberStock' => $numberStock,
             'stockPrice' => $stockPrice,
             'payable' => $payable,
+            'receivable' => $receivable,
         ]);
     }
 }

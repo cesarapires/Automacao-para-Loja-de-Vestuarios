@@ -188,7 +188,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('Site.Receiable')}}" class="nav-link">
+                                    <a href="{{route('Site.Receivable')}}" class="nav-link">
                                         <i class="fas fa-money-bill nav-icon"></i>
                                         <p>Contas a receber</p>
                                     </a>
