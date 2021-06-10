@@ -88,6 +88,9 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     #Aqui estão as rotas relacionadas ao CRUD de Contas a Receber
     Route::get('/ContasReceber', 'ReceiableController@index')->middleware(['auth'])->name('Site.Receiable');
+    Route::get('/ContasReceber/Buscar/{idReceiable}', 'ReceiableController@modalselectreceiable')->middleware(['auth'])->name('Site.ReceiableSelectUpdate');
+    Route::post('/ContasReceber/Cadastrar', 'ReceiableController@store')->middleware(['auth'])->name('Site.ReceiableStore');
+    Route::post('/ContasReceber/Editar', 'ReceiableController@update')->middleware(['auth'])->name('Site.ReceiableUpdate');
 
     Route::get('/Caixa', 'CashierController@index')->middleware(['auth'])->name('Site.Cashier');
 

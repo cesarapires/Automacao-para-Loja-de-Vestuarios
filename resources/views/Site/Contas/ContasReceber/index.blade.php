@@ -58,7 +58,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
+                                    data-target="#modaledtreceiable" data-whatever='1'>
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Editar
+                                    </button>
+                                    <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
+                                        data-target="modaldelreceiable" data-whatever='1'>
+                                        <i class="fas fa-trash"></i>
+                                        Apagar
+                                    </button>
+                                </td>
                             </tbody>
                         </table>
                     </div>

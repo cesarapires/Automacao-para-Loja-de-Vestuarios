@@ -56,7 +56,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($payables as $payables)
+                                @foreach($payables as $payables)
                                 <tr class="text-center">
                                     <td>{{$payables->payable_id}}</td>
                                     <td>{{$payables->name}}</td>
@@ -64,11 +64,11 @@
                                     <td>{{date('d/m/Y', strtotime($payables->date_duepayable))}}</td>
                                     <td>R$ {{$payables->value}}</td>
                                     <td>
-                                    @if($payables->status == 1)
-                                    <i class="far fa-check-square"></i>
-                                    @else
-                                    <i class="far fa-square"></i>
-                                    @endif
+                                        @if($payables->status == 1)
+                                        <i class="far fa-check-square"></i>
+                                        @else
+                                        <i class="far fa-square"></i>
+                                        @endif
                                     </td>
                                     <td>
                                         <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
@@ -83,7 +83,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
