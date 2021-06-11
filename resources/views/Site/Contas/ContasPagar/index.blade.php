@@ -77,7 +77,7 @@
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="" data-whatever='{{$payables->payable_id}}'>
+                                            data-target="#modaldelpayable" data-whatever='{{$payables->payable_id}}'>
                                             <i class="fas fa-trash"></i>
                                             Apagar
                                         </button>
@@ -96,5 +96,6 @@
 
 @include('Site.Contas.ContasPagar.Modal.new')
 @include('Site.Contas.ContasPagar.Modal.edit')
+@include('Site.Contas.ContasPagar.Modal.delete')
 
 @endsection('content')

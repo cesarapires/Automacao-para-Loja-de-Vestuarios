@@ -81,7 +81,7 @@
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="modaldelreceivable" data-whatever='{{$receivables->receivable_id}}'>
+                                            data-target="#modaldelreceivable" data-whatever='{{$receivables->receivable_id}}'>
                                             <i class="fas fa-trash"></i>
                                             Apagar
                                         </button>
@@ -99,5 +99,7 @@
 
 @include('Site.Contas.ContasReceber.Modal.new')
 @include('Site.Contas.ContasReceber.Modal.edit')
+@include('Site.Contas.ContasReceber.Modal.delete')
+
 
 @endsection('content')

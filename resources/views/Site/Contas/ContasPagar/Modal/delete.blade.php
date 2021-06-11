@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalDeleteProduct">
+<div class="modal fade" id="modaldelpayable">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,18 +9,13 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.ProductsDelete')}}">
+                    action="{{route('Site.PayableDelete')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputIdType">ID</label>
-                            <input type="text" class="form-control" name="delidProduct" id="delidProduct" value=""
-                                Readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputNameType">Descrição</label>
-                            <input type="text" class="form-control" name="delnameProduct" id="delnameProduct" value=""
+                            <input type="text" class="form-control" name="delidPayable" id="delidPayable" value=""
                                 Readonly>
                         </div>
                     </div>
@@ -36,15 +31,12 @@
 
 <script>
 /* When click edit user */
-$('#modalDeleteProduct').on('show.bs.modal', function(event) {
+$('#modaldelpayable').on('show.bs.modal', function(event) {
 
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var modal = $(this)
+    var button = $(event.relatedTarget); // Button that triggered the modal
 
-    var idProduct = button.data('whatever').idProduct
-    var nameProduct = button.data('whatever').nameProduct
+    var delidPayable = button.data('whatever');
 
-    modal.find('#delidProduct').val(idProduct)
-    modal.find('#delnameProduct').val(nameProduct)
+    $('#delidPayable').val(delidPayable);
 })
 </script>
