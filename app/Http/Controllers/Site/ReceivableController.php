@@ -38,6 +38,10 @@ class ReceivableController extends Controller
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
         ]);        
+
+        if($request->edtstatusreceivable==1){
+            $this->addincashirer();
+        }
         return redirect('ContasReceber');
     }
 
@@ -58,7 +62,21 @@ class ReceivableController extends Controller
             'status'=>$request->edtstatusreceivable,
             'updated_at' => date("Y-m-d H:i:s"),    
         ]);        
+        if($request->edtstatusreceivable==1){
+            $this->addincashirer();
+        }
+        else{
+            $this->remincashirer();
+        }
         return redirect('ContasReceber');
+    }
+
+    public function addincashirer(){
+
+    }
+
+    public function remincashirer(){
+
     }
 
     public function modalselectreceiable($idReceivable){

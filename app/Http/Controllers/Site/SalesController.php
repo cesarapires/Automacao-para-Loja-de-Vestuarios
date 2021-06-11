@@ -18,7 +18,7 @@ class SalesController extends Controller
         ->where('status','<>','0')
         ->get();
         return view('Site.Vendas.index',[
-            'sales' => $sales
+            'sales' => $sales,
         ]);
     }
 
@@ -78,6 +78,12 @@ class SalesController extends Controller
                 
             ]);      
         }
+
+        //removeincashier
+
+        DB::table('receivables')->
+        where('sale_id','=',$request->opensaleid)->
+        delete();
         return redirect('Vendas');
     }
 
@@ -89,10 +95,39 @@ class SalesController extends Controller
             'status'=>'F',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
+
+        $sale = DB::table('sales')->select()->where('sales.sale_id','=',$request->closesaleid)->get();
+
+        $plot = DB::table('plots')->select('number')->where('plots.plot_id','=',$sale[0]->plot_id)->get();
+
+        $payment =DB::table('payments')->select('credit')->where('payments.payment_id','=',$sale[0]->payment_id)->get();
+    
+        if($payment[0]->credit == 1){
+            $amount = $sale[0]->amount;
+            $valuePlot = $amount/$plot[0]->number;
+            for($cont = 1; $cont<=$plot[0]->number;$cont++){
+                $days = $cont*30;
+                DB::table('receivables')->insert([
+                    'client_id'=>$sale[0]->client_id,
+                    'sale_id'=>$sale[0]->sale_id,
+                    'date_sale'=>$sale[0]->updated_at,
+                    'date_duereceivable'=>date("Y-m-d", strtotime($sale[0]->updated_at.'+'.$days.'days')),
+                    'value'=>$valuePlot,
+                    'status'=>0,
+                    'numberplot'=>$cont,
+                    'created_at' => date("Y-m-d H:i:s"),  
+                    'updated_at' => date("Y-m-d H:i:s"),  
+                ]);        
+            }
+        }
+        else{
+            //addincashier
+        }
         $saleitens = DB::table('saleitens')
         ->select()
         ->where('saleitens.sale_id', '=', $request->closesaleid)
         ->get();
+
         foreach ($saleitens as $saleitens){
             $products = DB::table('products')
             ->select('*')
