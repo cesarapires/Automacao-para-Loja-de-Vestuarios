@@ -25,6 +25,13 @@ class HomeController extends Controller
         $receivable = DB::table('receivables')
         ->where('receivables.status','=',0)
         ->sum('value');
+        $cashierC = DB::table('cashiers')
+        ->where('cashiers.type','=','C')
+        ->sum('value');
+        $cashierD = DB::table('cashiers')
+        ->where('cashiers.type','=','D')
+        ->sum('value');
+        $cashier = $cashierC - $cashierD;
         foreach($stockValue as $stockValue){
             $stockPrice = $stockPrice+($stockValue->stock*$stockValue->price_buy);
         }
@@ -33,6 +40,7 @@ class HomeController extends Controller
             'stockPrice' => $stockPrice,
             'payable' => $payable,
             'receivable' => $receivable,
+            'cashier' => $cashier,
         ]);
     }
 }

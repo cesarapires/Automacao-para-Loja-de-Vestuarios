@@ -23,12 +23,12 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{$numberStock}}</h3>
+                        <h3>{!!number_format($cashier,2)!!}<sup style="font-size: 20px"> R$</sup></h3>
 
-                        <p>Estoque</p>
+                        <p>Caixa</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="fas fa-cash-register"></i>
                     </div>
                 </div>
             </div>

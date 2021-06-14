@@ -95,6 +95,11 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/ContasReceber/Deletar', 'ReceivableController@delete')->middleware(['auth'])->name('Site.ReceivableDelete');
 
     Route::get('/Caixa', 'CashierController@index')->middleware(['auth'])->name('Site.Cashier');
+    Route::get('/Caixa/Buscar/{idCashier}', 'CashierController@modalselectreceiable')->middleware(['auth'])->name('Site.CashierSelectUpdate');
+    Route::post('/Caixa/Cadastrar', 'CashierController@store')->middleware(['auth'])->name('Site.CashierStore');
+    Route::post('/Caixa/Editar', 'CashierController@update')->middleware(['auth'])->name('Site.CashierUpdate');
+    Route::post('/Caixa/Deletar', 'CashierController@delete')->middleware(['auth'])->name('Site.CashierDelete');
+
 
 
     Route::get('/Relatorio', 'ReportController@index')->middleware(['auth'])->name('Site.Report');
