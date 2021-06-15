@@ -48,20 +48,15 @@ class CashierController extends Controller
             'status'=>$request->edtstatusreceivable,
             'updated_at' => date("Y-m-d H:i:s"),    
         ]);        
-        if($request->edtstatusreceivable==1){
-            $this->addincashirer();
-        }
-        else{
-            $this->remincashirer();
-        }
+
         return redirect('ContasReceber');
     }
 
     public function delete(Request $request)
     {
-        DB::table('receivables')->
-        where('receivable_id','=',$request->delidreceivable)->
+        DB::table('cashiers')->
+        where('cashiers.cashier_id','=',$request->delidCashier)->
         delete();
-        return redirect('ContasReceber');
+        return redirect('Caixa');
     }
 }

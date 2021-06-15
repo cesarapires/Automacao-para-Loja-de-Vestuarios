@@ -61,6 +61,7 @@ class SalesController extends Controller
             'status'=>'A',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
+        
         $saleitens = DB::table('saleitens')
         ->select()
         ->where('saleitens.sale_id', '=', $request->opensaleid)
@@ -79,11 +80,19 @@ class SalesController extends Controller
             ]);      
         }
 
-        //removeincashier
+        $receivableID = DB::table('receivables')->select()->where('sale_id','=',$request->opensaleid)->get();
 
+        foreach($receivableID as $receivableID){
+            DB::table('cashiers')->
+            where('cashiers.receivable_id','=',$receivableID->receivable_id)->
+            delete();
+        }
+        
         DB::table('receivables')->
         where('sale_id','=',$request->opensaleid)->
         delete();
+;
+
         return redirect('Vendas');
     }
 
@@ -102,8 +111,8 @@ class SalesController extends Controller
 
         $payment =DB::table('payments')->select('credit')->where('payments.payment_id','=',$sale[0]->payment_id)->get();
     
+        $amount = $sale[0]->amount;
         if($payment[0]->credit == 1){
-            $amount = $sale[0]->amount;
             $valuePlot = $amount/$plot[0]->number;
             for($cont = 1; $cont<=$plot[0]->number;$cont++){
                 $days = $cont*30;
@@ -121,7 +130,23 @@ class SalesController extends Controller
             }
         }
         else{
-            //addincashier
+            $nameClient = DB::table('clients')
+            ->select('name')
+            ->where('clients.client_id','=',$sale[0]->client_id)
+            ->get();
+
+            
+            DB::table('cashiers')->insert([
+                'description'=>$nameClient[0]->name,
+                'sale_id'=>$sale[0]->sale_id,
+                'date_receivable'=>date("Y-m-d"),
+                'value'=>$amount,
+                'type'=>'C',
+                'created_at' => date("Y-m-d H:i:s"),  
+                'updated_at' => date("Y-m-d H:i:s"),  
+                'sale_id'=>$sale[0]->sale_id,
+            ]);  
+            
         }
         $saleitens = DB::table('saleitens')
         ->select()
@@ -150,7 +175,7 @@ class SalesController extends Controller
         DB::table('sales')->
         where('sale_id','=',$request->delesaleid)->
         delete();
-        //return redirect('Vendas');
+        return redirect('Vendas');
     }
 
     public function createNewSale()

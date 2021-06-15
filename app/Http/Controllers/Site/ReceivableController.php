@@ -39,18 +39,44 @@ class ReceivableController extends Controller
             'updated_at' => date("Y-m-d H:i:s"),  
         ]);        
 
-        if($request->edtstatusreceivable==1){
-            $this->addincashirer();
+        if($request->statusreceiable == 1){
+            $idreceivable = DB::table('receivables')->latest()->first();
+            $nameClient = DB::table('clients')
+            ->select('name')
+            ->where('clients.client_id','=',$request->idclient)
+            ->get();
+
+            DB::table('cashiers')->insert([
+                'receivable_id'=>$idreceivable->receivable_id,
+                'description'=>$nameClient[0]->name,
+                'date_receivable'=>$dateconvert,
+                'value'=>$request->valuereceiable,
+                'type'=>'C',
+                'created_at' => date("Y-m-d H:i:s"),  
+                'updated_at' => date("Y-m-d H:i:s"),  
+            ]);  
         }
         return redirect('ContasReceber');
     }
 
     public function update(Request $request){
+
+        //Primeiramente buscamos os dados antes de fazer a alteração para verificar se ela já foi alterada
+        $status = DB::table('receivables')
+        ->select('receivables.status')
+        ->where('receivables.receivable_id','=',$request->edtidreceivable)
+        ->get();
+
+        //Conversão da data para o formato ISO
         $dateconvert = implode('-', array_reverse(explode('/', $request->edtdatepayablereceivable)));
+
+        //Verifico se o botão do status foi marcado caso ele não tenha sido eu passo 0 para o banco e também seto null na data
         if($request->edtstatusreceivable==null){
             $request->edtstatusreceivable=0;
             $dateconvert=NULL;
         }
+
+        //Update na tabela receivables (Contas a receber)
         DB::table('receivables')
         ->where('receivables.receivable_id','=',$request->edtidreceivable)
         ->update([
@@ -62,21 +88,32 @@ class ReceivableController extends Controller
             'status'=>$request->edtstatusreceivable,
             'updated_at' => date("Y-m-d H:i:s"),    
         ]);        
-        if($request->edtstatusreceivable==1){
-            $this->addincashirer();
-        }
-        else{
-            $this->remincashirer();
+
+
+        if($status[0]->status <> $request->edtstatusreceivable){
+            $nameClient = DB::table('clients')
+            ->select('name')
+            ->where('clients.client_id','=',$request->edtidclient)
+            ->get();
+
+            if($request->edtstatusreceivable == 1){
+                DB::table('cashiers')->insert([
+                    'receivable_id'=>$request->edtidreceivable,
+                    'description'=>$nameClient[0]->name,
+                    'date_receivable'=>$dateconvert,
+                    'value'=>$request->edtvaluereceivable,
+                    'type'=>'C',
+                    'created_at' => date("Y-m-d H:i:s"),  
+                    'updated_at' => date("Y-m-d H:i:s"),  
+                ]);  
+            }
+            else{
+                DB::table('cashiers')->
+                where('cashiers.receivable_id','=',$request->edtidreceivable)->
+                delete();
+            }
         }
         return redirect('ContasReceber');
-    }
-
-    public function addincashirer(){
-
-    }
-
-    public function remincashirer(){
-
     }
 
     public function modalselectreceiable($idReceivable){
@@ -89,6 +126,11 @@ class ReceivableController extends Controller
 
     public function delete(Request $request)
     {
+
+        DB::table('cashiers')->
+        where('cashiers.receivable_id','=',$request->delidreceivable)->
+        delete();
+
         DB::table('receivables')->
         where('receivable_id','=',$request->delidreceivable)->
         delete();

@@ -18,6 +18,8 @@
                             <p id="nameProduct">Ao abrir a venda todos os itens retornarão para o
                                 estoque!
                                 <br>
+                                Todas as contas a receber serão apagadas e também as movimentações do caixa!
+                                <br>
                                 <br>
                                 Você deseja prosseguir?
                             </p>

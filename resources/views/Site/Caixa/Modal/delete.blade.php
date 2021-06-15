@@ -9,13 +9,13 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.PayableDelete')}}">
+                    action="{{route('Site.CashierDelete')}}">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputIdType">ID</label>
-                            <input type="text" class="form-control" name="delidPayable" id="delidPayable" value=""
+                            <input type="text" class="form-control" name="delidCashier" id="delidCashier" value=""
                                 Readonly>
                         </div>
                     </div>
@@ -31,12 +31,12 @@
 
 <script>
 /* When click edit user */
-$('#modaldelpayable').on('show.bs.modal', function(event) {
+$('#modaldelcashier').on('show.bs.modal', function(event) {
 
     var button = $(event.relatedTarget); // Button that triggered the modal
 
-    var delidPayable = button.data('whatever');
+    var delidCashier = button.data('whatever');
 
-    $('#delidPayable').val(delidPayable);
+    $('#delidCashier').val(delidCashier);
 })
 </script>

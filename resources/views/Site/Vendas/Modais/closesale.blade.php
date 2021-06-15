@@ -19,6 +19,8 @@
                             <p id="nameProduct">Ao fechar a venda todos os itens terão saída do
                                 estoque!
                                 <br>
+                                Será gerado contas a receber ou a venda irá direto para o caixa!
+                                <br>
                                 <br>
                                 Você deseja prosseguir?
                             </p>
