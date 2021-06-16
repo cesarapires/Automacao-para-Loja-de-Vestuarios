@@ -36,7 +36,19 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                    <table id="vendas" class="table table-bordered table-striped">
+                        <table id="vendas" class="table table-bordered table-striped">
+                            <div id='vendas_wrapper'>
+                                <div class='row'>
+                                    <div class='col-4'>
+                                        <label for="inputNameProduct">Data Inicial</label>
+                                        <input type="date" class="form-control" name="datestart" id="datestart">
+                                    </div>
+                                    <div class='col-4'>
+                                        <label for="inputNameProduct">Data Final</label>
+                                        <input type="date" class="form-control" name="dateend" id="dateend">
+                                    </div>
+                                </div>
+                            </div>
                             <thead>
                                 <tr class="text-center">
                                     <th>ID</th>
@@ -59,51 +71,51 @@
                                     <td class='sale_data'>{{$sales->updated_at}}</td>
                                     <td class='sale_amount'>R$ {{$sales->amount}}</td>
                                     <td>
-                                    @if($sales->status == "A")
-                                        <a class="btnEdit btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modalclosesale"
-                                        data-whatever='{
+                                        @if($sales->status == "A")
+                                        <a class="btnEdit btn btn-outline-info btn-sm" data-toggle="modal"
+                                            data-target="#modalclosesale" data-whatever='{
                                                 "saleId":"{{$sales->sale_id}}"
                                                 }'>
                                             <i class="fas fa-lock-open"></i>
                                         </a>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                         <a class="btnEdit btn btn-outline-warning btn-sm" data-toggle="modal"
-                                                    data-whatever='{
+                                            data-whatever='{
                                                 "saleId":"{{$sales->sale_id}}"
                                                 }'>
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                Editar
-                                            </a>
-                                        <a class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                                    data-target="#modaldeletesale" data-whatever='{
-                                                "saleId":"{{$sales->sale_id}}"
-                                                }'>
-                                                <i class="fas fa-trash">
-                                                </i>
-                                                Apagar
-                                            </a>
-                                        </td>
-                                    @else
-                                        <a class="btnEdit btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modalopensale"
-                                        data-whatever='{
-                                                "saleId":"{{$sales->sale_id}}"
-                                                }'>
-                                            <i class="fas fa-lock"></i>
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Editar
                                         </a>
-                                        </td>
-                                        <td>
-                                            <a class="btnEdit btn btn-outline-success btn-sm" data-toggle="modal"
-                                                    data-target="#modalviewsale" data-whatever='{
+                                        <a class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
+                                            data-target="#modaldeletesale" data-whatever='{
                                                 "saleId":"{{$sales->sale_id}}"
                                                 }'>
-                                                <i class="fas fa-eye">
-                                                </i>
-                                                Visualizar
-                                            </a>
-                                        </td>
-                                        @endif
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Apagar
+                                        </a>
+                                    </td>
+                                    @else
+                                    <a class="btnEdit btn btn-outline-info btn-sm" data-toggle="modal"
+                                        data-target="#modalopensale" data-whatever='{
+                                                "saleId":"{{$sales->sale_id}}"
+                                                }'>
+                                        <i class="fas fa-lock"></i>
+                                    </a>
+                                    </td>
+                                    <td>
+                                        <a class="btnEdit btn btn-outline-success btn-sm" data-toggle="modal"
+                                            data-target="#modalviewsale" data-whatever='{
+                                                "saleId":"{{$sales->sale_id}}"
+                                                }'>
+                                            <i class="fas fa-eye">
+                                            </i>
+                                            Visualizar
+                                        </a>
+                                    </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -135,12 +147,11 @@
 <script>
 $(function() {
     $("#vendas").DataTable({
-        "columnDefs": [
-            {
-                "targets": [1],
-                "visible": false,
-                "searchable": false
-            }],
+        "columnDefs": [{
+            "targets": [1],
+            "visible": false,
+            "searchable": false
+        }],
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -327,9 +338,10 @@ $(function() {
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
-        "buttons": ["csv","excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#produtos_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#vendas_wrapper .col-md-6:eq(0)');
 });
+
+/* Custom filtering function which will search data in column four between two values */
 </script>
 
 @include('Site.Vendas.Modais.deletesale')
