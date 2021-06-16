@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Apagar Produto</h4>
+                <h4 class="modal-title">Apagar Contas a Receber</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,8 +14,8 @@
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputIdType">ID</label>
-                            <input type="text" class="form-control" name="delidreceivable" id="delidreceivable" value=""
+                            <p>Tem certeza que deseja excluir essa conta a receber?</p>
+                            <input type="hidden" class="form-control" name="delidreceivable" id="delidreceivable" value=""
                                 Readonly>
                         </div>  
                     </div>

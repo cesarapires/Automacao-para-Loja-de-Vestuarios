@@ -60,7 +60,7 @@
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="exemptionPayment"
                                 name="exemptionPayment" value="1">
-                            <label class="form-check-label" for="exampleCheck1">Acréscimo para o comprador</label>
+                            <label class="form-check-label" for="exampleCheck1">Método do PagSeguro</label>
                         </div>
                     </div>
                     <!-- /.card-body -->
