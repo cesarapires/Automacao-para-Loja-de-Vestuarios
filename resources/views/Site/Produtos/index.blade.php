@@ -311,7 +311,6 @@ $(function() {
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
-        "buttons": ["csv","excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#produtos_wrapper .col-md-6:eq(0)');
 });
 </script>

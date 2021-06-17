@@ -87,7 +87,9 @@ class SalesController extends Controller
             where('cashiers.receivable_id','=',$receivableID->receivable_id)->
             delete();
         }
-        
+        DB::table('cashiers')->
+        where('sale_id','=',$request->opensaleid)->
+        delete();
         DB::table('receivables')->
         where('sale_id','=',$request->opensaleid)->
         delete();
@@ -119,8 +121,8 @@ class SalesController extends Controller
                 DB::table('receivables')->insert([
                     'client_id'=>$sale[0]->client_id,
                     'sale_id'=>$sale[0]->sale_id,
-                    'date_sale'=>$sale[0]->updated_at,
-                    'date_duereceivable'=>date("Y-m-d", strtotime($sale[0]->updated_at.'+'.$days.'days')),
+                    'date_sale'=>$sale[0]->date_sale,
+                    'date_duereceivable'=>date("Y-m-d", strtotime($sale[0]->date_sale.'+'.$days.'days')),
                     'value'=>$valuePlot,
                     'status'=>0,
                     'numberplot'=>$cont,
@@ -139,7 +141,7 @@ class SalesController extends Controller
             DB::table('cashiers')->insert([
                 'description'=>$nameClient[0]->name,
                 'sale_id'=>$sale[0]->sale_id,
-                'date_receivable'=>date("Y-m-d"),
+                'date_receivable'=>$sale[0]->date_sale,
                 'value'=>$amount,
                 'type'=>'C',
                 'created_at' => date("Y-m-d H:i:s"),  
@@ -181,6 +183,7 @@ class SalesController extends Controller
     public function createNewSale()
     {
         DB::table('sales')->insert([
+            'date_sale'=>null,
             'client_id'=>null,
             'platform_id'=>null,
             'platform_rate'=>0,
@@ -207,6 +210,7 @@ class SalesController extends Controller
         DB::table('sales')->
         where('sale_id','=',$request->idSale)->
         update([
+            'date_sale'=>$request->dateSale,
             'client_id'=>$request->idClient,
             'platform_id'=>$request->platforms,
             'platform_rate'=>$request->ratePlatform,

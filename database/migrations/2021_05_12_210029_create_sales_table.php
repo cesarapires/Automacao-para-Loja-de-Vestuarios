@@ -16,6 +16,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id('sale_id');
+            $table->date('date_sale')->nullable();
             $table->foreignId('client_id')->nullable()->references('client_id')->on('clients');
             $table->foreignId('platform_id')->nullable()->references('platform_id')->on('platforms');
             $table->float('platform_rate')->nullable();

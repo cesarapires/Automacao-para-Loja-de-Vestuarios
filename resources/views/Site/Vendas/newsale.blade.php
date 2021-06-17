@@ -37,6 +37,11 @@
                                     <input type="text" class="form-control" id="idSale" name="idSale"
                                         value="{{$sales->sale_id}}" Readonly>
                                 </div>
+                                <div class="col-md-2">
+                                    <label for="IDUser">Data da venda</label>
+                                    <input type="date" class="form-control" id="dateSale" name="dateSale"
+                                        value="{{date('Y-m-d')}}">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-1">

@@ -36,19 +36,17 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <table id="vendas" class="table table-bordered table-striped">
-                            <div id='vendas_wrapper'>
-                                <div class='row'>
-                                    <div class='col-4'>
-                                        <label for="inputNameProduct">Data Inicial</label>
-                                        <input type="date" class="form-control" name="datestart" id="datestart">
-                                    </div>
-                                    <div class='col-4'>
-                                        <label for="inputNameProduct">Data Final</label>
-                                        <input type="date" class="form-control" name="dateend" id="dateend">
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="IDUser">Data inicial</label>
+                                <input type="date" class="form-control" id="startdate" name="startdate" value="">
                             </div>
+                            <div class="col-md-2">
+                                <label for="IDUser">Data final</label>
+                                <input type="date" class="form-control" id="enddate" name="enddate" value="">
+                            </div>
+                        </div>
+                        <table id="vendas" class="table table-bordered table-striped">
                             <thead>
                                 <tr class="text-center">
                                     <th>ID</th>
@@ -68,8 +66,8 @@
                                     <td class='nameClient'>{{$sales->nameClient}}</td>
                                     <td class='namePayment'>{{$sales->namePayment}}</td>
                                     <td class='quantityItens'>{{$sales->quantityitens}}</td>
-                                    <td class='sale_data'>{{$sales->updated_at}}</td>
-                                    <td class='sale_amount'>R$ {{$sales->amount}}</td>
+                                    <td class='sale_data'>{{date('d/m/Y', strtotime($sales->date_sale))}}</td>
+                                    <td class='sale_amount'>R$ {!!number_format($sales->amount,2)!!}</td>
                                     <td>
                                         @if($sales->status == "A")
                                         <a class="btnEdit btn btn-outline-info btn-sm" data-toggle="modal"
@@ -147,11 +145,6 @@
 <script>
 $(function() {
     $("#vendas").DataTable({
-        "columnDefs": [{
-            "targets": [1],
-            "visible": false,
-            "searchable": false
-        }],
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -341,7 +334,30 @@ $(function() {
     }).buttons().container().appendTo('#vendas_wrapper .col-md-6:eq(0)');
 });
 
-/* Custom filtering function which will search data in column four between two values */
+$.fn.dataTable.ext.search.push(
+    function(settings, data, dataIndex) {
+        var min = parseInt($('#startdate').val(), 10);
+        var max = parseInt($('#enddate').val(), 10);
+        var age = parseFloat(data[4]) || 0; // use data for the age column
+
+        if ((isNaN(min) && isNaN(max)) ||
+            (isNaN(min) && age <= max) ||
+            (min <= age && isNaN(max)) ||
+            (min <= age && age <= max)) {
+            return true;
+        }
+        return false;
+    }
+);
+
+$(document).ready(function() {
+    var table = $('#vendas').DataTable();
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#startdate, #enddate').keyup(function() {
+        table.draw();
+    });
+});
 </script>
 
 @include('Site.Vendas.Modais.deletesale')
