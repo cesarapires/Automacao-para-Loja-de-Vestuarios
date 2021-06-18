@@ -40,11 +40,25 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="IDUser">Data inicial</label>
-                                    <input type="date" class="form-control" id="startdate" name="startdate" value="">
+                                    <div class="input-group date" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input"
+                                            data-target="#dateStart" value="01/01/2021" id="dateStart" name="dateStart">
+                                        <div class="input-group-append" data-target="#dateStart"
+                                            data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="IDUser">Data final</label>
-                                    <input type="date" class="form-control" id="enddate" name="enddate" value="">
+                                    <div class="input-group date" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input"
+                                            data-target="#dateEnd" value="31/12/2021" id="dateEnd" name="dateEnd">
+                                        <div class="input-group-append" data-target="#dateEnd"
+                                            data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -126,14 +140,12 @@
         </div>
     </div>
 </section>
-
-
-<script scr="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script scr="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script scr="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script scr="https://cdn.datatables.net/datetime/1.1.0/js/dataTables.dateTime.min.js"></script>
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!--<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
 <!-- DataTables  & Plugins -->
+<script type="text/javascript" src="{{asset('assets/jquery-ui-1.8.4.custom/js/jquery-ui-1.8.4.custom.min.js')}}">
+</script>
+<!---Load the dataTables jQuery plugin--->
+<script type="text/javascript" src="{{asset('assets/DataTables-1.7.4/media/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
@@ -147,9 +159,37 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 
-<script>
+<script type="text/javascript">
+var tablaTransacciones = $('#vendas');
+
+var tablaTransacciones_dt = null
+
+// The plugin function for adding a new filtering routine
+$.fn.dataTableExt.afnFiltering.push(
+    function(oSettings, aData, iDataIndex) {
+        var dateStart = parseDateValue($("#dateStart").val());
+        var dateEnd = parseDateValue($("#dateEnd").val());
+        // aData represents the table structure as an array of columns, so the script access the date value
+        // in the first column of the table via aData[0]
+        var evalDate = parseDateValue(aData[4]);
+
+        if (evalDate >= dateStart && evalDate <= dateEnd) {
+            return true;
+        } else {
+            return false;
+        }
+
+    });
+
+// Function for converting a mm/dd/yyyy date value into a numeric string for comparison yyyymmdd(example 08/12/2010 becomes 20100812
+function parseDateValue(rawDate) {
+    var dateArray = rawDate.split("/");
+    var parsedDate = dateArray[2] + dateArray[1] + dateArray[0];
+    return parsedDate;
+}
+
 $(function() {
-    var table = $("#vendas").DataTable({
+    tablaTransacciones_dt = tablaTransacciones.DataTable({
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -337,10 +377,18 @@ $(function() {
         "lengthChange": true,
         "autoWidth": false,
     }).buttons().container().appendTo('#vendas_wrapper .col-md-6:eq(0)');
-
+    // Create event listeners that will filter the table whenever the user types in either date range box or
+    // changes the value of either box using the Datepicker pop-up calendar
+    $('#dateStart').change(function() {
+        $('#vendas').DataTable().draw();
+    });
+    $('#dateEnd').change(function() {
+        $('#vendas').DataTable().draw();
+    });
 });
 </script>
 
+@include('Site.Vendas.Modais.view')
 @include('Site.Vendas.Modais.deletesale')
 @include('Site.Vendas.Modais.opensale')
 @include('Site.Vendas.Modais.closesale')
