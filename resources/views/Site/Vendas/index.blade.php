@@ -36,14 +36,16 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="IDUser">Data inicial</label>
-                                <input type="date" class="form-control" id="startdate" name="startdate" value="">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="IDUser">Data final</label>
-                                <input type="date" class="form-control" id="enddate" name="enddate" value="">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="IDUser">Data inicial</label>
+                                    <input type="date" class="form-control" id="startdate" name="startdate" value="">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="IDUser">Data final</label>
+                                    <input type="date" class="form-control" id="enddate" name="enddate" value="">
+                                </div>
                             </div>
                         </div>
                         <table id="vendas" class="table table-bordered table-striped">
@@ -126,7 +128,10 @@
 </section>
 
 
-
+<script scr="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script scr="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script scr="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script scr="https://cdn.datatables.net/datetime/1.1.0/js/dataTables.dateTime.min.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -144,7 +149,7 @@
 
 <script>
 $(function() {
-    $("#vendas").DataTable({
+    var table = $("#vendas").DataTable({
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -329,34 +334,10 @@ $(function() {
             "decimal": ","
         },
         "responsive": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "autoWidth": false,
     }).buttons().container().appendTo('#vendas_wrapper .col-md-6:eq(0)');
-});
 
-$.fn.dataTable.ext.search.push(
-    function(settings, data, dataIndex) {
-        var min = parseInt($('#startdate').val(), 10);
-        var max = parseInt($('#enddate').val(), 10);
-        var age = parseFloat(data[4]) || 0; // use data for the age column
-
-        if ((isNaN(min) && isNaN(max)) ||
-            (isNaN(min) && age <= max) ||
-            (min <= age && isNaN(max)) ||
-            (min <= age && age <= max)) {
-            return true;
-        }
-        return false;
-    }
-);
-
-$(document).ready(function() {
-    var table = $('#vendas').DataTable();
-
-    // Event listener to the two range filtering inputs to redraw on input
-    $('#startdate, #enddate').keyup(function() {
-        table.draw();
-    });
 });
 </script>
 
