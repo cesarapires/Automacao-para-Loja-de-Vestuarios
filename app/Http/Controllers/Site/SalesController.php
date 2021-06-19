@@ -53,6 +53,39 @@ class SalesController extends Controller
        
     }
 
+    public function editSale($idSale)
+    {
+        $products = DB::table('products')
+        ->join('types', 'products.type_id', '=', 'types.type_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->get();
+        $clients = DB::table('clients')->get();
+        $plots = DB::table('plots')->get();
+        $payments = DB::table('payments')->get();
+        $platforms = DB::table('platforms')->get();
+        $sales = DB::table('sales')
+        ->select('*')
+        ->where('sales.sale_id','=',$idSale)
+        ->get();
+        $saleitens = DB::table('saleitens')
+        ->join('products', 'saleitens.product_id', '=', 'products.product_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('saleitens.*', 'products.name', 'sizes.name as size')
+        ->where('sale_id','=',$idSale)
+        ->get();
+        return view('Site.Vendas.editsale',[
+            'products' => $products,
+            'clients' => $clients,
+            'plots' => $plots,
+            'payments' => $payments,
+            'platforms' => $platforms,
+            'sales' => $sales[0],
+            'saleitens' => $saleitens
+        ]);
+       
+    }
+
     public function openSale(Request $request)
     {
         DB::table('sales')->

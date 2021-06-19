@@ -69,6 +69,8 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
         Route::get('/Vendas/Nova', 'SalesController@indexNew')->middleware(['auth'])->name('Site.NewSales');
         Route::post('/Vendas/Salvar', 'SalesController@saveSale')->middleware(['auth'])->name('Site.SaveSales');
+        Route::get('/Vendas/Editar/{idSale}','SalesController@editSale')->middleware(['auth'])->name('Site.EditSales');
+        Route::get('/Vendas/Buscar/{idSale}', 'SalesController@searchSale')->middleware(['auth'])->name('Site.SearchSales');
 
         Route::post('/Vendas/AdicionarItem', 'SalesController@additensale')->middleware(['auth'])->name('Site.AddIten');
         Route::post('/Vendas/EditarItem', 'SalesController@edtitensale')->middleware(['auth'])->name('Site.EdtIten');

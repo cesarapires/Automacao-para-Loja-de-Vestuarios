@@ -94,10 +94,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="btnEdit btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-whatever='{
-                                                "saleId":"{{$sales->sale_id}}"
-                                                }'>
+                                        <a href="Vendas/Editar/{{$sales->sale_id}}" class="btnEdit btn btn-outline-warning btn-sm">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
