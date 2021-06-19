@@ -101,8 +101,7 @@
                                         </a>
                                         <a class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
                                             data-target="#modaldeletesale" data-whatever='{
-                                                "saleId":"{{$sales->sale_id}}"
-                                                }'>
+                                                "saleId":"{{$sales->sale_id}}"'>
                                             <i class="fas fa-trash">
                                             </i>
                                             Apagar
@@ -118,9 +117,7 @@
                                     </td>
                                     <td>
                                         <a class="btnEdit btn btn-outline-success btn-sm" data-toggle="modal"
-                                            data-target="#modalviewsale" data-whatever='{
-                                                "saleId":"{{$sales->sale_id}}"
-                                                }'>
+                                            data-target="#modalviewsale" data-whatever='{{$sales->sale_id}}                                               }'>
                                             <i class="fas fa-eye">
                                             </i>
                                             Visualizar

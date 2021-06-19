@@ -83,7 +83,23 @@ class SalesController extends Controller
             'sales' => $sales[0],
             'saleitens' => $saleitens
         ]);
-       
+    }
+    public function searchSale($idSale){
+        $products = DB::table('products')
+        ->join('types', 'products.type_id', '=', 'types.type_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->get();
+        $clients = DB::table('clients')->get();
+        $plots = DB::table('plots')->get();
+        $payments = DB::table('payments')->get();
+        $platforms = DB::table('platforms')->get();
+        $sales = DB::table('sales')
+        ->join('clients','sales.client_id','=','clients.client_id')
+        ->select('*')
+        ->where('sales.sale_id','=',$idSale)
+        ->get();
+        return response()->json($sales);
     }
 
     public function openSale(Request $request)

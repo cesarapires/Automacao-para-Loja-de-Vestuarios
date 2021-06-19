@@ -41,12 +41,11 @@
                         </address>
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-4 invoice-col">
-                        <b>Pedido #007612</b><br>
+                    <div class="col-sm-4 invoice-col" id="saleID">
+                        
                         <br>
-                        <b>Data:</b> 4F3S8J<br>
-                        <b>Forma de Pagamento:</b> 2/22/2014<br>
-                        <b>Parcelas:</b> 968-34567
+                       
+                        
                     </div>
                     <!-- /.col -->
                 </div>
@@ -162,18 +161,50 @@
 
 <script>
 /* When click edit user */
-$('#modalDeleteIten').on('show.bs.modal', function(event) {
+$('#modalviewsale').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var modal = $(this);
 
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var modal = $(this)
+    var idSale = button.data('whatever');
+    var saleRequest = "http://127.0.0.1:8000/Vendas/Buscar/"+idSale;
+    searchpayable(saleRequest);
 
-    var idSaleIten = button.data('whatever').idSaleIten
-    var idProduct = button.data('whatever').idProduct
-    var nameProduct = button.data('whatever').nameProduct
+});
 
-    modal.find("#delsaleitens_id").val(idSaleIten)
-    $("#labelIdProduct").text("ID " + idProduct)
-    $("#nameProduct").html("Tem certeza que deseja remover o item <strong> " + nameProduct +
-        "</strong> da venda")
-})
+
+function searchpayable(saleURL) {
+    var request = new XMLHttpRequest();
+    request.open('GET', saleURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {
+        var sale = request.response;
+        $('#saleID').html(
+        "<br>"+
+        "<b>Pedido: #"+sale[0].sale_id+"</b><br>"+
+        "<b>Data:</b> "+sale[0].date_sale+"<br>"+
+        "<b>Forma de Pagamento:</b> 2/22/2014<br>"+
+        "<b>Parcelas:</b> 968-34567"
+        );
+        
+        /*$('#edtbuyPayable').val(sale[0].date_buypayable);
+        $('#edtduePayable').val(sale[0].date_duepayable);
+        if(sale[0].status == 1){
+            $('#edtstatusPayable').val(sale[0].status);
+            $('#edtstatusPayable').prop('checked', true);
+            $("#edtdatePayable").prop('disabled', false);
+        }
+        else{
+            $('#edtstatusPayable').val(0);
+            $("#edtdatePayable").prop('disabled', true);
+            $('#edtstatusPayable').prop('checked', false)
+            $("#edtdatePayable").val(null);
+        }
+        $('#edtstatusPayable').val(sale[0].status);
+        $('#edtdatePayable').val(sale[0].date_payable);
+        $('#edtpricePayable').val(sale[0].value);
+        var modified_value = (payable[0].updated_at).replace(' ', 'T');
+        $('#lastupdatedPayable').val(modified_value);*/
+    }
+}
 </script>
