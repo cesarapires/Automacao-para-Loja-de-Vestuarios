@@ -32,20 +32,13 @@
                     <!-- /.col -->
                     <div class="col-sm-4 invoice-col">
                         Para
-                        <address>
-                            <strong>John Doe</strong><br>
-                            795 Folsom Ave, Suite 600<br>
-                            San Francisco, CA 94107<br>
-                            Telefone: (555) 539-1037<br>
-                            Email: john.doe@example.com
+                        <address id="clientID">
+
                         </address>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-4 invoice-col" id="saleID">
-                        
-                        <br>
-                       
-                        
+
                     </div>
                     <!-- /.col -->
                 </div>
@@ -119,23 +112,8 @@
                     <div class="col-6">
                         <div class="table-responsive">
                             <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <th style="width:50%">Subtotal:</th>
-                                        <td>R$ 250.30</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Taxa (9.3%):</th>
-                                        <td>R$ 10.34</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Frete:</th>
-                                        <td>R$ 5.80</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Total:</th>
-                                        <td>R$ 265.24</td>
-                                    </tr>
+                                <tbody id="total">
+                            
                                 </tbody>
                             </table>
                         </div>
@@ -166,7 +144,7 @@ $('#modalviewsale').on('show.bs.modal', function(event) {
     var modal = $(this);
 
     var idSale = button.data('whatever');
-    var saleRequest = "http://127.0.0.1:8000/Vendas/Buscar/"+idSale;
+    var saleRequest = "http://127.0.0.1:8000/Vendas/Buscar/" + idSale;
     searchpayable(saleRequest);
 
 });
@@ -180,13 +158,42 @@ function searchpayable(saleURL) {
     request.onload = function() {
         var sale = request.response;
         $('#saleID').html(
-        "<br>"+
-        "<b>Pedido: #"+sale[0].sale_id+"</b><br>"+
-        "<b>Data:</b> "+sale[0].date_sale+"<br>"+
-        "<b>Forma de Pagamento:</b> 2/22/2014<br>"+
-        "<b>Parcelas:</b> 968-34567"
+            "<br>" +
+            "<b>Pedido: #" + sale[0].sale_id + "</b><br>" +
+            "<b>Data:</b> " + sale[0].date_sale + "<br>" +
+            "<b>Forma de Pagamento:</b> 2/22/2014<br>" +
+            "<b>Parcelas:</b> 968-34567"
         );
-        
+
+        $('#clientID').html(
+            "<strong>"+sale[0].name+"</strong><br>" +
+            "795 Folsom Ave, Suite 600<br>" +
+            "San Francisco, CA 94107<br>" +
+            "Telefone: "+sale[0].phone+"<br>" +
+            "Email: "+sale[0].email
+        );
+
+        $('#total').html(
+            "<tr>"+
+                "<th style='width:50%'>Subtotal:</th>"+
+                "<td>R$ "+sale[0].subtotalitens+"</td>"+
+            "</tr>"+
+            "<tr>"+
+                "<th>Taxa (9.3%):</th>"+
+                "<td>R$ 10.34</td>"+
+            "</tr>"+
+            "<tr>"+
+                "<th>Frete:</th>"+
+                "<td>R$ "+sale[0].price_shipping+"</td>"+
+            "</tr>"+
+            "<tr>"+
+                "<th>Total:</th>"+
+                "<td>R$ "+sale[0].amount+"</td>"+
+            "</tr>"
+        );
+
+
+
         /*$('#edtbuyPayable').val(sale[0].date_buypayable);
         $('#edtduePayable').val(sale[0].date_duepayable);
         if(sale[0].status == 1){

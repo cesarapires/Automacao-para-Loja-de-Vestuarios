@@ -99,6 +99,13 @@ class SalesController extends Controller
         ->select('*')
         ->where('sales.sale_id','=',$idSale)
         ->get();
+        $saleitens = DB::table('saleitens')
+        ->join('products', 'saleitens.product_id', '=', 'products.product_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('saleitens.*', 'products.name', 'sizes.name as size')
+        ->where('sale_id','=',$idSale)
+        ->get();
+        $exit = array_merge($sales[1],$saleitens);
         return response()->json($sales);
     }
 
