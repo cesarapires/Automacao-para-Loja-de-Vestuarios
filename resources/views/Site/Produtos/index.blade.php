@@ -24,6 +24,7 @@
         </div>
     </div>
 </div>
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -31,7 +32,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-
                         </h3>
                     </div>
                     <div class="card-body">
@@ -119,12 +119,11 @@
 <script>
 $(function() {
     $("#produtos").DataTable({
-        "columnDefs": [
-            {
-                "targets": [1],
-                "visible": false,
-                "searchable": false
-            }],
+        "columnDefs": [{
+            "targets": [1],
+            "visible": false,
+            "searchable": false
+        }],
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",

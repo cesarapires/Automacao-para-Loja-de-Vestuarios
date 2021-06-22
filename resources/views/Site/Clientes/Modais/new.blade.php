@@ -19,9 +19,18 @@
                                 placeholder="Rebeca Alana Débora Barbosa">
                         </div>
                         <div class="form-group">
-                            <label for="inputcpfClient">CPF</label>
-                            <input type="text" class="form-control" name="cpfClient" id="cpfClient"
-                            placeholder="165.641.476-78">
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <label for="inputcpfClient">CPF</label>
+                                    <input type="text" class="form-control" name="cpfClient" id="cpfClient"
+                                        placeholder="165.641.476-78">
+                                </div>
+                                <div class='col-6'>
+                                    <label for="inputphoneClient">Data de Nascimento</label>
+                                    <input type="date" class="form-control" name="phoneClient" id="phoneClient"
+                                        placeholder="04/05/2021">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="inputemailClient">Email</label>
@@ -29,19 +38,18 @@
                                 placeholder="rebecaalanadebora@alihstore.com">
                         </div>
                         <div class="form-group">
-                            <label for="inputphoneClient">Telefone</label>
-                            <input type="text" class="form-control" name="phoneClient" id="phoneClient"
-                                placeholder="(35) 99987-4751">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputbirth_DateClient">Data de Nascimento</label>
-                            <input type="text" class="form-control" name="birth_DateClient" id="birth_DateClient"
-                                placeholder="17/09/1967">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputcityClient">Cidade</label>
-                            <input type="text" class="form-control" name="cityClient" id="cityClient"
-                                placeholder="Congonhal">
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <label for="inputcpfClient">Telefone</label>
+                                    <input type="text" class="form-control" name="cpfClient" id="cpfClient"
+                                        placeholder="(35) 99987-2682">
+                                </div>
+                                <div class='col-6'>
+                                    <label for="inputphoneClient">Cidade</label>
+                                    <input type="text" class="form-control" name="phoneClient" id="phoneClient"
+                                        placeholder="Pouso Alegre">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Sexo</label>
