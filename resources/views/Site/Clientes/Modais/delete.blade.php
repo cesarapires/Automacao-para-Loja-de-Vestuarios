@@ -1,8 +1,8 @@
 <div class="modal fade" id="modalDeleteClient">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Apagar Cliente</h4>
+            <div class="modal-header" id="titledel">
+                <h4 class="modal-title">Apagar cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -38,13 +38,12 @@
 /* When click edit user */
 $('#modalDeleteClient').on('show.bs.modal', function(event) {
 
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var modal = $(this)
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var modal = $(this);
 
-    var idClient = button.data('whatever').idClient
-    var nameclient = button.data('whatever').nameClient
+    var idClient = button.data('whatever');
 
-    modal.find('#delidClient').val(idClient)
-    modal.find('#delnameClient').val(nameclient)
+    modal.find('#delidClient').val(idClient);
+    $('#titledel').html(" <h4 class='modal-title'>Apagar cliente #"+idClient+"</h4>");
 })
 </script>

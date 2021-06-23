@@ -53,7 +53,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Clientes/CadastroClientes', 'ClientsController@store')->middleware(['auth'])->name('Site.ClientsStore');
     Route::post('/Clientes/Alterarlientes', 'ClientsController@update')->middleware(['auth'])->name('Site.ClientsUpdate');
     Route::post('/Clientes/DeleteClientes', 'ClientsController@delete')->middleware(['auth'])->name('Site.ClientsDelete');
-   
+    Route::get('/Clientes/Buscar/{idClient}','ClientsController@searchClient')->middleware(['auth'])->name('Site.ClientSearch');
     /* 
     |--------------------------------------------------------------------------
     | Web Routes Vendas

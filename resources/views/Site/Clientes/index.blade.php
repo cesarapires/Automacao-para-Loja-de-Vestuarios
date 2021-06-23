@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -57,28 +58,13 @@
                                     <td class='cityCity'>{{$clients->city}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modalEditClient" data-whatever='{
-                                                "idClient":"{{$clients->client_id}}",
-                                                "nameClient":"{{$clients->name}}",
-                                                "cpfClient":"{{$clients->cpf}}",
-                                                "phoneClient":"{{$clients->phone}}",
-                                                "emailClient":"{{$clients->email}}",
-                                                "birthdateClient":"{{$clients->birth_date}}",
-                                                "cityCity":"{{$clients->city}}",
-                                                "sexClient":"{{$clients->sex}}",
-                                                "balance_due":"{{$clients->balance_due}}",
-                                                "createdAtClient":"{{$clients->created_at}}",
-                                                "updatedAtClient":"{{$clients->updated_at}}"
-                                                }'>
+                                            data-target="#modaleditclient" data-whatever='{{$clients->client_id}}'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#modalDeleteClient" data-whatever='{
-                                                "idClient":"{{$clients->client_id }}",
-                                                "nameClient":"{{$clients->name}}"
-                                                }'>
+                                            data-target="#modalDeleteClient" data-whatever='{{$clients->client_id}}'>
                                             <i class="fas fa-trash">
                                             </i>
                                             Apagar

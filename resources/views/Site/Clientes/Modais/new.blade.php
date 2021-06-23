@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label for="inputnameClient">Nome</label>
                             <input type="text" class="form-control" name="name" id="name"
-                                placeholder="Rebeca Alana Débora Barbosa" required>
+                                placeholder="Rebeca Alana Débora Barbosa" maxlength="50" required>
                         </div>
                         <div class="form-group">
                             <div class='row'>
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class='col-6'>
                                     <label for="inputphoneClient">Data de Nascimento</label>
-                                    <input type="date" class="form-control" name="birthday" id="birthday"
+                                    <input type="date" class="form-control" name="birthdate" id="birthdate"
                                         placeholder="04/05/2021">
                                 </div>
                             </div>
@@ -39,18 +39,18 @@
                         <div class="form-group">
                             <label for="inputemailClient">Email</label>
                             <input type="text" class="form-control" name="email" id="email"
-                                placeholder="rebecaalanadebora@alihstore.com">
+                                placeholder="rebecaalanadebora@alihstore.com" maxlength="50">
                         </div>
                         <div class="form-group">
                             <div class='row'>
                                 <div class='col-6'>
                                     <label for="inputcpfClient">Telefone</label>
                                     <input type="text" class="form-control" name="phone" id="phone"
-                                        placeholder="(35) 99987-2682">
+                                        placeholder="(35) 99987-2682" maxlength="15">
                                 </div>
                                 <div class='col-6'>
                                     <label for="inputphoneClient">CEP</label>
-                                    <input type="text" class="form-control" name="cep" id="cep" placeholder="41510-520">
+                                    <input type="text" class="form-control" name="cep" id="cep" placeholder="41510-520"  maxlength="9">
                                 </div>
                             </div>
                         </div>
@@ -59,11 +59,11 @@
                                 <div class='col-9'>
                                     <label for="inputcpfClient">Endereço</label>
                                     <input type="text" class="form-control" name="address" id="address"
-                                        placeholder="Rua Três de Maio">
+                                        placeholder="Rua Três de Maio" maxlength="50">
                                 </div>
                                 <div class='col-3'>
                                     <label for="inputphoneClient">Número</label>
-                                    <input type="text" class="form-control" name="number" id="number" placeholder="596">
+                                    <input type="text" class="form-control" maxlength="5" name="number" id="number" placeholder="596">
                                 </div>
                             </div>
                         </div>
@@ -71,13 +71,13 @@
                             <div class='row'>
                                 <div class='col-6'>
                                     <label for="inputcpfClient">Bairro</label>
-                                    <input type="text" class="form-control" name="district" id="district"
+                                    <input type="text" class="form-control" maxlength="50" name="district" id="district"
                                         placeholder="São Cristóvão">
                                 </div>
                                 <div class='col-6'>
                                     <label for="inputphoneClient">Cidade</label>
                                     <input type="text" class="form-control" name="city" id="city"
-                                        placeholder="Pouso Alegre">
+                                        placeholder="Pouso Alegre" maxlength="50">
                                 </div>
                             </div>
                         </div>
@@ -86,13 +86,12 @@
                                 <div class='col-6'>
                                     <label for="inputphoneClient">Estado</label>
                                     <input type="text" class="form-control" name="state" id="state"
-                                        placeholder="Pouso Alegre">
+                                        placeholder="Pouso Alegre" maxlength="2">
                                 </div>
                                 <div class='col-6'>
                                     <label for="inputcpfClient">CPF</label>
                                     <input type="text" class="form-control" name="cpf" id="cpf"
-                                        placeholder="165.641.476-78" data-inputmask='"mask": "(999) 999-9999"'
-                                        data-mask>
+                                        placeholder="165.641.476-78" maxlength="14">
                                 </div>
                             </div>
                         </div>
@@ -109,10 +108,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
 <script>
 $("#cep").blur(function() {
 
@@ -129,10 +125,6 @@ $("#cep").blur(function() {
         $('#city').val(returninformation.localidade);
         $('#state').val(returninformation.uf);
     }
-});
-
-$(document).ready(function() {
-    $('#cpf').mask('999.999.999-99');
 });
 
 (function() {
@@ -154,4 +146,13 @@ $(document).ready(function() {
             }, false)
         })
 })()
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+<script>
+    $(document).ready(function () { 
+        $("#phone").mask('(00) 00000-0000', {reverse: false});
+        $("#cep").mask('00000-000', {reverse: true});
+        $("#cpf").mask('000.000.000-00', {reverse: true}); 
+    });
 </script>
