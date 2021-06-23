@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalEditClient">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" id="title">
                 <h4 class="modal-title">Editar cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -14,49 +14,103 @@
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputidClient">ID</label>
-                            <input type="text" class="form-control" name="edtidClient" id="edtidClient" Readonly>
+                            <input type="hidden" class="form-control" name="edtid" id="edtid" readonly>
                         </div>
                         <div class="form-group">
                             <label for="inputnameClient">Nome</label>
-                            <input type="text" class="form-control" name="edtnameClient" id="edtnameClient">
+                            <input type="text" class="form-control" name="edtname" id="edtname"
+                                placeholder="Rebeca Alana Débora Barbosa">
                         </div>
                         <div class="form-group">
-                            <label for="inputcpfClient">CPF</label>
-                            <input type="text" class="form-control" name="edtcpfClient" id="edtcpfClient" Readonly>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <label>Sexo</label>
+                                    <select class="form-control select2bs4" name="edtsex" style="width: 100%;">
+                                        <option value="">Selecione um sexo:</option>
+                                        <option value="1">Masculino</option>
+                                        <option value="2">Feminimo</option>
+                                        <option value="3">Outro</option>
+                                    </select>
+                                </div>
+                                <div class='col-6'>
+                                    <label for="inputphoneClient">Data de Nascimento</label>
+                                    <input type="date" class="form-control" name="edtbirthday" id="edtbirthday"
+                                        placeholder="04/05/2021">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="inputemailClient">Email</label>
-                            <input type="text" class="form-control" name="edtemailClient" id="edtemailClient">
+                            <input type="text" class="form-control" name="edtemail" id="edtemail"
+                                placeholder="rebecaalanadebora@alihstore.com">
                         </div>
                         <div class="form-group">
-                            <label for="inputphoneClient">Telefone</label>
-                            <input type="text" class="form-control" name="edtphoneClient" id="edtphoneClient">
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <label for="inputcpfClient">Telefone</label>
+                                    <input type="text" class="form-control" name="edtphone" id="edtphone"
+                                        placeholder="(35) 99987-2682">
+                                </div>
+                                <div class='col-6'>
+                                    <label for="inputphoneClient">CEP</label>
+                                    <input type="text" class="form-control" name="edtcep" id="edtcep" placeholder="41510-520">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputbirth_DateClient">Data de Nascimento</label>
-                            <input type="text" class="form-control" name="edtbirthdateClient" id="edtbirthdateClient">
+                            <div class='row'>
+                                <div class='col-9'>
+                                    <label for="inputcpfClient">Endereço</label>
+                                    <input type="text" class="form-control" name="edtaddress" id="edtaddress"
+                                        placeholder="Rua Três de Maio">
+                                </div>
+                                <div class='col-3'>
+                                    <label for="inputphoneClient">Número</label>
+                                    <input type="text" class="form-control" name="edtnumber" id="edtnumber" placeholder="596">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputcityClient">Cidade</label>
-                            <input type="text" class="form-control" name="edtcityClient" id="edtcityClient">
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <label for="inputcpfClient">Bairro</label>
+                                    <input type="text" class="form-control" name="edtdistrict" id="edtdistrict"
+                                        placeholder="São Cristóvão">
+                                </div>
+                                <div class='col-6'>
+                                    <label for="inputphoneClient">Cidade</label>
+                                    <input type="text" class="form-control" name="edtcity" id="edtcity"
+                                        placeholder="Pouso Alegre">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>Sexo</label>
-                            <select class="form-control select2bs4" name="sexClient" style="width: 100%;">
-                                <option value="">Selecione um sexo:</option>
-                                <option value="1">Masculino</option>
-                                <option value="2">Feminimo</option>
-                                <option value="3">Outro</option>
-                            </select>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <label for="inputphoneClient">Estado</label>
+                                    <input type="text" class="form-control" name="edtstate" id="edtstate"
+                                        placeholder="Pouso Alegre">
+                                </div>
+                                <div class='col-6'>
+                                    <label for="inputcpfClient">CPF</label>
+                                    <input type="text" class="form-control" name="edtcpf" id="edtcpf"
+                                        placeholder="165.641.476-78">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputcreatedAtClient">Criado em</label>
-                            <input type="text" class="form-control" name="edtcreatedAtClient" id="edtcreatedAtClient" Readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputupdatedAtClient">Última alteração</label>
-                            <input type="text" class="form-control" name="edtupdatedAtClient" id="edtupdatedAtClient" Readonly>
+                            <div class="row">
+                                <div class='col-6'>
+                                    <label for="inputcreatedAtClient">Criado em</label>
+                                    <input type="date" class="form-control" name="edtcreatedat"
+                                        id="edtcreatedat" readonly>
+                                </div>
+                                <div class='col-6'>
+                                    <label for="inputupdatedAtClient">Última alteração</label>
+                                    <input type="date" class="form-control" name="edtupdatedat"
+                                        id="edtupdatedat" readonly>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
