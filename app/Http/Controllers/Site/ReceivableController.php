@@ -99,6 +99,7 @@ class ReceivableController extends Controller
             if($request->edtstatusreceivable == 1){
                 DB::table('cashiers')->insert([
                     'receivable_id'=>$request->edtidreceivable,
+                    'client_id'=>$request->edtidclient,
                     'description'=>$nameClient[0]->name,
                     'date_receivable'=>$dateconvert,
                     'value'=>$request->edtvaluereceivable,

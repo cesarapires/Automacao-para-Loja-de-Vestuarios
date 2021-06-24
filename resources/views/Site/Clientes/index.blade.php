@@ -54,7 +54,7 @@
                                     <td class='idClient'>{{$clients->client_id }}</td>
                                     <td class='nameClient'>{{$clients->name}}</td>
                                     <td class='phoneClient'>{{$clients->phone}}</td>
-                                    <td class='birthdateClient'>{{$clients->birth_date}}</td>
+                                    <td class='birthdateClient'>{{date('d/m/Y', strtotime($clients->birth_date))}}</td>
                                     <td class='cityCity'>{{$clients->city}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"

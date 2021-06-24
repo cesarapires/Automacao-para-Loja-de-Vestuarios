@@ -196,6 +196,7 @@ class SalesController extends Controller
             
             DB::table('cashiers')->insert([
                 'description'=>$nameClient[0]->name,
+                'client_id'=>$sale[0]->client_id,
                 'sale_id'=>$sale[0]->sale_id,
                 'date_receivable'=>$sale[0]->date_sale,
                 'value'=>$amount,

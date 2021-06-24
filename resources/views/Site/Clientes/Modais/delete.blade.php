@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalDeleteClient">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" id="titledel">
                 <h4 class="modal-title">Apagar cliente</h4>
@@ -15,10 +15,16 @@
                     <div class="card-body">
                         <div class="form-group">
                             <p>
-                            Tem certeza que deseja apagar o cliente?
-                            <br>
-                            - Caso o cliente tenha contas a receber e vendas vinculadas ao seu cadastro 
-                            elas também serão excluidas!
+                                Tem certeza que deseja apagar o cliente?
+                                <br>
+                                Ao apagar o cliente todos os registros dele também serão apagados:
+                                <br>
+                                <br>
+                                - Caixa
+                                <br>
+                                - Contas a receber
+                                <br>
+                                - Vendas
                             </p>
                             <input type="hidden" class="form-control" name="delidClient" id="delidClient" value=""
                                 Readonly>
@@ -44,6 +50,6 @@ $('#modalDeleteClient').on('show.bs.modal', function(event) {
     var idClient = button.data('whatever');
 
     modal.find('#delidClient').val(idClient);
-    $('#titledel').html(" <h4 class='modal-title'>Apagar cliente #"+idClient+"</h4>");
+    $('#titledel').html(" <h4 class='modal-title'>Apagar cliente #" + idClient + "</h4>");
 })
 </script>
