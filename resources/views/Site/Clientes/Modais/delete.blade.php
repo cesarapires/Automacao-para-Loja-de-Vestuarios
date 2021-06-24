@@ -14,13 +14,13 @@
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputIdType">ID</label>
-                            <input type="text" class="form-control" name="delidClient" id="delidClient" value=""
-                                Readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputNameType">Nome</label>
-                            <input type="text" class="form-control" name="delnameClient" id="delnameClient" value=""
+                            <p>
+                            Tem certeza que deseja apagar o cliente?
+                            <br>
+                            - Caso o cliente tenha contas a receber e vendas vinculadas ao seu cadastro 
+                            elas também serão excluidas!
+                            </p>
+                            <input type="hidden" class="form-control" name="delidClient" id="delidClient" value=""
                                 Readonly>
                         </div>
                     </div>
