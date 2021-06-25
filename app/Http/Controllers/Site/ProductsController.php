@@ -73,6 +73,7 @@ class ProductsController extends Controller
             'size_id'=>$request->size_IdProduct,
             'price_buy'=>$request->price_BuyProduct,
             'price_sell'=>$request->price_SellProduct,
+            'visible'=>1,
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
             'stock'=>$request->stockProduct
@@ -174,5 +175,13 @@ class ProductsController extends Controller
         where('size_id','=',$request->delidSize)->
         delete();
         return redirect('Produtos/Tamanhos');
+    }
+
+    public function searchProducts($idProduct){
+        $products = DB::table('products')
+        ->select()
+        ->where('product_id','=',$idProduct)
+        ->get();
+        return response()->json($products);
     }
 }

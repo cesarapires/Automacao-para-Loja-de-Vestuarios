@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
+                <form method="post" enctype="multipart/form-data" id="FormDeleteClient" name="FormDeleteClient"
                     action="{{route('Site.ClientsDelete')}}">
                     @csrf
                     @method('post')

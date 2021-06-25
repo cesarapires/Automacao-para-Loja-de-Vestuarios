@@ -8,15 +8,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="FormNewType" name="FormNewType"
-                    action="{{route('Site.TypesStore')}}">
+                <form method="post" enctype="multipart/form-data" id="FormType" name="FormType"
+                    action="{{route('Site.TypesStore')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputNameType">Descrição</label>
                             <input type="text" class="form-control" name="nameType" id="nameType"
-                                placeholder="Cojunto">
+                                placeholder="Conjunto" required maxlength="20">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -31,3 +31,26 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<script>
+
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+</script>

@@ -87,17 +87,10 @@ class ClientsController extends Controller
     public function delete(Request $request)
     {
 
-        DB::table('sales')
-        ->where('client_id','=',$request->delidClient)
-        ->delete();
-
-        DB::table('cashiers')
-        ->where('client_id','=',$request->delidClient)
-        ->delete();
-    
         DB::table('clients')->
         where('client_id','=',$request->delidClient)->
-        delete();
+        delete();     
+         
         return redirect('Clientes');
     }
 }

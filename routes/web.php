@@ -48,12 +48,13 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Produtos/CadastroTamanho', 'ProductsController@storeSize')->middleware(['auth'])->name('Site.SizeStore');
     Route::post('/Produtos/AlterarTamanho', 'ProductsController@updateSize')->middleware(['auth'])->name('Site.SizeUpdate');
     Route::post('/Produtos/DeleteTamanho', 'ProductsController@deleteSize')->middleware(['auth'])->name('Site.SizeDelete');
+    Route::get('/Produtos/Buscar/{idProducts}', 'ProductsController@searchProducts')->middleware(['auth'])->name('Site.ProductsSearch');
     #Aqui estão as rotas relacionadas ao CRUD de Clientes
     Route::get('/Clientes', 'ClientsController@index')->middleware(['auth'])->name('Site.Clients');
     Route::post('/Clientes/CadastroClientes', 'ClientsController@store')->middleware(['auth'])->name('Site.ClientsStore');
     Route::post('/Clientes/Alterarlientes', 'ClientsController@update')->middleware(['auth'])->name('Site.ClientsUpdate');
     Route::post('/Clientes/DeleteClientes', 'ClientsController@delete')->middleware(['auth'])->name('Site.ClientsDelete');
-    Route::get('/Clientes/Buscar/{idClient}','ClientsController@searchClient')->middleware(['auth'])->name('Site.ClientSearch');
+    Route::post('/Clientes/Buscar/{idClient}','ClientsController@searchClient')->middleware(['auth'])->name('Site.ClientSearch');
     /* 
     |--------------------------------------------------------------------------
     | Web Routes Vendas

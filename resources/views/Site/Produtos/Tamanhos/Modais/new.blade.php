@@ -9,14 +9,14 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormSizes" name="FormSize"
-                    action="{{route('Site.SizeStore')}}">
+                    action="{{route('Site.SizeStore')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputNameSize">Descrição</label>
                             <input type="text" class="form-control" name="nameSize" id="nameSize"
-                                placeholder="EXG">
+                                placeholder="EXG"  required maxlength="4">
                         </div>                
                     </div>
                     <!-- /.card-body -->
@@ -31,3 +31,26 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<script>
+
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+</script>
