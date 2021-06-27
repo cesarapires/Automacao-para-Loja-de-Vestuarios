@@ -67,16 +67,16 @@ class ProductsController extends Controller
             strtr(utf8_decode(trim($request->nameProduct)), 
             utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
             "aaaaeeiooouuncAAAAEEIOOOUUNC-"))),
-            'name'=>$request->nameProduct,
-            'color'=>$request->colorProduct,
-            'type_id'=>$request->type_IdProduct,
-            'size_id'=>$request->size_IdProduct,
-            'price_buy'=>$request->price_BuyProduct,
-            'price_sell'=>$request->price_SellProduct,
-            'visible'=>1,
+            'name'=>$request->name,
+            'color'=>$request->color,
+            'type_id'=>$request->type,
+            'size_id'=>$request->size,
+            'price_buy'=>$request->pricebuy,
+            'price_sell'=>$request->pricesell,
+            //'visible'=>1,
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
-            'stock'=>$request->stockProduct
+            'stock'=>$request->stock
         ]);
         return redirect('Produtos');
     }
@@ -118,13 +118,13 @@ class ProductsController extends Controller
             strtr(utf8_decode(trim($request->edtnameProduct)), 
             utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
             "aaaaeeiooouuncAAAAEEIOOOUUNC-")) ),
-            'name'=>$request->edtnameProduct,
-            'color'=>$request->edtcolorProduct,
-            'type_id'=>$request->edttypeIdProduct,
-            'size_id'=>$request->edtsizeIdProduct,
-            'stock'=>$request->edtstockProduct,
-            'price_buy'=>$request->edtpriceBuyProduct,
-            'price_sell'=>$request->edtpriceSellProduct, 
+            'name'=>$request->edtname,
+            'color'=>$request->edtcolor,
+            'type_id'=>$request->edttype,
+            'size_id'=>$request->edtsize,
+            'stock'=>$request->edtstock,
+            'price_buy'=>$request->edtpricebuy,
+            'price_sell'=>$request->edtpricesell, 
             'updated_at' => date("Y-m-d H:i:s")
             
         ]);

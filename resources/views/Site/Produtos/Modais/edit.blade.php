@@ -101,12 +101,9 @@ $('#modaleditproduct').on('show.bs.modal', function(event) {
     var modal = $(this);
 
     var idProduct = button.data('whatever');
-    $('#titleedt').html(" <h4 class='modal-title'>Editar produto #" + idProduct + "</h4>");
+    $('#titleedt').html(" <h4 class='modal-title'>Editar produto #" + idProduct + "</h4><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>");
     var requestProduct = "http://127.0.0.1:8000/Produtos/Buscar/" + idProduct;
-    alert(requestProduct);
-    var exit = search(requestProduct);
-    alert(exit);
-
+    search(requestProduct);
 });
 
 function search(URL) {
@@ -116,7 +113,15 @@ function search(URL) {
     request.send();
     request.onload = function() {
         var product = request.response;
-        return product[0];
+        $("#edtname").val(product[0].name);
+        $("#edtcolor").val(product[0].color);
+        $("#edtstock").val(product[0].stock);
+        $("#edtpricebuy").val(product[0].price_buy);
+        $("#edtpricesell").val(product[0].price_sell);
+        $("#edttypeId").val(product[0].type_id);
+        $("#edtsizeId").val(product[0].size_id);
+        $("#edtupdateProduct").val(product[0].created_at);
+        $("#edtcreateProduct").val(product[0].updated_at);
     }
 }
 </script>

@@ -38,6 +38,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Produtos/CadastroProduto', 'ProductsController@storeProduct')->middleware(['auth'])->name('Site.ProductsStore');
     Route::post('/Produtos/AlterarProduto', 'ProductsController@updateProduct')->middleware(['auth'])->name('Site.ProductsUpdate');
     Route::post('/Produtos/DeleteProduto', 'ProductsController@deleteProduct')->middleware(['auth'])->name('Site.ProductsDelete');
+    Route::get('/Produtos/Buscar/{idProducts}', 'ProductsController@searchProducts')->middleware(['auth'])->name('Site.ProductsSearch');
     #Aqui estão as rotas relacionadas ao CRUD de tipos
     Route::get('/Produtos/Tipos', 'ProductsController@indexTipos')->middleware(['auth'])->name('Site.ProductsTypes');
     Route::post('/Produtos/CadastroTipo', 'ProductsController@storeType')->middleware(['auth'])->name('Site.TypesStore');
@@ -48,7 +49,6 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Produtos/CadastroTamanho', 'ProductsController@storeSize')->middleware(['auth'])->name('Site.SizeStore');
     Route::post('/Produtos/AlterarTamanho', 'ProductsController@updateSize')->middleware(['auth'])->name('Site.SizeUpdate');
     Route::post('/Produtos/DeleteTamanho', 'ProductsController@deleteSize')->middleware(['auth'])->name('Site.SizeDelete');
-    Route::get('/Produtos/Buscar/{idProducts}', 'ProductsController@searchProducts')->middleware(['auth'])->name('Site.ProductsSearch');
     #Aqui estão as rotas relacionadas ao CRUD de Clientes
     Route::get('/Clientes', 'ClientsController@index')->middleware(['auth'])->name('Site.Clients');
     Route::post('/Clientes/CadastroClientes', 'ClientsController@store')->middleware(['auth'])->name('Site.ClientsStore');

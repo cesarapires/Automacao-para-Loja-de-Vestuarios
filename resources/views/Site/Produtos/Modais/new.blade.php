@@ -17,7 +17,7 @@
                             <div class='row'>
                                 <div class='col-12'>
                                     <label for="inputNameProduct">Descrição</label>
-                                    <input type="text" class="form-control" name="nameProduct" id="nameProduct"
+                                    <input type="text" class="form-control" name="name" id="name"
                                         placeholder="Conjunto Alice Ruby" required maxlength="50">
                                 </div>
                             </div>
@@ -26,12 +26,12 @@
                             <div class='row'>
                                 <div class='col-9'>
                                     <label for="inputStockProduct">Cor</label>
-                                    <input type="text" class="form-control" name="colorProduct" id="colorProduct"
+                                    <input type="text" class="form-control" name="color" id="color"
                                         placeholder="Verde Militar/Nude" required maxlength="30"> 
                                 </div>
                                 <div class='col-3'>
                                     <label for="inputStockProduct">Estoque</label>
-                                    <input type="number" class="form-control" name="stockProduct" id="stockProduct"
+                                    <input type="number" class="form-control" name="stock" id="stock"
                                         placeholder="1" required  maxlength="3">
                                 </div>
                             </div>
@@ -40,13 +40,13 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label for="inputPrice_BuyProduct">Custo</label>
-                                    <input type="number" class="form-control" name="price_BuyProduct"
-                                        id="price_BuyProduct" placeholder="17.99" required>
+                                    <input type="number" class="form-control" name="pricebuy"
+                                        id="pricebuy" placeholder="17.99" step=".01" required>
                                 </div>
                                 <div class='col-6'>
                                     <label for="inputPrice_SellProduct">Venda</label>
-                                    <input type="number" class="form-control" name="price_SellProduct"
-                                        id="price_SellProduct" placeholder="54.99" required>
+                                    <input type="number" class="form-control" name="pricesell"
+                                        id="pricesell" placeholder="54.99" step=".01" required>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label>Tamanho</label>
-                                    <select class="form-control select2bs4" name="size_IdProduct" required style="width: 100%;">
+                                    <select class="form-control select2bs4" name="size" required style="width: 100%;">
                                         <option selected disabled value="">Selecione um tamanho:</option>
                                         @foreach($sizes as $sizes)
                                         <option value="{{$sizes->size_id}}">{{$sizes->name}}</option>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class='col-6'>
                                     <label>Tipo</label>
-                                    <select class="form-control select2bs4" name="type_IdProduct" required style="width: 100%;">
+                                    <select class="form-control select2bs4" name="type" required style="width: 100%;">
                                         <option selected disabled value="">Selecione um tipo:</option>
                                         @foreach($types as $types)
                                         <option value="{{$types->type_id}}">{{$types->name}}</option>
