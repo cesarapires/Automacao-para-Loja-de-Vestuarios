@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.PayableUpdate')}}">
+                    action="{{route('Site.PayableUpdate')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
@@ -22,7 +22,7 @@
                                 </div>
                                 <div class='col-10'>
                                     <label for="inputNameProduct">Credor</label>
-                                    <input type="text" class="form-control" name="edtnamePayable" id="edtnamePayable"
+                                    <input type="text" class="form-control" required name="edtnamePayable" id="edtnamePayable"
                                         placeholder="Núcleo Sistemas Digitais">
                                 </div>
                             </div>
@@ -31,13 +31,13 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label for="inputPrice_SellProduct">Data da Compra</label>
-                                    <input type="date" class="form-control" name="edtbuyPayable" id="edtbuyPayable"
+                                    <input type="date" class="form-control" required name="edtbuyPayable" id="edtbuyPayable"
                                         placeholder="01/05/2021">
                                 </div>
                                 <div class='col-6'>
                                     <label for="inputPrice_BuyProduct">Vencimento</label>
-                                    <input type="date" class="form-control" name="edtduePayable" id="edtduePayable"
-                                        placeholder="04/05/2021">
+                                    <input type="date" class="form-control" required name="edtduePayable" id="edtduePayable"
+                                        placeholder="04/05/2021" step=".01">
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label>Valor</label>
-                                    <input type="text" class="form-control" name="edtpricePayable" id="edtpricePayable"
+                                    <input type="text" class="form-control" required name="edtpricePayable" id="edtpricePayable"
                                         placeholder="R$ 127.00">
                                 </div>
                                 <div class='col-5'>
@@ -63,7 +63,7 @@
                             <div class="row">
                                 <div class='col-5'>
                                     <label>Data Pagamento</label>
-                                    <input type="date" class="form-control" name="edtdatePayable" id="edtdatePayable"
+                                    <input type="date" class="form-control" required name="edtdatePayable" id="edtdatePayable"
                                         placeholder="04/06/2021" disabled>
                                 </div>
                                 <div class='col-7'>
@@ -132,12 +132,36 @@ var edtpayablestatus = $('#edtstatusPayable');
 
 $('#edtstatusPayable').on('click', function() {
     if (edtpayablestatus.is(':checked')) {
+        $("#edtdatePayable").prop('required', true);
         $("#edtdatePayable").prop('disabled', false);
         $('#edtstatusPayable').val(1);
     } else {
+        $("#edtdatePayable").prop('required', false);
         $("#edtdatePayable").prop('disabled', true);
         $('#edtstatusPayable').val(0);
         $("#edtdatePayable").val(null);
     }
 });
+</script>
+<script>
+
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
 </script>

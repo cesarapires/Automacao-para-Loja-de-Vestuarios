@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.ReceivableUpdate')}}">
+                    action="{{route('Site.ReceivableUpdate')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
@@ -39,8 +39,8 @@
                                 </div>
                                 <div class="col-md-10">
                                     <label>Cliente</label>
-                                    <select class="form-control select2bs4" id="edtclient" style="width: 100%;">
-                                        <option value="NULL">Selecione o cliente</option>
+                                    <select class="form-control select2bs4" required id="edtclient" style="width: 100%;">
+                                        <option value="">Selecione o cliente</option>
                                         @foreach($clients as $clients)
                                         <option value="{{$clients->client_id}}">{{$clients->name}}</option>
                                         @endforeach
@@ -52,12 +52,12 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label for="inputPrice_SellProduct">Data da Venda</label>
-                                    <input type="date" class="form-control" name="edtdatesalereceivable"
+                                    <input type="date" required class="form-control" name="edtdatesalereceivable"
                                         id="edtdatesalereceivable" placeholder="01/05/2021">
                                 </div>
                                 <div class='col-6'>
                                     <label for="inputPrice_BuyProduct">Vencimento</label>
-                                    <input type="date" class="form-control" name="edtdateduereceivable"
+                                    <input type="date" required class="form-control" name="edtdateduereceivable"
                                         id="edtdateduereceivable" placeholder="04/05/2021">
                                 </div>
                             </div>
@@ -66,8 +66,8 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label>Valor</label>
-                                    <input type="text" class="form-control" name="edtvaluereceivable" id="edtvaluereceivable"
-                                        placeholder="R$ 127.00">
+                                    <input type="text" required class="form-control" name="edtvaluereceivable" id="edtvaluereceivable"
+                                        placeholder="R$ 127.00" step=".01">
                                 </div>
                                 <div class='col-5'>
                                     <label>Status</label>
@@ -84,7 +84,7 @@
                             <div class="row">
                                 <div class='col-5'>
                                     <label>Data Pagamento</label>
-                                    <input type="date" class="form-control" name="edtdatepayablereceivable"
+                                    <input type="date" class="form-control" required name="edtdatepayablereceivable"
                                         id="edtdatepayablereceivable" placeholder="R$ 127.00" disabled>
                                 </div>
                                 <div class='col-7'>
@@ -154,9 +154,11 @@ var edtreceiablestatus = $('#edtstatusreceivable');
 $('#edtstatusreceivable').on('click', function() {
     if (edtreceiablestatus.is(':checked')) {
         $("#edtdatepayablereceivable").prop('disabled', false);
+        $("#edtdatepayablereceivable").prop('required', true);
         $('#edtstatusreceivable').val(1);
     } else {
         $("#edtdatepayablereceivable").prop('disabled', true);
+        $("#edtdatepayablereceivable").prop('required', false);
         $('#edtstatusreceivable').val(0);
         $("#edtdatepayablereceivable").val(null);
     }
@@ -166,4 +168,26 @@ $("#edtclient").change(function() {
     var edtidClient = ($(this).find(':selected').val());
     document.getElementById('edtidclient').value = edtidClient;
 });
+</script>
+<script>
+
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
 </script>

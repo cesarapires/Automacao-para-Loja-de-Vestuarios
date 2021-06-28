@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.ReceivableStore')}}">
+                    action="{{route('Site.ReceivableStore')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
@@ -22,8 +22,8 @@
                                 </div>
                                 <div class="col-md-10">
                                     <label>Cliente</label>
-                                    <select class="form-control select2bs4" id="client" style="width: 100%;">
-                                        <option value="NULL">Selecione o cliente</option>
+                                    <select class="form-control select2bs4" required id="client" style="width: 100%;">
+                                        <option value="">Selecione o cliente</option>
                                         @foreach($clients as $clients)
                                         <option value="{{$clients->client_id}}">{{$clients->name}}</option>
                                         @endforeach
@@ -35,12 +35,12 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label for="inputPrice_SellProduct">Data da Venda</label>
-                                    <input type="date" class="form-control" name="datesalereceiable"
+                                    <input type="date" required class="form-control" name="datesalereceiable"
                                         id="datesalereceiable" placeholder="01/05/2021">
                                 </div>
                                 <div class='col-6'>
                                     <label for="inputPrice_BuyProduct">Vencimento</label>
-                                    <input type="date" class="form-control" name="dateduereceiable"
+                                    <input type="date" required class="form-control" name="dateduereceiable"
                                         id="dateduereceiable" placeholder="04/05/2021">
                                 </div>
                             </div>
@@ -49,8 +49,8 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label>Valor</label>
-                                    <input type="text" class="form-control" name="valuereceiable"
-                                        id="valuereceiable" placeholder="R$ 127.00">
+                                    <input type="number" required class="form-control" name="valuereceiable"
+                                        id="valuereceiable" placeholder="R$ 127.00" step=".01">
                                 </div>
                                 <div class='col-5'>
                                     <label>Status</label>
@@ -95,12 +95,36 @@ var receiablestatus = $('#statusreceiable');
 $('#statusreceiable').on('click', function() {
     if (receiablestatus.is(':checked')) {
         $("#datepayablereceible").prop('disabled', false);
+        $("#datepayablereceible").prop('required', true);
         $('#statusreceiable').val(1);
     } else {
+        $("#datepayablereceible").prop('required', false);
         $("#datepayablereceible").prop('disabled', true);
         $('#statusreceiable').val(0);
         $("#datepayablereceible").val(null);
     }
 });
 
+</script>
+<script>
+
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
 </script>

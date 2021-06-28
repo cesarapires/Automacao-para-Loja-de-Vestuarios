@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormEdtProducts" name="FormEdtProducts"
-                    action="{{route('Site.ProductsUpdate')}}">
+                    action="{{route('Site.ProductsUpdate')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
 
@@ -19,7 +19,7 @@
                                 <input type="hidden" id="edtid" name="edtid">
                                 <label for="inputNameProduct">Descrição</label>
                                 <input type="text" class="form-control" name="edtname" id="edtname"
-                                    placeholder="Conjunto Alice Ruby">
+                                    placeholder="Conjunto Alice Ruby" required maxlength="50">
                             </div>
                         </div>
                     </div>
@@ -28,11 +28,11 @@
                             <div class='col-9'>
                                 <label for="inputStockProduct">Cor</label>
                                 <input type="text" class="form-control" name="edtcolor" id="edtcolor"
-                                    placeholder="Verde Militar/Nude">
+                                    placeholder="Verde Militar/Nude" required maxlength="30">
                             </div>
                             <div class='col-3'>
                                 <label for="inputStockProduct">Estoque</label>
-                                <input type="text" class="form-control" name="edtstock" id="edtstock" placeholder="1">
+                                <input type="text" class="form-control" name="edtstock" id="edtstock" placeholder="1" required  maxlength="3">
                             </div>
                         </div>
                     </div>
@@ -41,12 +41,12 @@
                             <div class='col-6'>
                                 <label for="inputPrice_BuyProduct">Custo</label>
                                 <input type="text" class="form-control" name="edtpricebuy" id="edtpricebuy"
-                                    placeholder="17.99">
+                                    placeholder="17.99" placeholder="17.99" step=".01" required>
                             </div>
                             <div class='col-6'>
                                 <label for="inputPrice_SellProduct">Venda</label>
                                 <input type="text" class="form-control" name="edtpricesell" id="edtpricesell"
-                                    placeholder="54.99">
+                                    placeholder="54.99" placeholder="54.99" step=".01" required>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class='col-6'>
                                 <label>Tamanho</label>
-                                <select class="form-control select2bs4" name="edtsizeId" id="edtsizeId"
+                                <select class="form-control select2bs4" required name="edtsizeId" id="edtsizeId"
                                     style="width: 100%;">
                                     <option disabled value="">Selecione um tamanho:</option>
                                     @foreach($sizes as $sizes)
@@ -64,7 +64,7 @@
                             </div>
                             <div class='col-6'>
                                 <label>Tipo</label>
-                                <select class="form-control select2bs4" name="edttypeId" id="edttypeId"
+                                <select class="form-control select2bs4" required name="edttypeId" id="edttypeId"
                                     style="width: 100%;">
                                     <option disabled value="">Selecione um tipo:</option>
                                     @foreach($types as $types)
@@ -124,4 +124,26 @@ function search(URL) {
         $("#edtcreateProduct").val(product[0].updated_at);
     }
 }
+</script>
+<script>
+
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
 </script>
