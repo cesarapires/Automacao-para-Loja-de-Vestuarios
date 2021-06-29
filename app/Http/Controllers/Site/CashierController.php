@@ -59,4 +59,12 @@ class CashierController extends Controller
         delete();
         return redirect('Caixa');
     }
+
+    public function modalselectcachiers($idCashier){
+        $selectCashier = DB::table('cashiers')
+        ->select()
+        ->where('cashier_id','=',$idCashier)
+        ->get();
+        return response()->json($selectCashier);
+    }
 }
