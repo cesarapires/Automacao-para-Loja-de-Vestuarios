@@ -9,56 +9,73 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormEdtProducts" name="FormEdtProducts"
-                    action="{{route('Site.PaymentUpdate')}}"  novalidate class="needs-validation">
+                    action="{{route('Site.PaymentUpdate')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputIdSize">ID</label>
-                            <input type="text" class="form-control" name="edtidPayment" id="edtidPayment" value=""
-                                Readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputNameType">Descrição</label>
-                            <input type="text" class="form-control" name="edtnamePayment" id="edtnamePayment"
+                            <label for="inputNamePayment">Descrição</label>
+                            <input type="text" class="form-control" required name="namePayment" id="namePayment"
                                 placeholder="Sumup - Crédito">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputNamePayment">Taxa Fixa</label>
-                            <input type="text" class="form-control" name="edtfixratePayment" id="edtfixratePayment"
-                                placeholder="3.4">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="inputNamePayment">Taxa variável</label>
-                                <input type="text" class="form-control" name="edtratePayment" id="edtratePayment"
-                                    placeholder="3.4">
+                                <label for="inputNamePayment">Taxa Fixa</label>
+                                <input type="text" class="form-control" name="fixratePayment" id="fixratePayment"
+                                    placeholder="3.4" required>
                             </div>
                             <div class="col-md-6">
+                                <label for="inputNamePayment">Taxa variável</label>
+                                <input type="text" class="form-control" required name="ratePayment" id="ratePayment"
+                                    placeholder="3.4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa ao mês</label>
-                                <input type="text" class="form-control" name="edtratemonthPayment" id="edtratemonthPayment"
+                                <input type="text" class="form-control" name="ratemonthPayment" id="ratemonthPayment"
                                     value="0" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="rgUser">Parcelas</label>
+                                <select class="form-control select2bs4" id="idplots" name="idplots" style="width: 100%;"
+                                    disabled>
+                                    <option value="">Selecione as parcelas</option>
+                                    @foreach($plots as $plots)
+                                    <option value="{{$plots->number}}">
+                                        {{$plots->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="edtcredit" name="edtcredit" value="0">
+                            <input type="checkbox" class="form-check-input" id="credit" name="credit" value="0">
                             <label class="form-check-label" for="exampleCheck1">Pagamento gerará crédito</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="edtratetypePayment" name="edtratetypePayment" value="1"
-                                checked>
+                            <input type="checkbox" class="form-check-input" id="ratetypePayment" name="ratetypePayment"
+                                value="1" checked>
                             <label class="form-check-label" for="exampleCheck1">Taxa única</label>
                         </div>
-                        <div class="form-group">
-                            <label for="inputUpdateSize">Data da última atualização</label>
-                            <input type="text" class="form-control" name="edtupdatedAtPayment" id="edtupdatedAtPayment"
-                                value="" disabled>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exemptionPayment"
+                                name="exemptionPayment" value="1">
+                            <label class="form-check-label" for="exampleCheck1">Método do PagSeguro</label>
                         </div>
-                        <div class="form-group">
-                            <label for="inputCreateSize">Data de criação</label>
-                            <input type="text" class="form-control" name="edtcreatedAtPayment" id="edtcreatedAtPayment"
-                                value="" disabled>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="inputCreateSize">Criado em</label>
+                                <input type="text" class="form-control" name="edtcreatedAtPayment"
+                                    id="edtcreatedAtPayment" value="" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputUpdateSize">Última atualização</label>
+                                <input type="text" class="form-control" name="edtupdatedAtPayment"
+                                    id="edtupdatedAtPayment" value="" disabled>
+                            </div>
                         </div>
+
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
