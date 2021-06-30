@@ -49,7 +49,7 @@ class ClientsController extends Controller
     public function update(Request $request)
     {
 
-        if( $request->birthdate!=null){
+        if( $request->edtbirthdate!=null){
             $dateconvert = implode('-', array_reverse(explode('/', $request->edtbirthdate)));
         }
         else{

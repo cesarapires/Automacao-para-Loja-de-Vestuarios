@@ -112,10 +112,10 @@ class ProductsController extends Controller
     public function updateProduct(Request $request)
     {
         DB::table('products')->
-        where('product_id','=',$request->edtidProduct)->
+        where('product_id','=',$request->edtid)->
         update([
             'url'=>strtolower( preg_replace("/[^a-zA-Z0-9-]/", "-", 
-            strtr(utf8_decode(trim($request->edtnameProduct)), 
+            strtr(utf8_decode(trim($request->edtname)), 
             utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
             "aaaaeeiooouuncAAAAEEIOOOUUNC-")) ),
             'name'=>$request->edtname,

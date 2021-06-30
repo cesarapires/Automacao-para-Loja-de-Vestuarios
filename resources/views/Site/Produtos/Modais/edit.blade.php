@@ -32,7 +32,7 @@
                             </div>
                             <div class='col-3'>
                                 <label for="inputStockProduct">Estoque</label>
-                                <input type="text" class="form-control" name="edtstock" id="edtstock" placeholder="1" required  maxlength="3">
+                                <input type="number" class="form-control" name="edtstock" id="edtstock" placeholder="1" required  maxlength="3">
                             </div>
                         </div>
                     </div>
@@ -40,13 +40,13 @@
                         <div class="row">
                             <div class='col-6'>
                                 <label for="inputPrice_BuyProduct">Custo</label>
-                                <input type="text" class="form-control" name="edtpricebuy" id="edtpricebuy"
-                                    placeholder="17.99" placeholder="17.99" step=".01" required>
+                                <input type="number" class="form-control" name="edtpricebuy" id="edtpricebuy"
+                                    placeholder="17.99" placeholder="17.99" step=".01" maxlength="8" required>
                             </div>
                             <div class='col-6'>
                                 <label for="inputPrice_SellProduct">Venda</label>
-                                <input type="text" class="form-control" name="edtpricesell" id="edtpricesell"
-                                    placeholder="54.99" placeholder="54.99" step=".01" required>
+                                <input type="number" class="form-control" name="edtpricesell" id="edtpricesell"
+                                    placeholder="54.99" placeholder="54.99" step=".01" maxlength="8" required>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class='col-6'>
                                 <label>Tamanho</label>
-                                <select class="form-control select2bs4" required name="edtsizeId" id="edtsizeId"
+                                <select class="form-control select2bs4" required name="edtsize" id="edtsize"
                                     style="width: 100%;">
                                     <option disabled value="">Selecione um tamanho:</option>
                                     @foreach($sizes as $sizes)
@@ -64,7 +64,7 @@
                             </div>
                             <div class='col-6'>
                                 <label>Tipo</label>
-                                <select class="form-control select2bs4" required name="edttypeId" id="edttypeId"
+                                <select class="form-control select2bs4" required name="edttype" id="edttype"
                                     style="width: 100%;">
                                     <option disabled value="">Selecione um tipo:</option>
                                     @foreach($types as $types)
@@ -101,6 +101,7 @@ $('#modaleditproduct').on('show.bs.modal', function(event) {
     var modal = $(this);
 
     var idProduct = button.data('whatever');
+    $('#edtid').val(idProduct);
     $('#titleedt').html(" <h4 class='modal-title'>Editar produto #" + idProduct + "</h4><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>");
     var requestProduct = "http://127.0.0.1:8000/Produtos/Buscar/" + idProduct;
     search(requestProduct);

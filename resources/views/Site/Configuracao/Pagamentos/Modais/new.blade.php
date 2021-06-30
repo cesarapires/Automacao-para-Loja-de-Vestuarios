@@ -9,24 +9,24 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormNewPayment" name="FormNewPayment"
-                    action="{{route('Site.PaymentStore')}}">
+                    action="{{route('Site.PaymentStore')}}"  novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputNamePayment">Descrição</label>
-                            <input type="text" class="form-control" name="namePayment" id="namePayment"
+                            <input type="text" class="form-control" required name="namePayment" id="namePayment"
                                 placeholder="Sumup - Crédito">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa Fixa</label>
                                 <input type="text" class="form-control" name="fixratePayment" id="fixratePayment"
-                                    placeholder="3.4">
+                                    placeholder="3.4" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa variável</label>
-                                <input type="text" class="form-control" name="ratePayment" id="ratePayment"
+                                <input type="text" class="form-control" required name="ratePayment" id="ratePayment"
                                     placeholder="3.4">
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                                 <label for="rgUser">Parcelas</label>
                                 <select class="form-control select2bs4" id="idplots" name="idplots"
                                     style="width: 100%;" disabled>
-                                    <option value="-1">Selecione as parcelas</option>
+                                    <option value="">Selecione as parcelas</option>
                                     @foreach($plots as $plots)
                                     <option value="{{$plots->number}}">
                                         {{$plots->name}}</option>

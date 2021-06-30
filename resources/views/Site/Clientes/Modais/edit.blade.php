@@ -151,10 +151,11 @@ $('#modaleditclient').on('show.bs.modal', function(event) {
     var modal = $(this);
 
     var idClient = button.data('whatever');
+    
     $('#titleedt').html(" <h4 class='modal-title'>Editar cliente #"+idClient+"</h4>");
     var requestClient = "http://127.0.0.1:8000/Clientes/Buscar/" + idClient;
     search(requestClient);
-
+    $('#edtid').val(idClient);
 });
 
 function search(URL) {
@@ -164,7 +165,6 @@ function search(URL) {
     request.send();
     request.onload = function() {
         var client = request.response;
-        $('#edtid').val(client[0].client_id);
         $('#edtname').val(client[0].name);
         $('#edtsex').val(client[0].sex);
         $('#edtbirthdate').val(client[0].birth_date);
