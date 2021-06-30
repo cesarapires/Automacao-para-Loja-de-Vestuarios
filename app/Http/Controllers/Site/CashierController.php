@@ -32,24 +32,16 @@ class CashierController extends Controller
 
 
     public function update(Request $request){
-        $dateconvert = implode('-', array_reverse(explode('/', $request->edtdatepayablereceivable)));
-        if($request->edtstatusreceivable==null){
-            $request->edtstatusreceivable=0;
-            $dateconvert=NULL;
-        }
-        DB::table('receivables')
-        ->where('receivables.receivable_id','=',$request->edtidreceivable)
+        DB::table('cashiers')
+        ->where('cashiers.cashier_id','=',$request->edtidCashier)
         ->update([
-            'client_id'=>$request->edtidclient,
-            'date_sale'=>implode('-', array_reverse(explode('/', $request->edtdatesalereceivable))),
-            'date_paymentreceivable'=>$dateconvert,
-            'date_duereceivable'=>implode('-', array_reverse(explode('/', $request->edtdateduereceivable))),
-            'value'=>$request->edtvaluereceivable,
-            'status'=>$request->edtstatusreceivable,
-            'updated_at' => date("Y-m-d H:i:s"),    
+            'description'=>$request->edtdescription,
+            'date_receivable'=>implode('-', array_reverse(explode('/', $request->edtdateCashier))),
+            'value'=>$request->edtvalueCashier,
+            'type'=>$request->edttypeCashier, 
+            'updated_at' => date("Y-m-d H:i:s"),
         ]);        
-
-        return redirect('ContasReceber');
+        return redirect('Caixa');
     }
 
     public function delete(Request $request)

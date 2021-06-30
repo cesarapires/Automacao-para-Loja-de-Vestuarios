@@ -15,8 +15,8 @@ class CreateSaleitensTable extends Migration
     {
         Schema::create('saleitens', function (Blueprint $table) {
             $table->id('saleitens_id');
-            $table->foreignId('sale_id')->references('sale_id')->on('sales');
-            $table->foreignId('product_id')->references('product_id')->on('products');
+            $table->foreignId('sale_id')->references('sale_id')->on('sales')->onDelete('cascade');
+            $table->foreignId('product_id')->references('product_id')->on('products')->onDelete('cascade');
             $table->integer('quantity');
             $table->float('price');
             $table->float('subtotal');

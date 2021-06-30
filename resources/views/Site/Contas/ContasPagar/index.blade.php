@@ -6,10 +6,6 @@
 <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6a7641f42d0c20f42b8fa905ff483f90508a1ee2
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -39,34 +35,6 @@
                         <h3 class="card-title">
 
                         </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="IDUser">Data inicial</label>
-                                    <div class="input-group date" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#dateStart" value="01/01/2021" id="dateStart" name="dateStart">
-                                        <div class="input-group-append" data-target="#dateStart"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="IDUser">Data final</label>
-                                    <div class="input-group date" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#dateEnd" value="31/12/2021" id="dateEnd" name="dateEnd">
-                                        <div class="input-group-append" data-target="#dateEnd"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -164,14 +132,8 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 
-<<<<<<< HEAD
-
-<script type="text/javascript">
-var tablaTransacciones = $('#ContasPagar');
-=======
 <script type="text/javascript">
 var tablaTransacciones = $('#contaspagar');
->>>>>>> 6a7641f42d0c20f42b8fa905ff483f90508a1ee2
 
 var tablaTransacciones_dt = null
 
@@ -387,16 +349,6 @@ $(function() {
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
-<<<<<<< HEAD
-    }).buttons().container().appendTo('#vendas_wrapper .col-md-6:eq(0)');
-    // Create event listeners that will filter the table whenever the user types in either date range box or
-    // changes the value of either box using the Datepicker pop-up calendar
-    $('#dateStart').change(function() {
-        $('#ContasPagar').DataTable().draw();
-    });
-    $('#dateEnd').change(function() {
-        $('#ContasPagar').DataTable().draw();
-=======
     }).buttons().container().appendTo('#contaspagar_wrapper .col-md-6:eq(0)');
     // Create event listeners that will filter the table whenever the user types in either date range box or
     // changes the value of either box using the Datepicker pop-up calendar
@@ -405,7 +357,6 @@ $(function() {
     });
     $('#dateEnd').change(function() {
         $('#contaspagar').DataTable().draw();
->>>>>>> 6a7641f42d0c20f42b8fa905ff483f90508a1ee2
     });
 });
 </script>

@@ -73,7 +73,7 @@ class ProductsController extends Controller
             'size_id'=>$request->size,
             'price_buy'=>$request->pricebuy,
             'price_sell'=>$request->pricesell,
-            //'visible'=>1,
+            'visible'=>"1",
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
             'stock'=>$request->stock

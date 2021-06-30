@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.PayableUpdate')}}">
+                    action="{{route('Site.CashierUpdate')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Última alteração em</label>
-                                    <input type="number" class="form-control" name="edtupdatedcashier"
+                                    <input type="date" class="form-control" name="edtupdatedcashier"
                                         id="edtupdatedcashier" placeholder="R$ 127.00" step=".01" readonly>
                                 </div>
                             </div>
@@ -73,16 +73,13 @@
 $('#modaledtcashier').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     var modal = $(this);
-
     var idCashier = button.data('whatever');
-    alert(idCashier);
     modal.find('#edtidCashier').val(idCashier);
-    var jsonrequest = "http://127.0.0.1:8000/Caixa/Buscar/" + idCashier;
-    searchrequest(jsonrequest);
-
+    var requestCashier = "http://127.0.0.1:8000/Caixa/Buscar/" + idCashier;
+    search(requestCashier);
 });
 
-function searchrequest(URL) {
+function search(URL) {
     var request = new XMLHttpRequest();
     request.open('GET', URL);
     request.responseType = 'json';
@@ -93,8 +90,30 @@ function searchrequest(URL) {
         $('#edtdateCashier').val(cashier[0].date_receivable);
         $('#edttypeCashier').val(cashier[0].type);
         $('#edtvalueCashier').val(cashier[0].value);
-        var modified_value = (cashier[0].updated_at).replace(' ', 'T');
-        $('#edtupdatedcashier').val(modified_value);*/
+        var modified_value = (cashier[0].updated_at).substring(0, 10);
+        $('#edtupdatedcashier').val(modified_value);
     }
 }
+</script>
+<script>
+
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
 </script>
