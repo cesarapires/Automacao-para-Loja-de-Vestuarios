@@ -103,8 +103,6 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Caixa/Editar', 'CashierController@update')->middleware(['auth'])->name('Site.CashierUpdate');
     Route::post('/Caixa/Deletar', 'CashierController@delete')->middleware(['auth'])->name('Site.CashierDelete');
 
-
-
     Route::get('/Relatorio', 'ReportController@index')->middleware(['auth'])->name('Site.Report');
 
 
@@ -130,6 +128,12 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Configuracao/CadastroParcelas', 'SettingsController@storePlots')->middleware(['auth'])->name('Site.PlotStore');
     Route::post('/Configuracao/AlterarParcelas', 'SettingsController@updatePlots')->middleware(['auth'])->name('Site.PlotUpdate');
     Route::post('/Configuracao/DeleteParcelas', 'SettingsController@deletePlots')->middleware(['auth'])->name('Site.PlotDelete');
+
+    #Aqui estão as rotas relacionadas ao CRUD de Parcelas
+    Route::get('/Configuracao/AjusteCaixa', 'SettingsController@indexAdjustment')->middleware(['auth'])->name('Site.Adjustment');
+    Route::post('/Configuracao/CadastroAjusteCaixa', 'SettingsController@storeAdjustment')->middleware(['auth'])->name('Site.AdjustmentStore');
+    Route::post('/Configuracao/AlterarAjusteCaixa', 'SettingsController@updateAdjustment')->middleware(['auth'])->name('Site.AdjustmentUpdate');
+    Route::post('/Configuracao/DeleteAjusteCaixa', 'SettingsController@deleteAdjustment')->middleware(['auth'])->name('Site.AdjustmentDelete');
 
 });
 

@@ -43,6 +43,13 @@ class SettingsController extends Controller
         ]);
     }
 
+    public function indexAdjustment(){
+        $adjustment = DB::table('adjustments')->get();
+        return view('Site.Configuracao.Ajuste.index',[
+            'adjustment' => $adjustment,
+        ]);
+    }
+
     public function storePlots(Request $request){
         DB::table('plots')->insert([
             'name'=>$request->namePlot,
@@ -153,5 +160,20 @@ class SettingsController extends Controller
         where('platform_id','=',$request->delidPlatform)->
         delete();
         return redirect('Configuracao/Plataformas');
+    }
+
+    public function storeAdjustment(Request $request){
+
+        return redirect('Configuracao/CadastroAjusteCaixa');
+    }
+
+    public function updateAdjustment(Request $request){
+
+        return redirect('Configuracao/AlterarAjusteCaixa');
+    }
+
+    public function deleteAdjustment(Request $request){
+
+        return redirect('Configuracao/DeleteAjusteCaixa');
     }
 }

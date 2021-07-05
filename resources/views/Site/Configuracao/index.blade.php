@@ -77,7 +77,7 @@
                     <div class="icon">
                         <i class="fas fa-coins"></i>
                     </div>
-                    <a href="" class="small-box-footer">
+                    <a href="{{route('Site.Adjustment')}}" class="small-box-footer">
                         Visualizar <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
