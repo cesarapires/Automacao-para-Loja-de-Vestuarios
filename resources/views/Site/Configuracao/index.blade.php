@@ -66,6 +66,22 @@
                     </a>
                 </div>
             </div>
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{{$numberPlatform}}</h3>
+
+                        <p>Ajustes no caixa</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <a href="" class="small-box-footer">
+                        Visualizar <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
