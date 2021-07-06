@@ -14,7 +14,11 @@ class CreateAdjustmentsTable extends Migration
     public function up()
     {
         Schema::create('adjustments', function (Blueprint $table) {
-            $table->id();
+            $table->id('adjustment_id');
+            $table->date('date_adjustment');
+            $table->char('description',50);
+            $table->char('type',2);
+            $table->float('value');
             $table->timestamps();
         });
     }
