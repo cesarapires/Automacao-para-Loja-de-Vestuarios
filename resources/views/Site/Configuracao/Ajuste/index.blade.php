@@ -97,7 +97,7 @@
 
                                                 <td>
                                                     <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                                        data-target="#modaledtcashier"
+                                                        data-target="#modaledtadjustment"
                                                         data-whatever='{{$adjustment->adjustment_id}}'>
                                                         <i class="fas fa-pencil-alt"></i>
                                                         Editar

@@ -163,17 +163,40 @@ class SettingsController extends Controller
     }
 
     public function storeAdjustment(Request $request){
-
-        return redirect('Configuracao/CadastroAjusteCaixa');
+        DB::table('adjustments')->insert([
+            'description'=>$request->description,
+            'date_adjustment'=>implode('-', array_reverse(explode('/', $request->dateAdjustment))),
+            'value'=>$request->valueAdjustment,
+            'type'=>$request->typeAdjustment,
+            'created_at' => date("Y-m-d H:i:s"),  
+            'updated_at' => date("Y-m-d H:i:s"),  
+        ]);        
+        return redirect('Configuracao/AjusteCaixa');
     }
 
     public function updateAdjustment(Request $request){
-
-        return redirect('Configuracao/AlterarAjusteCaixa');
+        DB::table('adjustments')
+        ->where('adjustments.adjustment_id','=',$request->edtidAdjustment)
+        ->update([
+            'description'=>$request->edtdescription,
+            'date_adjustment'=>implode('-', array_reverse(explode('/', $request->edtdateAdjustment))),
+            'value'=>$request->edtvalueAdjustment,
+            'type'=>$request->edttypeAdjustment, 
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);  
+        return redirect('Configuracao/AjusteCaixa');
     }
 
     public function deleteAdjustment(Request $request){
 
-        return redirect('Configuracao/DeleteAjusteCaixa');
+        return redirect('Configuracao/AjusteCaixa');
+    }
+
+    public function modalselectcadjustment($idAdjustment){
+        $selectAdjustment = DB::table('adjustments')
+        ->select()
+        ->where('adjustment_id','=',$idAdjustment)
+        ->get();
+        return response()->json($selectAdjustment);
     }
 }

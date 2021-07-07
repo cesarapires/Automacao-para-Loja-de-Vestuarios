@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <div class='row'>
                                 <div class='col-12'>
-                                    <input type="hidden" class="form-control" name="edtidCashier" id="edtidCashier">
+                                    <input type="hidden" class="form-control" name="edtidAdjustment" id="edtidAdjustment">
                                     <label for="inputNameProduct">Descrição</label>
                                     <input type="text" class="form-control" name="edtdescription" id="edtdescription"
                                         placeholder="Núcleo Sistemas Digitais" required>
@@ -27,13 +27,13 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label for="inputPrice_SellProduct">Data</label>
-                                    <input type="date" class="form-control" name="edtdateCashier" id="edtdateCashier"
+                                    <input type="date" class="form-control" name="edtdateAdjustment" id="edtdateAdjustment"
                                         placeholder="01/05/2021" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="rgUser">Tipo da transação</label>
-                                    <select class="form-control select2bs4" style="width: 100%;" name="edttypeCashier"
-                                        id="edttypeCashier" required>
+                                    <select class="form-control select2bs4" style="width: 100%;" name="edttypeAdjustment"
+                                        id="edttypeAdjustment" required>
                                         <option value="">Selecione o tipo</option>
                                         <option value="C">Crédito</option>
                                         <option value="D">Débito</option>
@@ -50,8 +50,8 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Última alteração em</label>
-                                    <input type="date" class="form-control" name="edtupdatedcashier"
-                                        id="edtupdatedcashier" placeholder="R$ 127.00" step=".01" readonly>
+                                    <input type="date" class="form-control" name="edtupdatedadjustment"
+                                        id="edtupdatedadjustment" placeholder="R$ 127.00" step=".01" readonly>
                                 </div>
                             </div>
                         </div>
@@ -74,8 +74,8 @@ $('#modaledtadjustment').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     var modal = $(this);
     var idAdjustment = button.data('whatever');
-    modal.find('#edtidAdjustment').val(idCashier);
-    var requestAdjustment = "http://127.0.0.1:8000/Configuracao/Ajuste/Buscar/" + idAdjustment;
+    modal.find('#edtidAdjustment').val(idAdjustment);
+    var requestAdjustment = "http://127.0.0.1:8000/Configuracao/AjusteCaixa/Buscar/" + idAdjustment;
     search(requestAdjustment);
 });
 
@@ -85,13 +85,13 @@ function search(URL) {
     request.responseType = 'json';
     request.send();
     request.onload = function() {
-        var cashier = request.response;
-        $('#edtdescription').val(cashier[0].description);
-        $('#edtdateAdjustment').val(cashier[0].date_receivable);
-        $('#edttypeAdjustment').val(cashier[0].type);
-        $('#edtvalueAdjustment').val(cashier[0].value);
-        var modified_value = (cashier[0].updated_at).substring(0, 10);
-        $('#edtupdatedcashier').val(modified_value);
+        var adjustment = request.response;
+        $('#edtdescription').val(adjustment[0].description);
+        $('#edtdateAdjustment').val(adjustment[0].date_adjustment);
+        $('#edttypeAdjustment').val(adjustment[0].type);
+        $('#edtvalueAdjustment').val(adjustment[0].value);
+        var modified_value = (adjustment[0].updated_at).substring(0, 10);
+        $('#edtupdatedadjustment').val(modified_value);
     }
 }
 </script>

@@ -131,6 +131,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     #Aqui estão as rotas relacionadas ao CRUD de Parcelas
     Route::get('/Configuracao/AjusteCaixa', 'SettingsController@indexAdjustment')->middleware(['auth'])->name('Site.Adjustment');
+    Route::get('/Configuracao/AjusteCaixa/Buscar/{idAdjustment}', 'SettingsController@modalselectcadjustment')->middleware(['auth'])->name('Site.AdjustmentSelectUpdate');
     Route::post('/Configuracao/CadastroAjusteCaixa', 'SettingsController@storeAdjustment')->middleware(['auth'])->name('Site.AdjustmentStore');
     Route::post('/Configuracao/AlterarAjusteCaixa', 'SettingsController@updateAdjustment')->middleware(['auth'])->name('Site.AdjustmentUpdate');
     Route::post('/Configuracao/DeleteAjusteCaixa', 'SettingsController@deleteAdjustment')->middleware(['auth'])->name('Site.AdjustmentDelete');

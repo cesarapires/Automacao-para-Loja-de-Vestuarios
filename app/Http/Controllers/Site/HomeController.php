@@ -31,7 +31,13 @@ class HomeController extends Controller
         $cashierD = DB::table('cashiers')
         ->where('cashiers.type','=','D')
         ->sum('value');
-        $cashier = $cashierC - $cashierD;
+        $adjustmentC = DB::table('adjustments')
+        ->where('adjustments.type','=','C')
+        ->sum('value');
+        $adjustmentD = DB::table('adjustments')
+        ->where('adjustments.type','=','D')
+        ->sum('value');
+        $cashier = ($cashierC+$adjustmentC) - ($cashierD+$adjustmentD);
         foreach($stockValue as $stockValue){
             $stockPrice = $stockPrice+($stockValue->stock*$stockValue->price_buy);
         }
