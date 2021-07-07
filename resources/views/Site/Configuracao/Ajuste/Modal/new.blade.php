@@ -1,4 +1,4 @@
-"<div class="modal fade" id="modalnewcashier">
+"<div class="modal fade" id="modalnewadjustment">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.CashierStore')}}" novalidate class="needs-validation">
+                    action="{{route('Site.AdjustmentStore')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
@@ -26,13 +26,13 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label for="inputPrice_SellProduct">Data</label>
-                                    <input type="date" class="form-control" name="dateCashier" id="dateCashier"
+                                    <input type="date" class="form-control" name="dateAdjustment" id="dateAdjustment"
                                         placeholder="01/05/2021" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="rgUser">Tipo da transação</label>
-                                    <select class="form-control select2bs4" style="width: 100%;" name="typeCashier"
-                                        id="typeCashier" required>
+                                    <select class="form-control select2bs4" style="width: 100%;" name="typeAdjustment"
+                                        id="typeAdjustment" required>
                                         <option value="">Selecione o tipo</option>
                                         <option value="C">Crédito</option>
                                         <option value="D">Débito</option>
@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label>Valor</label>
-                                    <input type="number" class="form-control" name="valueCashier" id="valueCashier"
+                                    <input type="number" class="form-control" name="valueAdjustment" id="valueAdjustment"
                                         placeholder="R$ 127.00" step=".01" required>
                                 </div>
                             </div>

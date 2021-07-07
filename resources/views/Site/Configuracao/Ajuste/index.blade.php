@@ -12,7 +12,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Ajuste | <button class="btn btn-success btn-sm" data-toggle="modal"
-                        data-target="#modalnewcashier">
+                        data-target="#modalnewadjustment">
                         <i class="fas fa-plus"></i>
                         Novo</button>
                 </h1>
@@ -63,13 +63,12 @@
                                 </div>
                             </div>
                         </div>
-                        <table id="caixa" class="table table-bordered table-striped">
+                        <table id="ajuste" class="table table-bordered table-striped">
                             <thead>
                                 <tr class="text-center">
                                     <th>ID</th>
                                     <th>Data</th>
                                     <th>Descrição</th>
-                                    <th>Origem</th>
                                     <th>Tipo</th>
                                     <th>Valor</th>
                                     <th>Ação</th>
@@ -81,15 +80,6 @@
                                     <td>{{$adjustment->adjustment_id}}</td>
                                     <td>{{date('d/m/Y', strtotime($adjustment->date_adjustment))}}</td>
                                     <td>{{$adjustment->description}}</td>
-                                    @if($adjustment->payable_id <> null)
-                                        <td>Contas a Pagar</td>
-                                        @elseif($adjustment->receivable_id <> null)
-                                            <td>Contas a Receber</td>
-                                            @elseif($adjustment->sale_id<> null)
-                                                <td>Vendas</td>
-                                                @else
-                                                <td>Outros</td>
-                                                @endif
                                                 <td>
                                                     @if($adjustment->type == 'C')
                                                     Crédito
@@ -113,7 +103,7 @@
                                                         Editar
                                                     </button>
                                                     <button class="btnEdit btn btn-outline-danger btn-sm"
-                                                        data-toggle="modal" data-target="#modaldelcashier"
+                                                        data-toggle="modal" data-target="#modaldeladjustment"
                                                         data-whatever='{{$adjustment->adjustment_id}}'>
                                                         <i class="fas fa-trash"></i>
                                                         Apagar
@@ -150,7 +140,7 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 
 <script type="text/javascript">
-var tablaTransacciones = $('#caixa');
+var tablaTransacciones = $('#ajuste');
 
 var tablaTransacciones_dt = null
 
@@ -366,14 +356,14 @@ $(function() {
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
-    }).buttons().container().appendTo('#caixa_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#ajuste_wrapper .col-md-6:eq(0)');
     // Create event listeners that will filter the table whenever the user types in either date range box or
     // changes the value of either box using the Datepicker pop-up calendar
     $('#dateStart').change(function() {
-        $('#caixa').DataTable().draw();
+        $('#ajuste').DataTable().draw();
     });
     $('#dateEnd').change(function() {
-        $('#caixa').DataTable().draw();
+        $('#ajuste').DataTable().draw();
     });
 });
 </script>

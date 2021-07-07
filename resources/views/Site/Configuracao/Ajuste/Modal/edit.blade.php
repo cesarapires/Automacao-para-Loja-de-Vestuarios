@@ -1,4 +1,4 @@
-<div class="modal fade" id="modaledtcashier">
+<div class="modal fade" id="modaledtadjustment">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.CashierUpdate')}}" novalidate class="needs-validation">
+                    action="{{route('Site.AdjustmentUpdate')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
                     <div class="card-body">
@@ -45,8 +45,8 @@
                             <div class="row">
                                 <div class='col-6'>
                                     <label>Valor</label>
-                                    <input type="number" class="form-control" name="edtvalueCashier"
-                                        id="edtvalueCashier" placeholder="R$ 127.00" step=".01" required>
+                                    <input type="number" class="form-control" name="edtvalueAdjustment"
+                                        id="edtvalueAdjustment" placeholder="R$ 127.00" step=".01" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Última alteração em</label>
@@ -70,13 +70,13 @@
 
 <script>
 /* When click edit user */
-$('#modaledtcashier').on('show.bs.modal', function(event) {
+$('#modaledtadjustment').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     var modal = $(this);
-    var idCashier = button.data('whatever');
-    modal.find('#edtidCashier').val(idCashier);
-    var requestCashier = "http://127.0.0.1:8000/Caixa/Buscar/" + idCashier;
-    search(requestCashier);
+    var idAdjustment = button.data('whatever');
+    modal.find('#edtidAdjustment').val(idCashier);
+    var requestAdjustment = "http://127.0.0.1:8000/Configuracao/Ajuste/Buscar/" + idAdjustment;
+    search(requestAdjustment);
 });
 
 function search(URL) {
@@ -87,9 +87,9 @@ function search(URL) {
     request.onload = function() {
         var cashier = request.response;
         $('#edtdescription').val(cashier[0].description);
-        $('#edtdateCashier').val(cashier[0].date_receivable);
-        $('#edttypeCashier').val(cashier[0].type);
-        $('#edtvalueCashier').val(cashier[0].value);
+        $('#edtdateAdjustment').val(cashier[0].date_receivable);
+        $('#edttypeAdjustment').val(cashier[0].type);
+        $('#edtvalueAdjustment').val(cashier[0].value);
         var modified_value = (cashier[0].updated_at).substring(0, 10);
         $('#edtupdatedcashier').val(modified_value);
     }
