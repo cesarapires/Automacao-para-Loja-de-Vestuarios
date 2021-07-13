@@ -103,7 +103,8 @@ $('#modaleditproduct').on('show.bs.modal', function(event) {
     var idProduct = button.data('whatever');
     $('#edtid').val(idProduct);
     $('#titleedt').html(" <h4 class='modal-title'>Editar produto #" + idProduct + "</h4><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>");
-    var requestProduct = "http://127.0.0.1:8000/Produtos/Buscar/" + idProduct;
+    var origin = location.origin;
+    var requestProduct = origin+"/Produtos/Buscar/" + idProduct;
     search(requestProduct);
 });
 

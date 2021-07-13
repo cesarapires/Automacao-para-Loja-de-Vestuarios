@@ -153,7 +153,8 @@ $('#modaleditclient').on('show.bs.modal', function(event) {
     var idClient = button.data('whatever');
     
     $('#titleedt').html(" <h4 class='modal-title'>Editar cliente #"+idClient+"</h4>");
-    var requestClient = "http://127.0.0.1:8000/Clientes/Buscar/" + idClient;
+    var origin = location.origin;
+    var requestClient = origin+"/Clientes/Buscar/" + idClient;
     search(requestClient);
     $('#edtid').val(idClient);
 });

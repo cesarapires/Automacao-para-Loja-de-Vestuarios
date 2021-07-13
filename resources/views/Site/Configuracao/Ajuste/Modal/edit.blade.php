@@ -75,7 +75,8 @@ $('#modaledtadjustment').on('show.bs.modal', function(event) {
     var modal = $(this);
     var idAdjustment = button.data('whatever');
     modal.find('#edtidAdjustment').val(idAdjustment);
-    var requestAdjustment = "http://127.0.0.1:8000/Configuracao/AjusteCaixa/Buscar/" + idAdjustment;
+    var origin = location.origin;
+    var requestAdjustment = origin+"/Configuracao/AjusteCaixa/Buscar/"+idAdjustment;
     search(requestAdjustment);
 });
 
