@@ -21,20 +21,20 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa Fixa</label>
-                                <input type="text" class="form-control" name="fixratePayment" id="fixratePayment"
-                                    placeholder="3.4" required>
+                                <input type="number" class="form-control" name="fixratePayment" id="fixratePayment"
+                                    placeholder="3.4" required step="0.01">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa variável</label>
-                                <input type="text" class="form-control" required name="ratePayment" id="ratePayment"
-                                    placeholder="3.4">
+                                <input type="number" class="form-control" required name="ratePayment" id="ratePayment"
+                                    placeholder="3.4" step="0.01">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa ao mês</label>
-                                <input type="text" class="form-control" name="ratemonthPayment" id="ratemonthPayment"
-                                    value="0" readonly>
+                                <input type="number" class="form-control" name="ratemonthPayment" id="ratemonthPayment"
+                                    value="0" readonly step="0.01">
                             </div>
                             <div class="col-md-6">
                                 <label for="rgUser">Parcelas</label>
@@ -132,35 +132,5 @@ $(document).ready(function() {
         }
     });
 
-var edtratetype = $('#edtratetypePayment');
-var edtcredit = $('#edtcredit');
-
-$('#edtratetypePayment').on('click', function() {
-    if (edtratetype.is(':checked')) {
-
-        $("#edtratemonthPayment").prop('readonly', true);
-        $("#edtratetypePayment").val(1);
-    } else {
-        $("#edtratemonthPayment").prop('readonly', false);
-        $("#edtratetypePayment").val(0);
-    }
-});
-
-$('#edtcredit').on('click', function() {
-    /*
-    Se gerar crédito irá salver no banco 1 avisando que essa forma de pagamento
-    terá a geração de contas a receber.
-    */
-    if (credit.is(':checked')) {
-        $("#edtcredit").val(1);
-    }
-    /*
-    Se não gerar crédito irá salver no banco 0 avisando que essa forma de pagamento
-    não terá a geração de contas a receber.
-    */
-    else {
-        $("#edtcredit").val(0);
-    }
-});
 });
 </script>

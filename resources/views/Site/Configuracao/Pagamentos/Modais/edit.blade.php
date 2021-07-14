@@ -119,3 +119,91 @@ $('#modalEditPayment').on('show.bs.modal', function(event) {
     modal.find('#edtcreatedAtPayment').val(createdAtPayment)
 })
 </script>
+<script>
+$(document).ready(function() {
+    var ratetype = $('#ratetypePayment');
+    var credit = $('#credit');
+    var expetion = $("#exemptionPayment");
+
+    $('#ratetypePayment').on('click', function() {
+        if (ratetype.is(':checked')) {
+            $("#ratemonthPayment").prop('readonly', true);
+            $("#ratemonthPayment").val(0);
+            $("#ratetypePayment").val(1);
+        } else {
+            $("#ratemonthPayment").prop('readonly', false);
+            $("#ratetypePayment").val(0);
+        }
+    });
+
+    $('#credit').on('click', function() {
+        /*
+        Se gerar crédito irá salvar no banco 1 avisando que essa forma de pagamento
+        terá a geração de contas a receber.
+        */
+        if (credit.is(':checked')) {
+            $("#credit").val(1);
+        }
+        /*
+        Se não gerar crédito irá salvar no banco 0 avisando que essa forma de pagamento
+        não terá a geração de contas a receber.
+        */
+        else {
+            $("#credit").val(0);
+        }
+    });
+
+    $('#exemptionPayment').on('click', function() {
+        /*
+        Caso essa opção esteja marcada irá salvar no banco 1 dizendo que o cliente não terá isenção
+        de taxa, ou seja, a taxa será repassada aos clientes e o usuária terá que verificar "marcar" a 
+        partir de qual prestação ele começara a pagar a taxa caso se aplique, caso a taxa seja repassada
+        de forma integral ele pode deixar a opção.
+        */
+        if (expetion.is(':checked')) {
+            $("#idplots").val("-1");
+            $("#idplots").prop('disabled', false);
+            $("#exemptionPayment").val(1);
+        /*
+        Se o checkbox estiver desmarcado o cliente terá isenção de texa, assim ele não terá acrescimo na parcela
+        independente da quantidade de prestações.
+        */
+        } else {
+            $("#idplots").val("1");
+            $("#idplots").prop('disabled', true);
+            $("#exemptionPayment").val(0);
+        }
+    });
+
+var edtratetype = $('#edtratetypePayment');
+var edtcredit = $('#edtcredit');
+
+$('#edtratetypePayment').on('click', function() {
+    if (edtratetype.is(':checked')) {
+
+        $("#edtratemonthPayment").prop('readonly', true);
+        $("#edtratetypePayment").val(1);
+    } else {
+        $("#edtratemonthPayment").prop('readonly', false);
+        $("#edtratetypePayment").val(0);
+    }
+});
+
+$('#edtcredit').on('click', function() {
+    /*
+    Se gerar crédito irá salver no banco 1 avisando que essa forma de pagamento
+    terá a geração de contas a receber.
+    */
+    if (credit.is(':checked')) {
+        $("#edtcredit").val(1);
+    }
+    /*
+    Se não gerar crédito irá salver no banco 0 avisando que essa forma de pagamento
+    não terá a geração de contas a receber.
+    */
+    else {
+        $("#edtcredit").val(0);
+    }
+});
+});
+</script>

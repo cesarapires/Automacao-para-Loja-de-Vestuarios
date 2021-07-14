@@ -75,7 +75,8 @@ $('#modaledtcashier').on('show.bs.modal', function(event) {
     var modal = $(this);
     var idCashier = button.data('whatever');
     modal.find('#edtidCashier').val(idCashier);
-    var requestCashier = "http://127.0.0.1:8000/Caixa/Buscar/" + idCashier;
+    var origin = location.origin;
+    var requestCashier = origin+"/Caixa/Buscar/" + idCashier;
     search(requestCashier);
 });
 

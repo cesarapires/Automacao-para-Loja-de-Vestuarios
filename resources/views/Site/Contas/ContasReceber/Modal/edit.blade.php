@@ -114,8 +114,9 @@ $('#modaledtreceivable').on('show.bs.modal', function(event) {
 
     var idReceivable = button.data('whatever');
     modal.find('#edtidreceivable').val(idReceivable);
-    var receivableRequest = "http://127.0.0.1:8000/ContasReceber/Buscar/"+idReceivable;
-    searchreceivable(receivableRequest);
+    var origin = location.origin;
+    var requestReceivable = origin+"/ContasReceber/Buscar/"+idReceivable;
+    searchreceivable(requestReceivable);
 });
 
 function searchreceivable(receivableURL) {

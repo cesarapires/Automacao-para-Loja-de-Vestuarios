@@ -94,8 +94,9 @@ $('#modaledtpayable').on('show.bs.modal', function(event) {
 
     var idPayable = button.data('whatever');
     modal.find('#edtidPayable').val(idPayable);
-    var payableRequest = "http://127.0.0.1:8000/ContasPagar/Buscar/"+idPayable;
-    searchpayable(payableRequest);
+    var origin = location.origin;
+    var requestPayable = origin+"/ContasPagar/Buscar/"+idPayable;
+    searchpayable(requestPayable);
 
 });
 
