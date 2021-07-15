@@ -70,7 +70,7 @@
                 <!-- small card -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>{{$numberPlatform}}</h3>
+                        <h3>{!!number_format($cashier,2)!!}<sup style="font-size: 20px"> R$</sup></h3>
 
                         <p>Ajustes no caixa</p>
                     </div>

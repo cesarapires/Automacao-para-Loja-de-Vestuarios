@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalEditPayment">
+<div class="modal fade" id="modaledtpayment">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -15,32 +15,34 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="inputNamePayment">Descrição</label>
-                            <input type="text" class="form-control" required name="namePayment" id="namePayment"
+                            <input type="hidden" class="form-control" required name="edtidPayment" id="edtidPayment"
+                                placeholder="Sumup - Crédito">
+                            <input type="text" class="form-control" required name="edtnamePayment" id="edtnamePayment"
                                 placeholder="Sumup - Crédito">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa Fixa</label>
-                                <input type="text" class="form-control" name="fixratePayment" id="fixratePayment"
-                                    placeholder="3.4" required>
+                                <input type="number" class="form-control" name="edtfixratePayment" id="edtfixratePayment"
+                                    placeholder="3.4" required step="0.01">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa variável</label>
-                                <input type="text" class="form-control" required name="ratePayment" id="ratePayment"
-                                    placeholder="3.4">
+                                <input type="number" class="form-control" required name="edtratePayment" id="edtratePayment"
+                                    placeholder="3.4" step="0.01">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputNamePayment">Taxa ao mês</label>
-                                <input type="text" class="form-control" name="ratemonthPayment" id="ratemonthPayment"
-                                    value="0" readonly>
+                                <input type="number" class="form-control" name="edtratemonthPayment" id="edtratemonthPayment"
+                                    value="0" readonly step="0.01">
                             </div>
                             <div class="col-md-6">
                                 <label for="rgUser">Parcelas</label>
-                                <select class="form-control select2bs4" id="idplots" name="idplots" style="width: 100%;"
+                                <select class="form-control select2bs4" id="edtidplots" name="edtidplots" style="width: 100%;"
                                     disabled>
-                                    <option value="">Selecione as parcelas</option>
+                                    <option value="-1">Selecione as parcelas</option>
                                     @foreach($plots as $plots)
                                     <option value="{{$plots->number}}">
                                         {{$plots->name}}</option>
@@ -49,29 +51,29 @@
                             </div>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="credit" name="credit" value="0">
+                            <input type="checkbox" class="form-check-input" id="edtcredit" name="edtcredit" value="0">
                             <label class="form-check-label" for="exampleCheck1">Pagamento gerará crédito</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="ratetypePayment" name="ratetypePayment"
+                            <input type="checkbox" class="form-check-input" id="edtratetypePayment" name="edtratetypePayment"
                                 value="1" checked>
                             <label class="form-check-label" for="exampleCheck1">Taxa única</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exemptionPayment"
-                                name="exemptionPayment" value="1">
+                            <input type="checkbox" class="form-check-input" id="edtexemptionPayment"
+                                name="edtexemptionPayment" value="1">
                             <label class="form-check-label" for="exampleCheck1">Método do PagSeguro</label>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="inputCreateSize">Criado em</label>
-                                <input type="text" class="form-control" name="edtcreatedAtPayment"
+                                <input type="date" class="form-control" name="edtcreatedAtPayment"
                                     id="edtcreatedAtPayment" value="" disabled>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputUpdateSize">Última atualização</label>
-                                <input type="text" class="form-control" name="edtupdatedAtPayment"
+                                <input type="date" class="form-control" name="edtupdatedAtPayment"
                                     id="edtupdatedAtPayment" value="" disabled>
                             </div>
                         </div>
@@ -88,72 +90,40 @@
 </div>
 
 <script>
-/* When click edit user */
-$('#modalEditPayment').on('show.bs.modal', function(event) {
-
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var modal = $(this)
-
-    var idPayment = button.data('whatever').idPayment
-    var namePayment = button.data('whatever').namePayment
-    var ratePayment = button.data('whatever').ratePayment
-    var fixratePayment = button.data('whatever').fixratePayment
-
-    var variableratePayment = button.data('whatever').variableratePayment
-    var rateTypePayment = button.data('whatever').rateTypePayment
-    var creditPayment = button.data('whatever').creditPayment
-
-    var updatedAtPayment = button.data('whatever').updatedAtPayment
-    var createdAtPayment = button.data('whatever').createdAtPayment
-
-    modal.find('#edtidPayment').val(idPayment)
-    modal.find('#edtnamePayment').val(namePayment)
-    modal.find('#edtratePayment').val(ratePayment)
-    modal.find('#edtfixratePayment').val(fixratePayment)
-
-    modal.find('#edtratemonthPayment').val(variableratePayment)
-    modal.find('#edtratetypePayment').val(rateTypePayment)
-    modal.find('#edtcredit').val(creditPayment)
-
-    modal.find('#edtupdatedAtPayment').val(updatedAtPayment)
-    modal.find('#edtcreatedAtPayment').val(createdAtPayment)
-})
-</script>
-<script>
 $(document).ready(function() {
-    var ratetype = $('#ratetypePayment');
-    var credit = $('#credit');
-    var expetion = $("#exemptionPayment");
+    var ratetype = $('#edtratetypePayment');
+    var credit = $('#edtcredit');
+    var expetion = $("#edtexemptionPayment");
 
-    $('#ratetypePayment').on('click', function() {
+    $('#edtratetypePayment').on('click', function() {
         if (ratetype.is(':checked')) {
-            $("#ratemonthPayment").prop('readonly', true);
-            $("#ratemonthPayment").val(0);
-            $("#ratetypePayment").val(1);
+            $("#edtratemonthPayment").prop('readonly', true);
+            $("#edtratemonthPayment").val(0);
+            $("#edtratetypePayment").val(1);
         } else {
-            $("#ratemonthPayment").prop('readonly', false);
-            $("#ratetypePayment").val(0);
+            $("#edtratemonthPayment").prop('readonly', false);
+            $("#edtratetypePayment").val(0);
         }
     });
 
-    $('#credit').on('click', function() {
-        /*
-        Se gerar crédito irá salvar no banco 1 avisando que essa forma de pagamento
-        terá a geração de contas a receber.
-        */
-        if (credit.is(':checked')) {
-            $("#credit").val(1);
-        }
-        /*
-        Se não gerar crédito irá salvar no banco 0 avisando que essa forma de pagamento
-        não terá a geração de contas a receber.
-        */
-        else {
-            $("#credit").val(0);
-        }
-    });
+    $('#edtcredit').on('click', function() {
+    /*
+    Se gerar crédito irá salver no banco 1 avisando que essa forma de pagamento
+    terá a geração de contas a receber.
+    */
+    if (credit.is(':checked')) {
+        $("#edtcredit").val(1);
+    }
+    /*
+    Se não gerar crédito irá salver no banco 0 avisando que essa forma de pagamento
+    não terá a geração de contas a receber.
+    */
+    else {
+        $("#edtcredit").val(0);
+    }
+});
 
-    $('#exemptionPayment').on('click', function() {
+    $('#edtexemptionPayment').on('click', function() {
         /*
         Caso essa opção esteja marcada irá salvar no banco 1 dizendo que o cliente não terá isenção
         de taxa, ou seja, a taxa será repassada aos clientes e o usuária terá que verificar "marcar" a 
@@ -161,17 +131,17 @@ $(document).ready(function() {
         de forma integral ele pode deixar a opção.
         */
         if (expetion.is(':checked')) {
-            $("#idplots").val("-1");
-            $("#idplots").prop('disabled', false);
-            $("#exemptionPayment").val(1);
+            $("#edtidplots").val("-1");
+            $("#edtidplots").prop('disabled', false);
+            $("#edtexemptionPayment").val(1);
         /*
         Se o checkbox estiver desmarcado o cliente terá isenção de texa, assim ele não terá acrescimo na parcela
         independente da quantidade de prestações.
         */
         } else {
-            $("#idplots").val("1");
-            $("#idplots").prop('disabled', true);
-            $("#exemptionPayment").val(0);
+            $("#edtidplots").val("-1");
+            $("#edtidplots").prop('disabled', true);
+            $("#edtexemptionPayment").val(0);
         }
     });
 
@@ -189,21 +159,88 @@ $('#edtratetypePayment').on('click', function() {
     }
 });
 
-$('#edtcredit').on('click', function() {
-    /*
-    Se gerar crédito irá salver no banco 1 avisando que essa forma de pagamento
-    terá a geração de contas a receber.
-    */
-    if (credit.is(':checked')) {
-        $("#edtcredit").val(1);
-    }
-    /*
-    Se não gerar crédito irá salver no banco 0 avisando que essa forma de pagamento
-    não terá a geração de contas a receber.
-    */
-    else {
-        $("#edtcredit").val(0);
-    }
 });
+</script>
+
+<script>
+/* When click edit user */
+$('#modaledtpayment').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var modal = $(this);
+    var idPayment = button.data('whatever');
+    modal.find('#edtidPayment').val(idPayment);
+    var origin = location.origin;
+    var requestPayment = origin+"/Configuracao/Pagamento/Buscar/"+idPayment;
+    search(requestPayment);
 });
+
+function search(URL) {
+    var request = new XMLHttpRequest();
+    request.open('GET', URL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {
+        var payment = request.response;
+        $('#edtnamePayment').val(payment[0].name);
+        $('#edtfixratePayment').val(payment[0].payment_fixrate);
+        $('#edtratePayment').val(payment[0].payment_rate);
+        $('#edtratemonthPayment').val(payment[0].payment_ratevariable);
+        if(payment[0].credit == 1){
+            $("#edtcredit").val("1");
+            $("#edtcredit").prop('checked', true);
+        }
+        else{
+            $("#edtcredit").val("0");
+            $("#edtcredit").prop('checked', false);
+        }
+        if(payment[0].payment_ratetype == 1){
+            $("#edtratetypePayment").val("1");
+            $("#edtratetypePayment").prop('checked', true);
+            $('#edtratemonthPayment').prop('readonly', true);
+        }
+        else{
+            $("#edtratetypePayment").val("0");
+            $("#edtratetypePayment").prop('checked', false);
+            $('#edtratemonthPayment').prop('readonly', false);
+        }
+        if(payment[0].exemption == 1){
+            $("#edtexemptionPayment").val("1");
+            $("#edtexemptionPayment").prop('checked', true);
+            $('#edtidplots').val(payment[0].plot_id);
+            $('#edtidplots').prop('disabled', false);
+        }
+        else{
+            $("#edtexemptionPayment").val("0");
+            $("#edtexemptionPayment").prop('checked', false);
+            $('#edtidplots').val("-1");
+            $('#edtidplots').prop('disabled', true);
+        }
+        var modified_value = (payment[0].updated_at).substring(0, 10);
+        $('#edtupdatedAtPayment').val(modified_value);
+        var modified_value = (payment[0].created_at).substring(0, 10);
+        $('#edtcreatedAtPayment').val(modified_value);
+    }
+}
+</script>
+<script>
+
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
 </script>

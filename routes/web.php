@@ -119,6 +119,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     #Aqui estão as rotas relacionadas ao CRUD de Pagamentos
     Route::get('/Configuracao/Pagamento', 'SettingsController@indexPayment')->middleware(['auth'])->name('Site.Payment');
+    Route::get('/Configuracao/Pagamento/Buscar/{idPayment}', 'SettingsController@modalselectcpayment')->middleware(['auth'])->name('Site.PaymentSelectUpdate');
     Route::post('/Configuracao/CadastroPagamento', 'SettingsController@storePayments')->middleware(['auth'])->name('Site.PaymentStore');
     Route::post('/Configuracao/AlterarPagamento', 'SettingsController@updatePayments')->middleware(['auth'])->name('Site.PaymentUpdate');
     Route::post('/Configuracao/DeletePagamento', 'SettingsController@deletePayments')->middleware(['auth'])->name('Site.PaymentDelete');
@@ -129,7 +130,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Configuracao/AlterarParcelas', 'SettingsController@updatePlots')->middleware(['auth'])->name('Site.PlotUpdate');
     Route::post('/Configuracao/DeleteParcelas', 'SettingsController@deletePlots')->middleware(['auth'])->name('Site.PlotDelete');
 
-    #Aqui estão as rotas relacionadas ao CRUD de Parcelas
+    #Aqui estão as rotas relacionadas ao CRUD de Ajustes no Caixa
     Route::get('/Configuracao/AjusteCaixa', 'SettingsController@indexAdjustment')->middleware(['auth'])->name('Site.Adjustment');
     Route::get('/Configuracao/AjusteCaixa/Buscar/{idAdjustment}', 'SettingsController@modalselectcadjustment')->middleware(['auth'])->name('Site.AdjustmentSelectUpdate');
     Route::post('/Configuracao/CadastroAjusteCaixa', 'SettingsController@storeAdjustment')->middleware(['auth'])->name('Site.AdjustmentStore');

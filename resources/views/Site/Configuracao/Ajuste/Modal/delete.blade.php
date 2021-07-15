@@ -37,6 +37,6 @@ $('#modaldeladjustment').on('show.bs.modal', function(event) {
 
     var delidAdjustment = button.data('whatever');
 
-    $('#delidAdjustment').val(delidCashier);
+    $('#delidAdjustment').val(delidAdjustment);
 })
 </script>

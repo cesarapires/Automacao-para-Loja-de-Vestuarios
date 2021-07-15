@@ -40,23 +40,31 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="IDUser">Data inicial</label>
-                                    <div class="input-group date" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#dateStart" value="01/01/2021" id="dateStart" name="dateStart">
-                                        <div class="input-group-append" data-target="#dateStart"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
+
+                                    <input type="date" class="form-control" data-target="#dateStart" value="2021-01-01"
+                                        id="dateStart" name="dateStart">
+
                                 </div>
                                 <div class="col-md-3">
                                     <label for="IDUser">Data final</label>
+
+                                    <input type="date" class="form-control" data-target="#dateEnd" value="2021-12-31"
+                                        id="dateEnd" name="dateEnd">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label>ㅤ</label>
                                     <div class="input-group date" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#dateEnd" value="31/12/2021" id="dateEnd" name="dateEnd">
-                                        <div class="input-group-append" data-target="#dateEnd"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default">
+                                                <i class="fas fa-arrow-left"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-default">Ano</button>
+                                            <button type="button" class="btn btn-default">Mês</button>
+                                            <button type="button" class="btn btn-default">Dia</button>
+                                            <button type="button" class="btn btn-default">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +102,8 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="Vendas/Editar/{{$sales->sale_id}}" class="btnEdit btn btn-outline-warning btn-sm">
+                                        <a href="Vendas/Editar/{{$sales->sale_id}}"
+                                            class="btnEdit btn btn-outline-warning btn-sm">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
@@ -117,7 +126,8 @@
                                     </td>
                                     <td>
                                         <a class="btnEdit btn btn-outline-success btn-sm" data-toggle="modal"
-                                            data-target="#modalviewsale" data-whatever='{{$sales->sale_id}}                                               }'>
+                                            data-target="#modalviewsale"
+                                            data-whatever='{{$sales->sale_id}}                                               }'>
                                             <i class="fas fa-eye">
                                             </i>
                                             Visualizar
