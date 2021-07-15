@@ -56,13 +56,13 @@
                                     <label>ㅤ</label>
                                     <div class="input-group date" data-target-input="nearest">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-default">
+                                            <button type="button" id="left" class="btn btn-default">
                                                 <i class="fas fa-arrow-left"></i>
                                             </button>
-                                            <button type="button" class="btn btn-default">Ano</button>
-                                            <button type="button" class="btn btn-default">Mês</button>
-                                            <button type="button" class="btn btn-default">Dia</button>
-                                            <button type="button" class="btn btn-default">
+                                            <button type="button" id="year" class="btn btn-default">Ano</button>
+                                            <button type="button" id="month" class="btn btn-default">Mês</button>
+                                            <button type="button" id="day" class="btn btn-default">Dia</button>
+                                            <button type="button" id="right" class="btn btn-default">
                                                 <i class="fas fa-arrow-right"></i>
                                             </button>
                                         </div>
@@ -126,8 +126,7 @@
                                     </td>
                                     <td>
                                         <a class="btnEdit btn btn-outline-success btn-sm" data-toggle="modal"
-                                            data-target="#modalviewsale"
-                                            data-whatever='{{$sales->sale_id}}                                               }'>
+                                            data-target="#modalviewsale" data-whatever='{{$sales->sale_id}}'>
                                             <i class="fas fa-eye">
                                             </i>
                                             Visualizar
@@ -391,6 +390,32 @@ $(function() {
     });
 });
 </script>
+<script>
+function clearbutton()
+$('button').click(function(i){
+        $('ul li a').removeClass('active');
+        $(this).addClass('active');
+        $('.content').each(function(index) {
+            $(this).toggleClass('active');
+        });
+    });
+$("#left").click(function() {
+    alert("Voltar data");
+});
+$("#right").click(function() {
+    alert("Próxima data");
+});
+$("#day").click(function() {
+    alert("Filtro por dia");
+});
+$("#month").click(function() {
+    alert("Fltro por mês");
+});
+$("#year").click(function() {
+    alert("Filtro por ano");
+});
+</script>
+
 
 @include('Site.Vendas.Modais.view')
 @include('Site.Vendas.Modais.deletesale')
