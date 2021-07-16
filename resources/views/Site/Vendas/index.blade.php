@@ -41,28 +41,28 @@
                                 <div class="col-md-3">
                                     <label for="IDUser">Data inicial</label>
 
-                                    <input type="date" class="form-control" data-target="#dateStart" value="2021-01-01"
+                                    <input type="date" class="form-control" data-target="#dateStart" value=""
                                         id="dateStart" name="dateStart">
 
                                 </div>
                                 <div class="col-md-3">
                                     <label for="IDUser">Data final</label>
 
-                                    <input type="date" class="form-control" data-target="#dateEnd" value="2021-12-31"
-                                        id="dateEnd" name="dateEnd">
+                                    <input type="date" class="form-control" data-target="#dateEnd" value="" id="dateEnd"
+                                        name="dateEnd">
 
                                 </div>
                                 <div class="col-md-3">
                                     <label>ㅤ</label>
                                     <div class="input-group date" data-target-input="nearest">
                                         <div class="btn-group">
-                                            <button type="button" id="left" class="btn btn-default">
+                                            <button type="button" id="left" class="btn btn-block btn-default">
                                                 <i class="fas fa-arrow-left"></i>
                                             </button>
-                                            <button type="button" id="year" class="btn btn-default active">Ano</button>
+                                            <button type="button" id="year" class="btn btn-default">Ano</button>
                                             <button type="button" id="month" class="btn btn-default">Mês</button>
                                             <button type="button" id="day" class="btn btn-default">Dia</button>
-                                            <button type="button" id="right" class="btn btn-default">
+                                            <button type="button" id="right" class="btn btn-block btn-default">
                                                 <i class="fas fa-arrow-right"></i>
                                             </button>
                                         </div>
@@ -136,6 +136,12 @@
                                 </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4" style="text-align:right">Total:</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -162,6 +168,18 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 
+
+<script>
+$(document).ready(function() {
+    $("#day").removeClass('active');
+    $("#month").addClass('active');
+    $("#year").removeClass('active');
+    var primeiraData = moment().startOf('month').format('YYYY-MM-DD');
+    var segundaData = moment().endOf('month').format('YYYY-MM-DD');
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+});
+</script>
 <script type="text/javascript">
 var tablaTransacciones = $('#vendas');
 
@@ -170,11 +188,11 @@ var tablaTransacciones_dt = null
 // The plugin function for adding a new filtering routine
 $.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aData, iDataIndex) {
-        var dateStart = parseDateValue($("#dateStart").val());
-        var dateEnd = parseDateValue($("#dateEnd").val());
+        var dateStart = removefeature($("#dateStart").val());
+        var dateEnd = removefeature($("#dateEnd").val());
         // aData represents the table structure as an array of columns, so the script access the date value
         // in the first column of the table via aData[0]
-        var evalDate = parseDateValue(aData[4]);
+        var evalDate = removebar(aData[4]);
 
         if (evalDate >= dateStart && evalDate <= dateEnd) {
             return true;
@@ -184,8 +202,15 @@ $.fn.dataTableExt.afnFiltering.push(
 
     });
 
+function removefeature(rawDate) {
+    var dateArray = rawDate.split("-");
+    var parsedDate = dateArray[0] + dateArray[1] + dateArray[2];
+    return parsedDate;
+}
+
+
 // Function for converting a mm/dd/yyyy date value into a numeric string for comparison yyyymmdd(example 08/12/2010 becomes 20100812
-function parseDateValue(rawDate) {
+function removebar(rawDate) {
     var dateArray = rawDate.split("/");
     var parsedDate = dateArray[2] + dateArray[1] + dateArray[0];
     return parsedDate;
@@ -382,43 +407,85 @@ $(function() {
     }).buttons().container().appendTo('#vendas_wrapper .col-md-6:eq(0)');
     // Create event listeners that will filter the table whenever the user types in either date range box or
     // changes the value of either box using the Datepicker pop-up calendar
-    $('#dateStart').change(function() {
+
+ 
+});
+</script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script>
+   $('#dateStart').change(function() {
         $('#vendas').DataTable().draw();
     });
     $('#dateEnd').change(function() {
         $('#vendas').DataTable().draw();
     });
-});
-</script>
-<script>
+
 $("#left").click(function() {
-    alert("Data anterior");
+    $("#left").removeClass('active');
+    var primeiraData = $('#dateStart').val();
+    var segundaData = $('#dateEnd').val();
+    if ($("#day").hasClass("active")) {
+        primeiraData = moment(primeiraData).subtract(1, 'days').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).subtract(1, 'days').format('YYYY-MM-DD');
+    } else if ($("#month").hasClass("active")) {
+        primeiraData = moment(primeiraData).subtract(1, 'month').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).subtract(1, 'month').format('YYYY-MM-DD');
+    } else if ($("#year").hasClass("active")) {
+        primeiraData = moment(primeiraData).subtract(1, 'year').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).subtract(1, 'year').format('YYYY-MM-DD');
+    }
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
 });
 $("#right").click(function() {
-    alert("Próxima data");
+    var primeiraData = $('#dateStart').val();
+    var segundaData = $('#dateEnd').val();
+    if ($("#day").hasClass("active")) {
+        primeiraData = moment(primeiraData).add(1, 'days').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).add(1, 'days').format('YYYY-MM-DD');
+    } else if ($("#month").hasClass("active")) {
+        primeiraData = moment(primeiraData).add(1, 'month').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).add(1, 'month').format('YYYY-MM-DD');
+    } else if ($("#year").hasClass("active")) {
+        primeiraData = moment(primeiraData).add(1, 'year').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).add(1, 'year').format('YYYY-MM-DD');
+    }
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
 });
 
 $("#day").click(function() {
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, '0');
-    var mes = String(data.getMonth() + 1).padStart(2, '0');
-    var ano = data.getFullYear();
-    dataAtual = ano + '-' + mes + '-' + dia;
-    $('#dateStart').val(dataAtual);
-    $('#dateEnd').val(dataAtual);
+    $("#day").addClass('active');
+    $("#month").removeClass('active');
+    $("#year").removeClass('active');
+    var primeiraData = moment().format('YYYY-MM-DD');
+    var segundaData = moment().format('YYYY-MM-DD');
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
 });
 
 $("#month").click(function() {
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, '0');
-    var mes = String(data.getMonth() + 1).padStart(2, '0');
-    var ano = data.getFullYear();
-    dataAtual = ano + '-' + mes + '-' + dia;
-    $('#dateStart').val(dataAtual);
-    $('#dateEnd').val(dataAtual);
+    $("#day").removeClass('active');
+    $("#month").addClass('active');
+    $("#year").removeClass('active');
+    var primeiraData = moment().startOf('month').format('YYYY-MM-DD');
+    var segundaData = moment().endOf('month').format('YYYY-MM-DD');
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
 });
 $("#year").click(function() {
-    alert("Filtro por ano");
+    $("#day").removeClass('active');
+    $("#month").removeClass('active');
+    $("#year").addClass('active');
+    var primeiraData = moment().startOf('year').format('YYYY-MM-DD');
+    var segundaData = moment().endOf('year').format('YYYY-MM-DD');
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
 });
 </script>
 
