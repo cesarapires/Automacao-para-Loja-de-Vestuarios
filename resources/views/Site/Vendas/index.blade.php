@@ -59,7 +59,7 @@
                                             <button type="button" id="left" class="btn btn-default">
                                                 <i class="fas fa-arrow-left"></i>
                                             </button>
-                                            <button type="button" id="year" class="btn btn-default">Ano</button>
+                                            <button type="button" id="year" class="btn btn-default active">Ano</button>
                                             <button type="button" id="month" class="btn btn-default">Mês</button>
                                             <button type="button" id="day" class="btn btn-default">Dia</button>
                                             <button type="button" id="right" class="btn btn-default">
@@ -391,25 +391,31 @@ $(function() {
 });
 </script>
 <script>
-function clearbutton()
-$('button').click(function(i){
-        $('ul li a').removeClass('active');
-        $(this).addClass('active');
-        $('.content').each(function(index) {
-            $(this).toggleClass('active');
-        });
-    });
 $("#left").click(function() {
-    alert("Voltar data");
+    alert("Data anterior");
 });
 $("#right").click(function() {
     alert("Próxima data");
 });
+
 $("#day").click(function() {
-    alert("Filtro por dia");
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
+    dataAtual = ano + '-' + mes + '-' + dia;
+    $('#dateStart').val(dataAtual);
+    $('#dateEnd').val(dataAtual);
 });
+
 $("#month").click(function() {
-    alert("Fltro por mês");
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
+    dataAtual = ano + '-' + mes + '-' + dia;
+    $('#dateStart').val(dataAtual);
+    $('#dateEnd').val(dataAtual);
 });
 $("#year").click(function() {
     alert("Filtro por ano");
