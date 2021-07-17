@@ -24,6 +24,7 @@
         </div>
     </div>
 </div>
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -31,7 +32,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-
                         </h3>
                     </div>
                     <div class="card-body">
@@ -64,18 +64,7 @@
                                     <td class='type_name'>{{$products->type_name}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modalEditProduct" data-whatever='{
-                                                "product_id":"{{$products->product_id}}",
-                                                "color":"{{$products->color}}",
-                                                "name":"{{$products->name}}",
-                                                "size_id":"{{$products->size_id}}",
-                                                "stock":"{{$products->stock}}",
-                                                "price_buy":"{{$products->price_buy}}",
-                                                "price_sell":"{{$products->price_sell}}",
-                                                "type_id":"{{$products->type_id}}",
-                                                "update_at":"{{$products->updated_at}}",
-                                                "create_at":"{{$products->created_at}}"
-                                                }'>
+                                            data-target="#modaleditproduct" data-whatever='{{$products->product_id}}'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar
@@ -119,12 +108,11 @@
 <script>
 $(function() {
     $("#produtos").DataTable({
-        "columnDefs": [
-            {
-                "targets": [1],
-                "visible": false,
-                "searchable": false
-            }],
+        "columnDefs": [{
+            "targets": [1],
+            "visible": false,
+            "searchable": false
+        }],
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -309,9 +297,9 @@ $(function() {
             "decimal": ","
         },
         "responsive": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "autoWidth": false,
-        "buttons": ["csv","excel", "pdf", "print", "colvis"]
+
     }).buttons().container().appendTo('#produtos_wrapper .col-md-6:eq(0)');
 });
 </script>

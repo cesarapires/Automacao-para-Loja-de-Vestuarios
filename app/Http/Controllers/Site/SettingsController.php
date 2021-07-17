@@ -12,11 +12,18 @@ class SettingsController extends Controller
         $numberPlatform = DB::table('platforms')->count();
         $numberPlot = DB::table('plots')->count();
         $numberPayment = DB::table('payments')->count();
-
+        $adjustmentC = DB::table('adjustments')
+        ->where('adjustments.type','=','C')
+        ->sum('value');
+        $adjustmentD = DB::table('adjustments')
+        ->where('adjustments.type','=','D')
+        ->sum('value');
+        $cashier = ($adjustmentC) - ($adjustmentD);
         return view('Site.Configuracao.index',[
             'numberPlatform' => $numberPlatform,
             'numberPlot'=> $numberPlot,
-            'numberPayment' => $numberPayment
+            'numberPayment' => $numberPayment,
+            'cashier' => $cashier,
         ]);
     }
 
@@ -40,6 +47,13 @@ class SettingsController extends Controller
         return view('Site.Configuracao.Pagamentos.index',[
             'plots' => $plots,
             'payment' => $payment,
+        ]);
+    }
+
+    public function indexAdjustment(){
+        $adjustment = DB::table('adjustments')->get();
+        return view('Site.Configuracao.Ajuste.index',[
+            'adjustment' => $adjustment,
         ]);
     }
 
@@ -106,6 +120,12 @@ class SettingsController extends Controller
         if($request->edtratetypePayment == null){
             $request->edtratetypePayment = 0;
         }
+        if($request->edtexemptionPayment == null){
+            $request->edtexemptionPayment = 0;
+        }
+        if($request->edtidplots == null){
+            $request->edtidplots = 0;
+        }
         DB::table('payments')->
         where('payment_id','=',$request->edtidPayment)->
         update([
@@ -115,6 +135,8 @@ class SettingsController extends Controller
             'payment_ratevariable'=>$request->edtratemonthPayment,
             'payment_ratetype'=>$request->edtratetypePayment,
             'credit'=>$request->edtcredit,
+            'plot_id'=>$request->edtidplots,
+            'exemption'=>$request->edtexemptionPayment,
             'updated_at' => date("Y-m-d H:i:s")  
         ]);        
         return redirect('Configuracao/Pagamento');
@@ -153,5 +175,53 @@ class SettingsController extends Controller
         where('platform_id','=',$request->delidPlatform)->
         delete();
         return redirect('Configuracao/Plataformas');
+    }
+
+    public function storeAdjustment(Request $request){
+        DB::table('adjustments')->insert([
+            'description'=>$request->description,
+            'date_adjustment'=>implode('-', array_reverse(explode('/', $request->dateAdjustment))),
+            'value'=>$request->valueAdjustment,
+            'type'=>$request->typeAdjustment,
+            'created_at' => date("Y-m-d H:i:s"),  
+            'updated_at' => date("Y-m-d H:i:s"),  
+        ]);        
+        return redirect('Configuracao/AjusteCaixa');
+    }
+
+    public function updateAdjustment(Request $request){
+        DB::table('adjustments')
+        ->where('adjustments.adjustment_id','=',$request->edtidAdjustment)
+        ->update([
+            'description'=>$request->edtdescription,
+            'date_adjustment'=>implode('-', array_reverse(explode('/', $request->edtdateAdjustment))),
+            'value'=>$request->edtvalueAdjustment,
+            'type'=>$request->edttypeAdjustment, 
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);  
+        return redirect('Configuracao/AjusteCaixa');
+    }
+
+    public function deleteAdjustment(Request $request){
+        DB::table('adjustments')->
+        where('adjustment_id','=',$request->delidAdjustment)->
+        delete();
+        return redirect('Configuracao/AjusteCaixa');
+    }
+
+    public function modalselectcadjustment($idAdjustment){
+        $selectAdjustment = DB::table('adjustments')
+        ->select()
+        ->where('adjustment_id','=',$idAdjustment)
+        ->get();
+        return response()->json($selectAdjustment);
+    }
+
+    public function modalselectcpayment($idPayment){
+        $select = DB::table('payments')
+        ->select()
+        ->where('payment_id','=',$idPayment)
+        ->get();
+        return response()->json($select);
     }
 }

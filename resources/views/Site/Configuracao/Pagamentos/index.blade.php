@@ -60,19 +60,7 @@
                                     <td class='updatedAtType'>{{$payment->updated_at}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modalEditPayment" data-whatever='{
-                                                "idPayment":"{{$payment->payment_id}}",
-                                                "namePayment":"{{$payment->name}}",
-                                                "ratePayment":"{{$payment->payment_rate}}",
-                                                "fixratePayment":"{{$payment->payment_fixrate}}",
-
-                                                "variableratePayment":"{{$payment->payment_ratevariable}}",
-                                                "rateTypePayment":"{{$payment->payment_ratetype}}",
-                                                "creditPayment":"{{$payment->credit}}",
-
-                                                "updatedAtPayment":"{{$payment->created_at}}",
-                                                "createdAtPayment":"{{$payment->updated_at}}"
-                                                }'>
+                                            data-target="#modaledtpayment" data-whatever='{{$payment->payment_id}}'>
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Editar

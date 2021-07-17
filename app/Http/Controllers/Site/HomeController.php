@@ -19,12 +19,34 @@ class HomeController extends Controller
         $numberStock = DB::table('products')->sum('stock');
         $stockValue = DB::table('products')->get();
         $stockPrice = 0;
+        $payable = DB::table('payables')
+        ->where('payables.status','=',0)
+        ->sum('value');
+        $receivable = DB::table('receivables')
+        ->where('receivables.status','=',0)
+        ->sum('value');
+        $cashierC = DB::table('cashiers')
+        ->where('cashiers.type','=','C')
+        ->sum('value');
+        $cashierD = DB::table('cashiers')
+        ->where('cashiers.type','=','D')
+        ->sum('value');
+        $adjustmentC = DB::table('adjustments')
+        ->where('adjustments.type','=','C')
+        ->sum('value');
+        $adjustmentD = DB::table('adjustments')
+        ->where('adjustments.type','=','D')
+        ->sum('value');
+        $cashier = ($cashierC+$adjustmentC) - ($cashierD+$adjustmentD);
         foreach($stockValue as $stockValue){
             $stockPrice = $stockPrice+($stockValue->stock*$stockValue->price_buy);
         }
         return view('Site.Home.index',[
             'numberStock' => $numberStock,
-            'stockPrice' => $stockPrice
+            'stockPrice' => $stockPrice,
+            'payable' => $payable,
+            'receivable' => $receivable,
+            'cashier' => $cashier,
         ]);
     }
 }

@@ -1,25 +1,25 @@
-<div class="modal fade" id="modalEditProduct">
+<div class="modal fade" id="modaleditproduct">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Alterar produtos</h4>
+            <div class="modal-header" id="titleedt">
+                <h4 class="modal-title">Alterar produto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormEdtProducts" name="FormEdtProducts"
-                    action="{{route('Site.ProductsUpdate')}}">
+                    action="{{route('Site.ProductsUpdate')}}" novalidate class="needs-validation">
                     @csrf
                     @method('post')
 
                     <div class="form-group">
                         <div class='row'>
                             <div class='col-12'>
-                                <input type="hidden" id="edtidProduct" name="edtidProduct">
+                                <input type="hidden" id="edtid" name="edtid">
                                 <label for="inputNameProduct">Descrição</label>
-                                <input type="text" class="form-control" name="edtnameProduct" id="edtnameProduct"
-                                    placeholder="Conjunto Alice Ruby">
+                                <input type="text" class="form-control" name="edtname" id="edtname"
+                                    placeholder="Conjunto Alice Ruby" required maxlength="50">
                             </div>
                         </div>
                     </div>
@@ -27,13 +27,12 @@
                         <div class='row'>
                             <div class='col-9'>
                                 <label for="inputStockProduct">Cor</label>
-                                <input type="text" class="form-control" name="edtcolorProduct" id="edtcolorProduct"
-                                    placeholder="Verde Militar/Nude">
+                                <input type="text" class="form-control" name="edtcolor" id="edtcolor"
+                                    placeholder="Verde Militar/Nude" required maxlength="30">
                             </div>
                             <div class='col-3'>
                                 <label for="inputStockProduct">Estoque</label>
-                                <input type="text" class="form-control" name="edtstockProduct" id="edtstockProduct"
-                                    placeholder="1">
+                                <input type="number" class="form-control" name="edtstock" id="edtstock" placeholder="1" required  maxlength="3">
                             </div>
                         </div>
                     </div>
@@ -41,13 +40,13 @@
                         <div class="row">
                             <div class='col-6'>
                                 <label for="inputPrice_BuyProduct">Custo</label>
-                                <input type="text" class="form-control" name="edtpriceBuyProduct"
-                                    id="edtpriceBuyProduct" placeholder="17.99">
+                                <input type="number" class="form-control" name="edtpricebuy" id="edtpricebuy"
+                                    placeholder="17.99" placeholder="17.99" step=".01" maxlength="8" required>
                             </div>
                             <div class='col-6'>
                                 <label for="inputPrice_SellProduct">Venda</label>
-                                <input type="text" class="form-control" name="edtpriceSellProduct"
-                                    id="edtpriceSellProduct" placeholder="54.99">
+                                <input type="number" class="form-control" name="edtpricesell" id="edtpricesell"
+                                    placeholder="54.99" placeholder="54.99" step=".01" maxlength="8" required>
                             </div>
                         </div>
                     </div>
@@ -55,9 +54,9 @@
                         <div class="row">
                             <div class='col-6'>
                                 <label>Tamanho</label>
-                                <select class="form-control select2bs4" name="edtsizeIdProduct" id="edtsizeIdProduct"
+                                <select class="form-control select2bs4" required name="edtsize" id="edtsize"
                                     style="width: 100%;">
-                                    <option value="">Selecione um tamanho:</option>
+                                    <option disabled value="">Selecione um tamanho:</option>
                                     @foreach($sizes as $sizes)
                                     <option value="{{$sizes->size_id}}">{{$sizes->name}}</option>
                                     @endforeach
@@ -65,9 +64,9 @@
                             </div>
                             <div class='col-6'>
                                 <label>Tipo</label>
-                                <select class="form-control select2bs4" name="edttypeIdProduct" id="edttypeIdProduct"
+                                <select class="form-control select2bs4" required name="edttype" id="edttype"
                                     style="width: 100%;">
-                                    <option value="">Selecione um tipo:</option>
+                                    <option disabled value="">Selecione um tipo:</option>
                                     @foreach($types as $types)
                                     <option value="{{$types->type_id}}">{{$types->name}}</option>
                                     @endforeach
@@ -97,31 +96,56 @@
 
 <script>
 /* When click edit user */
-$('#modalEditProduct').on('show.bs.modal', function(event) {
+$('#modaleditproduct').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var modal = $(this);
 
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var modal = $(this)
+    var idProduct = button.data('whatever');
+    $('#edtid').val(idProduct);
+    $('#titleedt').html(" <h4 class='modal-title'>Editar produto #" + idProduct + "</h4><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>");
+    var origin = location.origin;
+    var requestProduct = origin+"/Produtos/Buscar/" + idProduct;
+    search(requestProduct);
+});
 
-    var idProduct = button.data('whatever').product_id
-    var nameProduct = button.data('whatever').name
-    var colorProduct = button.data('whatever').color
-    var stockProduct = button.data('whatever').stock
-    var priceBuyProduct = button.data('whatever').price_buy
-    var priceSellProduct = button.data('whatever').price_sell
-    var updateAtProduct = button.data('whatever').update_at
-    var createAtProduct = button.data('whatever').create_at
-    var typeIdProduct = button.data('whatever').type_id
-    var sizeIdProduct = button.data('whatever').size_id
+function search(URL) {
+    var request = new XMLHttpRequest();
+    request.open('GET', URL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function() {
+        var product = request.response;
+        $("#edtname").val(product[0].name);
+        $("#edtcolor").val(product[0].color);
+        $("#edtstock").val(product[0].stock);
+        $("#edtpricebuy").val(product[0].price_buy);
+        $("#edtpricesell").val(product[0].price_sell);
+        $("#edttypeId").val(product[0].type_id);
+        $("#edtsizeId").val(product[0].size_id);
+        $("#edtupdateProduct").val(product[0].created_at);
+        $("#edtcreateProduct").val(product[0].updated_at);
+    }
+}
+</script>
+<script>
 
-    modal.find('#edtidProduct').val(idProduct)
-    modal.find('#edtnameProduct').val(nameProduct)
-    modal.find('#edtcolorProduct').val(colorProduct)
-    modal.find('#edtstockProduct').val(stockProduct)
-    modal.find('#edtpriceBuyProduct').val(priceBuyProduct)
-    modal.find('#edtpriceSellProduct').val(priceSellProduct)
-    modal.find("#edtsizeIdProduct").val(sizeIdProduct)
-    modal.find('#edttypeIdProduct').val(typeIdProduct)
-    modal.find('#edtupdateProduct').val(updateAtProduct)
-    modal.find('#edtcreateProduct').val(createAtProduct)
-})
+(function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
 </script>

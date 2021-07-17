@@ -37,6 +37,11 @@
                                     <input type="text" class="form-control" id="idSale" name="idSale"
                                         value="{{$sales->sale_id}}" Readonly>
                                 </div>
+                                <div class="col-md-2">
+                                    <label for="IDUser">Data da venda</label>
+                                    <input type="date" class="form-control" id="dateSale" name="dateSale"
+                                        value="{{date('Y-m-d')}}">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-1">
@@ -55,7 +60,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="rgUser">Plataforma</label>
-                                    <select class="form-control select2bs4" id="platforms" name="platforms" style="width: 100%;">
+                                    <select class="form-control select2bs4" id="platforms" name="platforms"
+                                        style="width: 100%;">
                                         <option data-ratePlatform="0">Selecione a plataforma</option>
                                         @foreach($platforms as $platforms)
                                         <option value="{{$platforms->platform_id}}"
@@ -73,7 +79,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="cpfUser">Pagamento</label>
-                                    <select class="form-control select2bs4" id="payment" name="payment" style="width: 100%;">
+                                    <select class="form-control select2bs4" id="payment" name="payment"
+                                        style="width: 100%;">
                                         <option data-ratePayment="100">Selecione a forma de pagamento
                                         </option>
                                         @foreach($payments as $payments)
@@ -82,6 +89,7 @@
                                             data-ratefixPayment="{{$payments->payment_fixrate}}"
                                             data-ratevariablePayment="{{$payments->payment_ratevariable}}"
                                             data-exemption="{{$payments->plot_id}}"
+                                            data-pagseguro='{{$payments->exemption}}'
                                             data-payment_ratetype="{{$payments->payment_ratetype}}">
                                             {{$payments->name}}</option>
                                         @endforeach
@@ -157,8 +165,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <label for="cpfUser">Valor da Venda</label>
-                                    <input type="number" class="form-control" id="priceSale" name="priceSale"
-                                        value="0" readonly>
+                                    <input type="number" class="form-control" id="priceSale" name="priceSale" value="0"
+                                        readonly>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa</label>
@@ -257,6 +265,7 @@ function calcular() {
     var shippingValue = parseFloat($("#shippingValue").val());
 
     var plotExemption = ($("#payment").find(':selected').attr('data-exemption'));
+    var pagseguro = ($("#payment").find(':selected').attr('data-pagseguro'));
     var plotID = ($("#plots").find(':selected').val());
     var numberPlot = ($("#plots").find(':selected').attr('data-numPlot'));
 
@@ -293,29 +302,32 @@ function calcular() {
     var rateVariableCompany = parseFloat(0);
     var rateVariableClient = parseFloat(0);
     var mult = 1;
-    var priceRate = priceSale;
+    var priceRate = priceSale; 
 
-    if (numberPlot > 1) {
-        for (plot = 1; plot <= numberPlot; plot++) {
-            rateVariableCompany = rateVariableCompany + valorParcela / (Math.pow(1 + parseFloat(ratevariablePayment), plot));
+    if (pagseguro == 1) {
+        if (numberPlot > 1) {
+            for (plot = 1; plot <= numberPlot; plot++) {
+                rateVariableCompany = rateVariableCompany + valorParcela / (Math.pow(1 + parseFloat(
+                    ratevariablePayment), plot));
+            }
+            rateVariableCompany = priceSale - rateVariableCompany;
+            if (parseInt(numberPlot) > parseInt(plotExemption)) {
+
+                mult = numberPlot - plotExemption;
+                var p1 = priceSale * parseFloat(ratevariablePayment);
+                var p2 = (Math.pow(1 + parseFloat(ratevariablePayment), mult));
+                var p3 = (Math.pow(1 + parseFloat(ratevariablePayment), mult) - 1);
+
+                valorParcela = (p1 * (p2 / p3));
+
+                rateVariableClient = (valorParcela * mult) - priceSale;
+                priceRate = valorParcela * mult;
+            }
+
+            rateVariableCompany = rateVariableCompany - rateVariableClient;
+            priceSale = priceRate;
+
         }
-        rateVariableCompany = priceSale - rateVariableCompany;
-        if (parseInt(numberPlot) > parseInt(plotExemption)) {
-
-            mult = numberPlot - plotExemption;
-            var p1 = priceSale * parseFloat(ratevariablePayment);
-            var p2 = (Math.pow(1 + parseFloat(ratevariablePayment), mult));
-            var p3 = (Math.pow(1 + parseFloat(ratevariablePayment), mult) - 1);
-
-            valorParcela = (p1 * (p2 / p3));
-
-            rateVariableClient = (valorParcela * mult) - priceSale;
-            priceRate = valorParcela * mult;
-        }
-
-        rateVariableCompany =  rateVariableCompany - rateVariableClient;
-        priceSale = priceRate;
-
     }
 
     amountSale = amountSale - rateVariableCompany;

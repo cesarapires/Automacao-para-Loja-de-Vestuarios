@@ -67,15 +67,16 @@ class ProductsController extends Controller
             strtr(utf8_decode(trim($request->nameProduct)), 
             utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
             "aaaaeeiooouuncAAAAEEIOOOUUNC-"))),
-            'name'=>$request->nameProduct,
-            'color'=>$request->colorProduct,
-            'type_id'=>$request->type_IdProduct,
-            'size_id'=>$request->size_IdProduct,
-            'price_buy'=>$request->price_BuyProduct,
-            'price_sell'=>$request->price_SellProduct,
+            'name'=>$request->name,
+            'color'=>$request->color,
+            'type_id'=>$request->type,
+            'size_id'=>$request->size,
+            'price_buy'=>$request->pricebuy,
+            'price_sell'=>$request->pricesell,
+            'visible'=>"1",
             'created_at' => date("Y-m-d H:i:s"),  
             'updated_at' => date("Y-m-d H:i:s"),  
-            'stock'=>$request->stockProduct
+            'stock'=>$request->stock
         ]);
         return redirect('Produtos');
     }
@@ -111,19 +112,19 @@ class ProductsController extends Controller
     public function updateProduct(Request $request)
     {
         DB::table('products')->
-        where('product_id','=',$request->edtidProduct)->
+        where('product_id','=',$request->edtid)->
         update([
             'url'=>strtolower( preg_replace("/[^a-zA-Z0-9-]/", "-", 
-            strtr(utf8_decode(trim($request->edtnameProduct)), 
+            strtr(utf8_decode(trim($request->edtname)), 
             utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
             "aaaaeeiooouuncAAAAEEIOOOUUNC-")) ),
-            'name'=>$request->edtnameProduct,
-            'color'=>$request->edtcolorProduct,
-            'type_id'=>$request->edttypeIdProduct,
-            'size_id'=>$request->edtsizeIdProduct,
-            'stock'=>$request->edtstockProduct,
-            'price_buy'=>$request->edtpriceBuyProduct,
-            'price_sell'=>$request->edtpriceSellProduct, 
+            'name'=>$request->edtname,
+            'color'=>$request->edtcolor,
+            'type_id'=>$request->edttype,
+            'size_id'=>$request->edtsize,
+            'stock'=>$request->edtstock,
+            'price_buy'=>$request->edtpricebuy,
+            'price_sell'=>$request->edtpricesell, 
             'updated_at' => date("Y-m-d H:i:s")
             
         ]);
@@ -174,5 +175,13 @@ class ProductsController extends Controller
         where('size_id','=',$request->delidSize)->
         delete();
         return redirect('Produtos/Tamanhos');
+    }
+
+    public function searchProducts($idProduct){
+        $products = DB::table('products')
+        ->select()
+        ->where('product_id','=',$idProduct)
+        ->get();
+        return response()->json($products);
     }
 }

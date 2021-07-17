@@ -18,7 +18,7 @@ class SalesController extends Controller
         ->where('status','<>','0')
         ->get();
         return view('Site.Vendas.index',[
-            'sales' => $sales
+            'sales' => $sales,
         ]);
     }
 
@@ -53,6 +53,62 @@ class SalesController extends Controller
        
     }
 
+    public function editSale($idSale)
+    {
+        $products = DB::table('products')
+        ->join('types', 'products.type_id', '=', 'types.type_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->get();
+        $clients = DB::table('clients')->get();
+        $plots = DB::table('plots')->get();
+        $payments = DB::table('payments')->get();
+        $platforms = DB::table('platforms')->get();
+        $sales = DB::table('sales')
+        ->select('*')
+        ->where('sales.sale_id','=',$idSale)
+        ->get();
+        $saleitens = DB::table('saleitens')
+        ->join('products', 'saleitens.product_id', '=', 'products.product_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('saleitens.*', 'products.name', 'sizes.name as size')
+        ->where('sale_id','=',$idSale)
+        ->get();
+        return view('Site.Vendas.editsale',[
+            'products' => $products,
+            'clients' => $clients,
+            'plots' => $plots,
+            'payments' => $payments,
+            'platforms' => $platforms,
+            'sales' => $sales[0],
+            'saleitens' => $saleitens
+        ]);
+    }
+    public function searchSale($idSale){
+        $products = DB::table('products')
+        ->join('types', 'products.type_id', '=', 'types.type_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->get();
+        $clients = DB::table('clients')->get();
+        $plots = DB::table('plots')->get();
+        $payments = DB::table('payments')->get();
+        $platforms = DB::table('platforms')->get();
+        $sales = DB::table('sales')
+        ->join('clients','sales.client_id','=','clients.client_id')
+        ->select('*')
+        ->where('sales.sale_id','=',$idSale)
+        ->get();
+        $saleitens = DB::table('saleitens')
+        ->join('products', 'saleitens.product_id', '=', 'products.product_id')
+        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
+        ->select('saleitens.*', 'products.name', 'sizes.name as size')
+        ->where('sale_id','=',$idSale)
+        ->get();
+        $exit = array_merge($sales[1],$saleitens);
+        return response()->json($sales);
+    }
+
     public function openSale(Request $request)
     {
         DB::table('sales')->
@@ -61,6 +117,7 @@ class SalesController extends Controller
             'status'=>'A',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
+        
         $saleitens = DB::table('saleitens')
         ->select()
         ->where('saleitens.sale_id', '=', $request->opensaleid)
@@ -78,6 +135,22 @@ class SalesController extends Controller
                 
             ]);      
         }
+
+        $receivableID = DB::table('receivables')->select()->where('sale_id','=',$request->opensaleid)->get();
+
+        foreach($receivableID as $receivableID){
+            DB::table('cashiers')->
+            where('cashiers.receivable_id','=',$receivableID->receivable_id)->
+            delete();
+        }
+        DB::table('cashiers')->
+        where('sale_id','=',$request->opensaleid)->
+        delete();
+        DB::table('receivables')->
+        where('sale_id','=',$request->opensaleid)->
+        delete();
+;
+
         return redirect('Vendas');
     }
 
@@ -89,10 +162,56 @@ class SalesController extends Controller
             'status'=>'F',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
+
+        $sale = DB::table('sales')->select()->where('sales.sale_id','=',$request->closesaleid)->get();
+
+        $plot = DB::table('plots')->select('number')->where('plots.plot_id','=',$sale[0]->plot_id)->get();
+
+        $payment =DB::table('payments')->select('credit')->where('payments.payment_id','=',$sale[0]->payment_id)->get();
+    
+        $amount = $sale[0]->amount;
+        if($payment[0]->credit == 1){
+            $valuePlot = $amount/$plot[0]->number;
+            for($cont = 1; $cont<=$plot[0]->number;$cont++){
+                $days = $cont*30;
+                DB::table('receivables')->insert([
+                    'client_id'=>$sale[0]->client_id,
+                    'sale_id'=>$sale[0]->sale_id,
+                    'date_sale'=>$sale[0]->date_sale,
+                    'date_duereceivable'=>date("Y-m-d", strtotime($sale[0]->date_sale.'+'.$days.'days')),
+                    'value'=>$valuePlot,
+                    'status'=>0,
+                    'numberplot'=>$cont,
+                    'created_at' => date("Y-m-d H:i:s"),  
+                    'updated_at' => date("Y-m-d H:i:s"),  
+                ]);        
+            }
+        }
+        else{
+            $nameClient = DB::table('clients')
+            ->select('name')
+            ->where('clients.client_id','=',$sale[0]->client_id)
+            ->get();
+
+            
+            DB::table('cashiers')->insert([
+                'description'=>$nameClient[0]->name,
+                'client_id'=>$sale[0]->client_id,
+                'sale_id'=>$sale[0]->sale_id,
+                'date_receivable'=>$sale[0]->date_sale,
+                'value'=>$amount,
+                'type'=>'C',
+                'created_at' => date("Y-m-d H:i:s"),  
+                'updated_at' => date("Y-m-d H:i:s"),  
+                'sale_id'=>$sale[0]->sale_id,
+            ]);  
+            
+        }
         $saleitens = DB::table('saleitens')
         ->select()
         ->where('saleitens.sale_id', '=', $request->closesaleid)
         ->get();
+
         foreach ($saleitens as $saleitens){
             $products = DB::table('products')
             ->select('*')
@@ -115,12 +234,13 @@ class SalesController extends Controller
         DB::table('sales')->
         where('sale_id','=',$request->delesaleid)->
         delete();
-        //return redirect('Vendas');
+        return redirect('Vendas');
     }
 
     public function createNewSale()
     {
         DB::table('sales')->insert([
+            'date_sale'=>null,
             'client_id'=>null,
             'platform_id'=>null,
             'platform_rate'=>0,
@@ -147,6 +267,7 @@ class SalesController extends Controller
         DB::table('sales')->
         where('sale_id','=',$request->idSale)->
         update([
+            'date_sale'=>$request->dateSale,
             'client_id'=>$request->idClient,
             'platform_id'=>$request->platforms,
             'platform_rate'=>$request->ratePlatform,

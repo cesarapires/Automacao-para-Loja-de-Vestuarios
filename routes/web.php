@@ -38,6 +38,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Produtos/CadastroProduto', 'ProductsController@storeProduct')->middleware(['auth'])->name('Site.ProductsStore');
     Route::post('/Produtos/AlterarProduto', 'ProductsController@updateProduct')->middleware(['auth'])->name('Site.ProductsUpdate');
     Route::post('/Produtos/DeleteProduto', 'ProductsController@deleteProduct')->middleware(['auth'])->name('Site.ProductsDelete');
+    Route::get('/Produtos/Buscar/{idProducts}', 'ProductsController@searchProducts')->middleware(['auth'])->name('Site.ProductsSearch');
     #Aqui estão as rotas relacionadas ao CRUD de tipos
     Route::get('/Produtos/Tipos', 'ProductsController@indexTipos')->middleware(['auth'])->name('Site.ProductsTypes');
     Route::post('/Produtos/CadastroTipo', 'ProductsController@storeType')->middleware(['auth'])->name('Site.TypesStore');
@@ -53,7 +54,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Clientes/CadastroClientes', 'ClientsController@store')->middleware(['auth'])->name('Site.ClientsStore');
     Route::post('/Clientes/Alterarlientes', 'ClientsController@update')->middleware(['auth'])->name('Site.ClientsUpdate');
     Route::post('/Clientes/DeleteClientes', 'ClientsController@delete')->middleware(['auth'])->name('Site.ClientsDelete');
-   
+    Route::get('/Clientes/Buscar/{idClient}','ClientsController@searchClient')->middleware(['auth'])->name('Site.ClientSearch');
     /* 
     |--------------------------------------------------------------------------
     | Web Routes Vendas
@@ -69,6 +70,8 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
         Route::get('/Vendas/Nova', 'SalesController@indexNew')->middleware(['auth'])->name('Site.NewSales');
         Route::post('/Vendas/Salvar', 'SalesController@saveSale')->middleware(['auth'])->name('Site.SaveSales');
+        Route::get('/Vendas/Editar/{idSale}','SalesController@editSale')->middleware(['auth'])->name('Site.EditSales');
+        Route::get('/Vendas/Buscar/{idSale}', 'SalesController@searchSale')->middleware(['auth'])->name('Site.SearchSales');
 
         Route::post('/Vendas/AdicionarItem', 'SalesController@additensale')->middleware(['auth'])->name('Site.AddIten');
         Route::post('/Vendas/EditarItem', 'SalesController@edtitensale')->middleware(['auth'])->name('Site.EdtIten');
@@ -82,13 +85,23 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     #Aqui estão as rotas relacionadas ao CRUD de Contas a Pagar
     Route::get('/ContasPagar', 'PayableController@index')->middleware(['auth'])->name('Site.Payable');
-
+    Route::get('/ContasPagar/Buscar/{idPayable}', 'PayableController@modalselectpayable')->middleware(['auth'])->name('Site.PayableSelectUpdate');
+    Route::post('/ContasPagar/Cadastrar', 'PayableController@store')->middleware(['auth'])->name('Site.PayableStore');
+    Route::post('/ContasPagar/Editar', 'PayableController@update')->middleware(['auth'])->name('Site.PayableUpdate');
+    Route::post('/ContasPagar/Deletar', 'PayableController@delete')->middleware(['auth'])->name('Site.PayableDelete');
 
     #Aqui estão as rotas relacionadas ao CRUD de Contas a Receber
-    Route::get('/ContasReceber', 'ReceiableController@index')->middleware(['auth'])->name('Site.Receiable');
+    Route::get('/ContasReceber', 'ReceivableController@index')->middleware(['auth'])->name('Site.Receivable');
+    Route::get('/ContasReceber/Buscar/{idReceivable}', 'ReceivableController@modalselectreceiable')->middleware(['auth'])->name('Site.ReceivableSelectUpdate');
+    Route::post('/ContasReceber/Cadastrar', 'ReceivableController@store')->middleware(['auth'])->name('Site.ReceivableStore');
+    Route::post('/ContasReceber/Editar', 'ReceivableController@update')->middleware(['auth'])->name('Site.ReceivableUpdate');
+    Route::post('/ContasReceber/Deletar', 'ReceivableController@delete')->middleware(['auth'])->name('Site.ReceivableDelete');
 
     Route::get('/Caixa', 'CashierController@index')->middleware(['auth'])->name('Site.Cashier');
-
+    Route::get('/Caixa/Buscar/{idCashier}', 'CashierController@modalselectcachiers')->middleware(['auth'])->name('Site.CashierSelectUpdate');
+    Route::post('/Caixa/Cadastrar', 'CashierController@store')->middleware(['auth'])->name('Site.CashierStore');
+    Route::post('/Caixa/Editar', 'CashierController@update')->middleware(['auth'])->name('Site.CashierUpdate');
+    Route::post('/Caixa/Deletar', 'CashierController@delete')->middleware(['auth'])->name('Site.CashierDelete');
 
     Route::get('/Relatorio', 'ReportController@index')->middleware(['auth'])->name('Site.Report');
 
@@ -106,6 +119,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     #Aqui estão as rotas relacionadas ao CRUD de Pagamentos
     Route::get('/Configuracao/Pagamento', 'SettingsController@indexPayment')->middleware(['auth'])->name('Site.Payment');
+    Route::get('/Configuracao/Pagamento/Buscar/{idPayment}', 'SettingsController@modalselectcpayment')->middleware(['auth'])->name('Site.PaymentSelectUpdate');
     Route::post('/Configuracao/CadastroPagamento', 'SettingsController@storePayments')->middleware(['auth'])->name('Site.PaymentStore');
     Route::post('/Configuracao/AlterarPagamento', 'SettingsController@updatePayments')->middleware(['auth'])->name('Site.PaymentUpdate');
     Route::post('/Configuracao/DeletePagamento', 'SettingsController@deletePayments')->middleware(['auth'])->name('Site.PaymentDelete');
@@ -115,6 +129,13 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Configuracao/CadastroParcelas', 'SettingsController@storePlots')->middleware(['auth'])->name('Site.PlotStore');
     Route::post('/Configuracao/AlterarParcelas', 'SettingsController@updatePlots')->middleware(['auth'])->name('Site.PlotUpdate');
     Route::post('/Configuracao/DeleteParcelas', 'SettingsController@deletePlots')->middleware(['auth'])->name('Site.PlotDelete');
+
+    #Aqui estão as rotas relacionadas ao CRUD de Ajustes no Caixa
+    Route::get('/Configuracao/AjusteCaixa', 'SettingsController@indexAdjustment')->middleware(['auth'])->name('Site.Adjustment');
+    Route::get('/Configuracao/AjusteCaixa/Buscar/{idAdjustment}', 'SettingsController@modalselectcadjustment')->middleware(['auth'])->name('Site.AdjustmentSelectUpdate');
+    Route::post('/Configuracao/CadastroAjusteCaixa', 'SettingsController@storeAdjustment')->middleware(['auth'])->name('Site.AdjustmentStore');
+    Route::post('/Configuracao/AlterarAjusteCaixa', 'SettingsController@updateAdjustment')->middleware(['auth'])->name('Site.AdjustmentUpdate');
+    Route::post('/Configuracao/DeleteAjusteCaixa', 'SettingsController@deleteAdjustment')->middleware(['auth'])->name('Site.AdjustmentDelete');
 
 });
 

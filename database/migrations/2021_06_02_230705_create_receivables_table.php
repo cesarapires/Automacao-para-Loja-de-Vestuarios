@@ -14,15 +14,15 @@ class CreateReceivablesTable extends Migration
     public function up()
     {
         Schema::create('receivables', function (Blueprint $table) {
-            $table->id('reciavable_id');
-            $table->foreignId('client_id')->nullable()->references('client_id')->on('clients');
+            $table->id('receivable_id');
+            $table->foreignId('client_id')->nullable()->references('client_id')->on('clients')->onDelete('cascade');;
             $table->foreignId('sale_id')->nullable()->references('sale_id')->on('sales');
-            $table->date('date_sell')->nullable();
-            $table->date('date_paymentReceivable')->nullable();
+            $table->date('date_sale')->nullable();
+            $table->date('date_paymentreceivable')->nullable();
             $table->char('status',2);
             $table->float('value');
-            $table->date('dateDueReceivable');
-            $table->foreignId('plot_id')->nullable()->references('plot_id')->on('plots');
+            $table->date('date_duereceivable');
+            $table->integer('numberplot');
             $table->timestamps();
         });
     }

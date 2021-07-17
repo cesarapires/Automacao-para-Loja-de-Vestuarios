@@ -66,6 +66,22 @@
                     </a>
                 </div>
             </div>
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{!!number_format($cashier,2)!!}<sup style="font-size: 20px"> R$</sup></h3>
+
+                        <p>Ajustes no caixa</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <a href="{{route('Site.Adjustment')}}" class="small-box-footer">
+                        Visualizar <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
