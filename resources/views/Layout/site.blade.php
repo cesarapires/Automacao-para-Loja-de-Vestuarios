@@ -215,14 +215,14 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a href="{{route('Site.Report')}}" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     Relatórios
                                 </p>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-item">
                             <a href="{{route('Site.Setting')}}" class="nav-link">
                                 <i class="nav-icon fas fa-cog"></i>
@@ -259,10 +259,10 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
+            <strong>Copyright &copy; 2021-2021 <a href="#">Núcleo Sistemas Digitais</a>.</strong>
+            Todos os direitos reservados.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.1.0
+                <b>Version</b> 3.0.1
             </div>
         </footer>
     </div>
