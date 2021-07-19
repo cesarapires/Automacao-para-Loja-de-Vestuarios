@@ -120,8 +120,8 @@ function search(URL) {
         $("#edtstock").val(product[0].stock);
         $("#edtpricebuy").val(product[0].price_buy);
         $("#edtpricesell").val(product[0].price_sell);
-        $("#edttypeId").val(product[0].type_id);
-        $("#edtsizeId").val(product[0].size_id);
+        $("#edttype").val(product[0].type_id);
+        $("#edtsize").val(product[0].size_id);
         $("#edtupdateProduct").val(product[0].created_at);
         $("#edtcreateProduct").val(product[0].updated_at);
     }

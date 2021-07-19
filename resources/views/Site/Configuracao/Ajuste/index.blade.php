@@ -368,8 +368,8 @@ $(function() {
 });
 </script>
 
-@include('Site.Configuracao.Ajuste.modal.new')
-@include('Site.Configuracao.Ajuste.modal.edit')
-@include('Site.Configuracao.Ajuste.modal.delete')
+@include('Site.Configuracao.Ajuste.Modal.new')
+@include('Site.Configuracao.Ajuste.Modal.edit')
+@include('Site.Configuracao.Ajuste.Modal.delete')
 
 @endsection('content')

@@ -51,20 +51,20 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Qty</th>
                                     <th>Preço</th>
-                                    <th>Produto</th>
                                     <th>Descrição</th>
+                                    <th>Quantidade</th>
                                     <th>Subtotal</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="produtos">
                                 <tr>
                                     <td>1</td>
                                     <td>Call of Duty</td>
                                     <td>455-981-221</td>
                                     <td>El snort testosterone trophy driving gloves handsome</td>
                                     <td>$64.50</td>
+                                    <td>a</td>
                                 </tr>
                                 <tr>
                                     <td>1</td>
@@ -113,7 +113,7 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody id="total">
-                            
+
                                 </tbody>
                             </table>
                         </div>
@@ -144,7 +144,8 @@ $('#modalviewsale').on('show.bs.modal', function(event) {
     var modal = $(this);
 
     var idSale = button.data('whatever');
-    var saleRequest = "http://127.0.0.1:8000/Vendas/Buscar/" + idSale;
+    var origin = location.origin;
+    var saleRequest = origin + "/Vendas/Buscar/" + idSale;
     searchpayable(saleRequest);
 
 });
@@ -159,59 +160,49 @@ function searchpayable(saleURL) {
         var sale = request.response;
         $('#saleID').html(
             "<br>" +
-            "<b>Pedido: #" + sale[0].sale_id + "</b><br>" +
-            "<b>Data:</b> " + sale[0].date_sale + "<br>" +
-            "<b>Forma de Pagamento:</b> 2/22/2014<br>" +
-            "<b>Parcelas:</b> 968-34567"
+            "<b>Pedido: #" + sale['InfoVenda'][0].sale_id + "</b><br>" +
+            "<b>Data:</b> " + moment(sale['InfoVenda'][0].date_sale).format('DD/MM/YYYY') + "<br>" +
+            "<b>Forma de Pagamento:</b> " + sale['InfoVenda'][0].payment + "<br>" +
+            "<b>Parcelas:</b> " + sale['InfoVenda'][0].plot
         );
 
         $('#clientID').html(
-            "<strong>"+sale[0].name+"</strong><br>" +
-            "795 Folsom Ave, Suite 600<br>" +
-            "San Francisco, CA 94107<br>" +
-            "Telefone: "+sale[0].phone+"<br>" +
-            "Email: "+sale[0].email
+            "<strong>" + sale['InfoVenda'][0].name + "</strong><br>" +
+            sale['InfoVenda'][0].address + ", " + sale['InfoVenda'][0].number + "<br>" +
+            sale['InfoVenda'][0].city + ", " + sale['InfoVenda'][0].state + " " + sale['InfoVenda'][0].cep +
+            "<br>" +
+            "Telefone: " + sale['InfoVenda'][0].phone + "<br>" +
+            "Email: " + sale['InfoVenda'][0].email
         );
 
         $('#total').html(
-            "<tr>"+
-                "<th style='width:50%'>Subtotal:</th>"+
-                "<td>R$ "+sale[0].subtotalitens+"</td>"+
-            "</tr>"+
-            "<tr>"+
-                "<th>Taxa (9.3%):</th>"+
-                "<td>R$ 10.34</td>"+
-            "</tr>"+
-            "<tr>"+
-                "<th>Frete:</th>"+
-                "<td>R$ "+sale[0].price_shipping+"</td>"+
-            "</tr>"+
-            "<tr>"+
-                "<th>Total:</th>"+
-                "<td>R$ "+sale[0].amount+"</td>"+
+            "<tr>" +
+            "<th style='width:50%'>Subtotal:</th>" +
+            "<td>R$ " + sale['InfoVenda'][0].subtotalitens + "</td>" +
+            "</tr>" +
+            "<tr>" +
+            "<th>Taxa (9.3%):</th>" +
+            "<td>R$ 10.34</td>" +
+            "</tr>" +
+            "<tr>" +
+            "<th>Frete:</th>" +
+            "<td>R$ " + sale['InfoVenda'][0].price_shipping + "</td>" +
+            "</tr>" +
+            "<tr>" +
+            "<th>Total:</th>" +
+            "<td>R$ " + sale['InfoVenda'][0].amount + "</td>" +
             "</tr>"
         );
-
-
-
-        /*$('#edtbuyPayable').val(sale[0].date_buypayable);
-        $('#edtduePayable').val(sale[0].date_duepayable);
-        if(sale[0].status == 1){
-            $('#edtstatusPayable').val(sale[0].status);
-            $('#edtstatusPayable').prop('checked', true);
-            $("#edtdatePayable").prop('disabled', false);
-        }
-        else{
-            $('#edtstatusPayable').val(0);
-            $("#edtdatePayable").prop('disabled', true);
-            $('#edtstatusPayable').prop('checked', false)
-            $("#edtdatePayable").val(null);
-        }
-        $('#edtstatusPayable').val(sale[0].status);
-        $('#edtdatePayable').val(sale[0].date_payable);
-        $('#edtpricePayable').val(sale[0].value);
-        var modified_value = (payable[0].updated_at).replace(' ', 'T');
-        $('#lastupdatedPayable').val(modified_value);*/
     }
+    var produtos = sale['Produtos'].length
+    $('#produtos').html(
+        //for (var cont = 1; cont <= produtos; cont++) {
+            "<td>1</td>" +
+            "<td>Call of Duty</td>" +
+            "<td>455-981-221</td>" +
+            "<td>El snort testosterone trophy driving gloves handsome</td>" +
+            "<td>$64.50</td>"
+        //}
+    );
 }
 </script>
