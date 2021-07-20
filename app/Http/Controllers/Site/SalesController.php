@@ -93,6 +93,7 @@ class SalesController extends Controller
         $plots = DB::table('plots')->get();
         $payments = DB::table('payments')->get();
         $platforms = DB::table('platforms')->get();
+
         $sales['InfoVenda'] = DB::table('sales')
         ->join('clients','sales.client_id','=','clients.client_id')
         ->join('payments', 'sales.payment_id','=','payments.payment_id')
@@ -100,6 +101,7 @@ class SalesController extends Controller
         ->select('sales.*','clients.*','payments.name as payment' , 'plots.name as plot')
         ->where('sales.sale_id','=',$idSale)
         ->get();
+        
         $sales['Produtos'] = DB::table('saleitens')
         ->join('products', 'saleitens.product_id', '=', 'products.product_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')

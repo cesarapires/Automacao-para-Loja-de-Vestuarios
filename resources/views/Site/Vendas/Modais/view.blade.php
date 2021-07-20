@@ -194,15 +194,18 @@ function searchpayable(saleURL) {
             "</tr>"
         );
     }
-    var produtos = sale['Produtos'].length
-    $('#produtos').html(
-        //for (var cont = 1; cont <= produtos; cont++) {
-            "<td>1</td>" +
-            "<td>Call of Duty</td>" +
+    $('#produtos').html('');
+    var produtos = 2;
+    for (var cont = 1; cont <= produtos; cont++) {
+        $('#produtos').append(
+            "<tr>"+
+            "<td>"+cont+"</td>" +
+            "<td>"+sale['Produtos'].price+"</td>" +
             "<td>455-981-221</td>" +
             "<td>El snort testosterone trophy driving gloves handsome</td>" +
-            "<td>$64.50</td>"
-        //}
-    );
+            "<td>$64.50</td>"+
+            "</tr>"
+        );
+    }
 }
 </script>
