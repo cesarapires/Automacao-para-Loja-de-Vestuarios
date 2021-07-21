@@ -299,7 +299,7 @@ $(function() {
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
-
+        "buttons": ["excel", "pdf", "print"]
     }).buttons().container().appendTo('#produtos_wrapper .col-md-6:eq(0)');
 });
 </script>

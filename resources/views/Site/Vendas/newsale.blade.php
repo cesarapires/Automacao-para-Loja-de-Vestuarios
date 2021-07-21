@@ -73,7 +73,7 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Plataforma</label>
                                     <input type="number" class="form-control" id="ratePlatform" name="ratePlatform"
-                                        value="{{$sales->platform_rate}}" Readonly>
+                                        value="{{$sales->platform_rate}}" Readonly step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
@@ -98,17 +98,17 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Fixa</label>
                                     <input type="number" class="form-control" name="ratefixPayment" id="ratefixPayment"
-                                        value="0" readonly>
+                                        value="0" readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Variável</label>
                                     <input type="number" class="form-control" name="ratePayment" id="ratePayment"
-                                        value="0" readonly>
+                                        value="0" readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Mensal</label>
                                     <input type="number" class="form-control" id="ratevariablePayment"
-                                        name="ratevariablePayment" value="0" Readonly>
+                                        name="ratevariablePayment" value="0" Readonly step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
@@ -127,12 +127,12 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Cliente</label>
                                     <input type="number" class="form-control" id="rateClient" name="rateClient"
-                                        value="0" Readonly>
+                                        value="0" Readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Vendedor</label>
                                     <input type="number" class="form-control" id="rateCompany" name="rateCompany"
-                                        value="0" Readonly>
+                                        value="0" Readonly step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
@@ -149,34 +149,34 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Frete</label>
                                     <input type="number" class="form-control" name="shippingValue" id="shippingValue"
-                                        value="0">
+                                        value="0" step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Desconto</label>
                                     <input type="number" class="form-control" id="discountSale" name="discountSale"
-                                        value="0">
+                                        value="0" step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
                                     <label for="rgUser">Total Itens</label>
                                     <input type="number" class="form-control" id="itensTotal" name="itensTotal"
-                                        value="0" readonly>
+                                        value="0" readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="cpfUser">Valor da Venda</label>
                                     <input type="number" class="form-control" id="priceSale" name="priceSale" value="0"
-                                        readonly>
+                                        readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa</label>
                                     <input type="number" class="form-control" id="ratePaymentValue"
-                                        name="ratePaymentValue" value="0" readonly>
+                                        name="ratePaymentValue" value="0" readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Final</label>
                                     <input type="number" class="form-control" id="amountSale" name="amountSale"
-                                        value="0" readonly>
+                                        value="0" readonly step='0.01'>
                                 </div>
                             </div>
                             <br>

@@ -332,5 +332,40 @@ class SalesController extends Controller
         return redirect('Vendas/Nova');
     }
 
+    public function additensaleedt(Request $request)
+    {
+        DB::table('saleitens')->insert([
+            'sale_id'=>$request->idSale,
+            'product_id'=>$request->idProduct,
+            'quantity'=>$request->quantityProduct,
+            'price'=>$request->priceProduct,
+            'subtotal'=>($request->quantityProduct)*($request->priceProduct),
+            'created_at'=>date("Y-m-d H:i:s"), 
+            'updated_at' =>date("Y-m-d H:i:s")
+        ]);
+        return redirect('Vendas/Nova');
+    }
+
+    public function edtitensaleedt(Request $request)
+    {
+            DB::table('saleitens')->
+            where('saleitens_id','=',$request->edtidItenSale)->
+            update([
+                'product_id'=>$request->edtidProduct,
+                'quantity'=>$request->edtquantityProduct,
+                'price'=>$request->edtpriceProduct,
+                'subtotal'=>($request->edtquantityProduct)*($request->edtpriceProduct), 
+                'updated_at' => date("Y-m-d H:i:s")  
+            ]);        
+        return redirect('Vendas/Editar/');
+    }
+
+    public function delitensaleedt(Request $request)
+    {
+        DB::table('saleitens')->
+        where('saleitens_id','=',$request->delsaleitens_id)->
+        delete();
+        return redirect('Vendas/Editar/');
+    }
 
 }
