@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormDelType" name="FormDelType"
-                    action="{{route('Site.DelItenEdt')}}">
+                    action="DeletarItem/{{$sales->sale_id}}">
                     @csrf
                     @method('post')
                     <div class="card-body">

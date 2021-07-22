@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="FormProducts" name="FormProducts"
-                    action="{{route('Site.EdtItenEdt')}}">
+                    action="EditarItem/{{$sales->sale_id}}">
                     @csrf
                     @method('post')
                     <div class="card-body">

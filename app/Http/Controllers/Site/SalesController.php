@@ -343,7 +343,7 @@ class SalesController extends Controller
             'created_at'=>date("Y-m-d H:i:s"), 
             'updated_at' =>date("Y-m-d H:i:s")
         ]);
-        return redirect('Vendas/Nova');
+        return redirect('Vendas/Editar/'.$request->idSale);
     }
 
     public function edtitensaleedt(Request $request)
@@ -356,8 +356,8 @@ class SalesController extends Controller
                 'price'=>$request->edtpriceProduct,
                 'subtotal'=>($request->edtquantityProduct)*($request->edtpriceProduct), 
                 'updated_at' => date("Y-m-d H:i:s")  
-            ]);        
-        return redirect('Vendas/Editar/');
+            ]);         
+        return redirect('Vendas/Editar/'.$request->idSale);
     }
 
     public function delitensaleedt(Request $request)
@@ -365,7 +365,7 @@ class SalesController extends Controller
         DB::table('saleitens')->
         where('saleitens_id','=',$request->delsaleitens_id)->
         delete();
-        return redirect('Vendas/Editar/');
+        return redirect('Vendas/Editar/'.$request->idSale);
     }
 
 }

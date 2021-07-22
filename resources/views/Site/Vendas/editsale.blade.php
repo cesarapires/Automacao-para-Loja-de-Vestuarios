@@ -149,12 +149,12 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Frete</label>
                                     <input type="number" class="form-control" name="shippingValue" id="shippingValue"
-                                        value="0" step='0.01'>
+                                        value="{{$sales->price_shipping}}" step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Desconto</label>
                                     <input type="number" class="form-control" id="discountSale" name="discountSale"
-                                        value="0" step='0.01'>
+                                        value="{{$sales->discount}}" step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
