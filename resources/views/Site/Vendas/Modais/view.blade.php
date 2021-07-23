@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalviewsale">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Visualizar Venda</h4>
@@ -160,25 +160,25 @@ function searchpayable(saleURL) {
         var sale = request.response;
         $('#saleID').html(
             "<br>" +
-            "<b>Pedido: #" + sale['InfoVenda'][0].sale_id + "</b><br>" +
-            "<b>Data:</b> " + moment(sale['InfoVenda'][0].date_sale).format('DD/MM/YYYY') + "<br>" +
-            "<b>Forma de Pagamento:</b> " + sale['InfoVenda'][0].payment + "<br>" +
-            "<b>Parcelas:</b> " + sale['InfoVenda'][0].plot
+            "<b>Pedido: #" + sale.InfoVenda[0].sale_id + "</b><br>" +
+            "<b>Data:</b> " + moment(sale.InfoVenda[0].date_sale).format('DD/MM/YYYY') + "<br>" +
+            "<b>Forma de Pagamento:</b> " + sale.InfoVenda[0].payment + "<br>" +
+            "<b>Parcelas:</b> " + sale.InfoVenda[0].plot
         );
 
         $('#clientID').html(
-            "<strong>" + sale['InfoVenda'][0].name + "</strong><br>" +
-            sale['InfoVenda'][0].address + ", " + sale['InfoVenda'][0].number + "<br>" +
-            sale['InfoVenda'][0].city + ", " + sale['InfoVenda'][0].state + " " + sale['InfoVenda'][0].cep +
+            "<strong>" + sale.InfoVenda[0].name + "</strong><br>" +
+            sale.InfoVenda[0].address + ", " + sale.InfoVenda[0].number + "<br>" +
+            sale.InfoVenda[0].city + ", " + sale.InfoVenda[0].state + " " + sale.InfoVenda[0].cep +
             "<br>" +
-            "Telefone: " + sale['InfoVenda'][0].phone + "<br>" +
-            "Email: " + sale['InfoVenda'][0].email
+            "Telefone: " + sale.InfoVenda[0].phone + "<br>" +
+            "Email: " + sale.InfoVenda[0].email
         );
 
         $('#total').html(
             "<tr>" +
             "<th style='width:50%'>Subtotal:</th>" +
-            "<td>R$ " + sale['InfoVenda'][0].subtotalitens + "</td>" +
+            "<td>R$ " + sale.InfoVenda[0].subtotalitens + "</td>" +
             "</tr>" +
             "<tr>" +
             "<th>Taxa (9.3%):</th>" +
@@ -186,26 +186,34 @@ function searchpayable(saleURL) {
             "</tr>" +
             "<tr>" +
             "<th>Frete:</th>" +
-            "<td>R$ " + sale['InfoVenda'][0].price_shipping + "</td>" +
+            "<td>R$ " + sale.InfoVenda[0].price_shipping + "</td>" +
             "</tr>" +
             "<tr>" +
             "<th>Total:</th>" +
-            "<td>R$ " + sale['InfoVenda'][0].amount + "</td>" +
+            "<td>R$ " + sale.InfoVenda[0].amount + "</td>" +
             "</tr>"
         );
+
+        $('#produtos').html('');
+        var cont = 1;
+        const myObj = (sale.Produtos);
+        for (const item of sale.Produtos) { // You can use `let` instead of `const` if you like
+            $('#produtos').append(
+                "<tr>" +
+                "<td>"+cont+ "</td>" +
+                "<td>R$ "+item.price+"</td>" +
+                "<td>"+item.name+"</td>" +
+                "<td>"+item.quantity+"</td>" +
+                "<td>R$ "+item.subtotal+"</td>" +
+                "</tr>"
+            );
+            cont++;
+        }
+
     }
-    $('#produtos').html('');
-    var produtos = 2;
-    for (var cont = 1; cont <= produtos; cont++) {
-        $('#produtos').append(
-            "<tr>"+
-            "<td>"+cont+"</td>" +
-            "<td>"+sale['Produtos'].price+"</td>" +
-            "<td>455-981-221</td>" +
-            "<td>El snort testosterone trophy driving gloves handsome</td>" +
-            "<td>$64.50</td>"+
-            "</tr>"
-        );
-    }
+}
+
+function adicionaLinha() {
+
 }
 </script>
