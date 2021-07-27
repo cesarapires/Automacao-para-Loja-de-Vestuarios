@@ -23,7 +23,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{!!number_format($cashier,2)!!}<sup style="font-size: 20px"> R$</sup></h3>
+                        <h3>R$ {!!number_format($cashier,2, ',', ' ')!!}</h3>
 
                         <p>Caixa</p>
                     </div>
@@ -35,7 +35,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{!!number_format($stockPrice,2)!!}<sup style="font-size: 20px"> R$</sup></h3>
+                        <h3>R$ {!!number_format($stockPrice,2, ',', ' ')!!}</h3>
 
                         <p>Valor do estoque</p>
                     </div>
@@ -47,7 +47,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>{!!number_format($receivable,2)!!}<sup style="font-size: 20px"> R$</sup></h3>
+                        <h3>R$ {!!number_format($receivable,2, ',', ' ')!!}</h3>
 
                         <p>Contas a receber</p>
                     </div>
@@ -59,7 +59,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>{!!number_format($payable,2)!!}<sup style="font-size: 20px"> R$</sup></h3>
+                        <h3>R$ {!!number_format($payable,2, ',', ' ')!!}</sup></h3>
 
                         <p>Contas a pagar</p>
                     </div>

@@ -91,7 +91,7 @@
                                     <td class='namePayment'>{{$sales->namePayment}}</td>
                                     <td class='quantityItens'>{{$sales->quantityitens}}</td>
                                     <td class='sale_data'>{{date('d/m/Y', strtotime($sales->date_sale))}}</td>
-                                    <td class='sale_amount'>R$ {!!number_format($sales->amount,2)!!}</td>
+                                    <td class='sale_amount'>R$ {!!number_format($sales->amount,2, ',', ' ')!!}</td>
                                     <td>
                                         @if($sales->status == "A")
                                         <a class="btnEdit btn btn-outline-info btn-sm" data-toggle="modal"

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard | NSD</title>
+    <title>Dashboard | Venda - #{{$idSale}}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -85,12 +85,7 @@
             <div class="row">
                 <!-- accepted payments column -->
                 <div class="col-6">
-                        <p class="lead">Métodos de pagamento:</p>
-                        <img src="../../dist/img/credit/visa.png" alt="Visa">
-                        <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-                        <img src="../../dist/img/credit/american-express.png" alt="American Express">
-                        <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-
+                        <p class="lead">Observação:</p>
                         <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                             Este documento não é um comprovante fiscal da sua compra, ele deve ser usado apenas
                             para conferência dos produtos ou como orçamento.
@@ -122,7 +117,7 @@
     <script>
     /* When click edit user */
     $(document).ready(function() {       
-        var idSale = 3;
+        var idSale = {{$idSale}};
         var origin = location.origin;
         var saleRequest = origin + "/Vendas/Buscar/" + idSale;
         searchpayable(saleRequest);
@@ -155,19 +150,19 @@
             $('#total').html(
                 "<tr>" +
                 "<th style='width:50%'>Subtotal:</th>" +
-                "<td>R$ " + sale.InfoVenda[0].subtotalitens + "</td>" +
+                "<td>" + sale.InfoVenda[0].subtotalitens.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
                 "</tr>" +
                 "<tr>" +
-                "<th>Taxa (9.3%):</th>" +
-                "<td>R$ 10.34</td>" +
+                "<th>Desconto:</th>" +
+                "<td>" + sale.InfoVenda[0].discount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
                 "</tr>" +
                 "<tr>" +
                 "<th>Frete:</th>" +
-                "<td>R$ " + sale.InfoVenda[0].price_shipping + "</td>" +
+                "<td>" + sale.InfoVenda[0].price_shipping.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
                 "</tr>" +
                 "<tr>" +
                 "<th>Total:</th>" +
-                "<td>R$ " + sale.InfoVenda[0].amount + "</td>" +
+                "<td>" + sale.InfoVenda[0].amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
                 "</tr>"
             );
 
@@ -177,10 +172,10 @@
                 $('#produtos').append(
                     "<tr>" +
                     "<td>" + cont + "</td>" +
-                    "<td>R$ " + item.price + "</td>" +
+                    "<td>" + item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
                     "<td>" + item.name + "</td>" +
                     "<td>" + item.quantity + "</td>" +
-                    "<td>R$ " + item.subtotal + "</td>" +
+                    "<td>" + item.subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
                     "</tr>"
                 );
                 cont++;

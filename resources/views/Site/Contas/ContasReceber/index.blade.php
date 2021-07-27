@@ -87,7 +87,7 @@
                                     <td>{{date('d/m/Y', strtotime($receivables->date_sale))}}</td>
                                     <td>{{$receivables->numberplot }}</td>
                                     <td>{{date('d/m/Y', strtotime($receivables->date_duereceivable))}}</td>
-                                    <td>R$ {!!number_format($receivables->value,2)!!}</td>
+                                    <td>R$ {!!number_format($receivables->value,2, ',', ' ')!!}</td>
                                     <td>
                                         @if($receivables->status == 1)
                                         <i class="far fa-check-square"></i>

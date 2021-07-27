@@ -82,7 +82,7 @@
                                     <td>{{$payables->name}}</td>
                                     <td>{{date('d/m/Y', strtotime($payables->date_buypayable))}}</td>
                                     <td>{{date('d/m/Y', strtotime($payables->date_duepayable))}}</td>
-                                    <td>R$ {!!number_format($payables->value,2)!!}</td>
+                                    <td>R$ {!!number_format($payables->value,2, ',', ' ')!!}</td>
                                     <td>
                                         @if($payables->status == 1)
                                         <i class="far fa-check-square"></i>

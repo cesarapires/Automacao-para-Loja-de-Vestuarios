@@ -369,7 +369,7 @@ class SalesController extends Controller
     }
 
     public function printSale($idSale){
-        return view('Site.Vendas.viewsale');
+        return view('Site.Vendas.printsale',['idSale'=>$idSale]);
     }
 
 }

@@ -59,8 +59,8 @@
                                     <td class='size_name'>{{$products->size_name}}</td>
                                     <td class='color_name'>{{$products->color}}</td>
                                     <td class='stock'>{{$products->stock}}</td>
-                                    <td class='price_buy'>R$ {{$products->price_buy}}</td>
-                                    <td class='price_sell'>R$ {{$products->price_sell}}</td>
+                                    <td class='price_buy'>R$ {!!number_format($products->price_buy,2, ',', ' ')!!}</td>
+                                    <td class='price_sell'>R$ {!!number_format($products->price_sell,2, ',', ' ')!!}</td>
                                     <td class='type_name'>{{$products->type_name}}</td>
                                     <td class="project-actions text-right text-center edit">
                                         <button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal"

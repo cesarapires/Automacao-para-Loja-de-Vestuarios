@@ -96,13 +96,13 @@
                                                 </td>
 
                                                 <td><span style="color: green">R$
-                                                        {!!number_format($cashiers->value,2)!!}</span></td>
+                                                        {!!number_format($cashiers->value,2, ',', ' ')!!}</span></td>
 
                                                 @else
                                                 Débito
                                                 </td>
                                                 <td><span style="color: red">R$
-                                                        {!!number_format($cashiers->value,2)!!}</span></td>
+                                                        {!!number_format($cashiers->value,2, ',', ' ')!!}</span></td>
                                                 @endif
 
                                                 <td>

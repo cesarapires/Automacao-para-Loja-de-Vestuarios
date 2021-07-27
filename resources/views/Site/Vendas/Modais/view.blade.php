@@ -69,12 +69,7 @@
                 <div class="row">
                     <!-- accepted payments column -->
                     <div class="col-6">
-                        <p class="lead">Métodos de pagamento:</p>
-                        <img src="../../dist/img/credit/visa.png" alt="Visa">
-                        <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-                        <img src="../../dist/img/credit/american-express.png" alt="American Express">
-                        <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-
+                    <p class="lead">Observação:</p>
                         <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                             Este documento não é um comprovante fiscal da sua compra, ele deve ser usado apenas
                             para conferência dos produtos ou como orçamento.
@@ -147,21 +142,21 @@ function searchpayable(saleURL) {
 
         $('#total').html(
             "<tr>" +
-            "<th style='width:50%'>Subtotal:</th>" +
-            "<td>R$ " + sale.InfoVenda[0].subtotalitens + "</td>" +
-            "</tr>" +
-            "<tr>" +
-            "<th>Taxa (9.3%):</th>" +
-            "<td>R$ 10.34</td>" +
-            "</tr>" +
-            "<tr>" +
-            "<th>Frete:</th>" +
-            "<td>R$ " + sale.InfoVenda[0].price_shipping + "</td>" +
-            "</tr>" +
-            "<tr>" +
-            "<th>Total:</th>" +
-            "<td>R$ " + sale.InfoVenda[0].amount + "</td>" +
-            "</tr>"
+                "<th style='width:50%'>Subtotal:</th>" +
+                "<td>" + sale.InfoVenda[0].subtotalitens.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<th>Desconto:</th>" +
+                "<td>" + sale.InfoVenda[0].discount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<th>Frete:</th>" +
+                "<td>" + sale.InfoVenda[0].price_shipping.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<th>Total:</th>" +
+                "<td>" + sale.InfoVenda[0].amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
+                "</tr>"
         );
 
         $('#produtos').html('');
@@ -170,11 +165,11 @@ function searchpayable(saleURL) {
         for (const item of sale.Produtos) { // You can use `let` instead of `const` if you like
             $('#produtos').append(
                 "<tr>" +
-                "<td>"+cont+ "</td>" +
-                "<td>R$ "+item.price+"</td>" +
-                "<td>"+item.name+"</td>" +
-                "<td>"+item.quantity+"</td>" +
-                "<td>R$ "+item.subtotal+"</td>" +
+                "<td>" + cont + "</td>" +
+                "<td>" + item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
+                "<td>" + item.name + "</td>" +
+                "<td>" + item.quantity + "</td>" +
+                "<td>" + item.subtotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
                 "</tr>"
             );
             cont++;
