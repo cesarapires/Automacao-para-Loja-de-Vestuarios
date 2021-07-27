@@ -368,4 +368,8 @@ class SalesController extends Controller
         return redirect('Vendas/Editar/'.$request->idSale);
     }
 
+    public function printSale($idSale){
+        return view('Site.Vendas.viewsale');
+    }
+
 }

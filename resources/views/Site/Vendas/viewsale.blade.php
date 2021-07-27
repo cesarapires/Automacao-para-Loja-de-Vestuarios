@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+
+    
 </head>
 
 <body>
@@ -112,22 +114,19 @@
     </div>
     <!-- ./wrapper -->
     <!-- Page specific script -->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
     <script>
     window.addEventListener("load", window.print());
     </script>
     <script>
     /* When click edit user */
-    $('#modalviewsale').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        var modal = $(this);
-
-        var idSale = button.data('whatever');
+    $(document).ready(function() {       
+        var idSale = 3;
         var origin = location.origin;
         var saleRequest = origin + "/Vendas/Buscar/" + idSale;
         searchpayable(saleRequest);
-
     });
-
 
     function searchpayable(saleURL) {
         var request = new XMLHttpRequest();
@@ -174,7 +173,6 @@
 
             $('#produtos').html('');
             var cont = 1;
-            const myObj = (sale.Produtos);
             for (const item of sale.Produtos) { // You can use `let` instead of `const` if you like
                 $('#produtos').append(
                     "<tr>" +

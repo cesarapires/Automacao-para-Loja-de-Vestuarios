@@ -97,7 +97,7 @@
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
                     <div class="col-12">
-                        <a href="Vendas/" rel="noopener" target="_blank" class="btn btn-default"><i
+                        <a href="" id="btnImprimir" rel="noopener" target="_blank" class="btn btn-default"><i
                                 class="fas fa-print"></i> Imprimir</a>
                     </div>
                 </div>
@@ -116,6 +116,7 @@ $('#modalviewsale').on('show.bs.modal', function(event) {
     var origin = location.origin;
     var saleRequest = origin + "/Vendas/Buscar/" + idSale;
     searchpayable(saleRequest);
+    $("#btnImprimir").attr("href", "Vendas/Imprimir/"+idSale)
 
 });
 
