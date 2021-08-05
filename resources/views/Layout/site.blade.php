@@ -162,6 +162,30 @@
                                 </li>
                             </ul>
                         </li>
+                        <!--<li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-truck-loading nav-icon"></i>
+                                <p>
+                                    Entradas
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('Site.Products')}}" class="nav-link">
+                                        <i class="fas fa-scroll nav-icon"></i>
+                                        <p>Notas de Entrada</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('Site.ProductsTypes')}}" class="nav-link">
+                                        <i class="fas fa-industry nav-icon"></i>
+                                        <p>Fornecedores</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>-->
                         <li class="nav-item">
                             <a href="{{route('Site.Clients')}}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
@@ -262,7 +286,7 @@
             <strong>Copyright &copy; 2021-2021 <a href="#">Núcleo Sistemas Digitais</a>.</strong>
             Todos os direitos reservados.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.1.1
+                <b>Version</b> 3.2.2
             </div>
         </footer>
     </div>

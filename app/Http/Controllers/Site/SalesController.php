@@ -29,6 +29,7 @@ class SalesController extends Controller
         ->join('types', 'products.type_id', '=', 'types.type_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
         ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->where('stock','>',0)
         ->get();
         $clients = DB::table('clients')->get();
         $plots = DB::table('plots')->get();
@@ -59,6 +60,7 @@ class SalesController extends Controller
         ->join('types', 'products.type_id', '=', 'types.type_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
         ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->where('stock','>',0)
         ->get();
         $clients = DB::table('clients')->get();
         $plots = DB::table('plots')->get();
