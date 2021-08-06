@@ -30,28 +30,41 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                        </h3>
-                    </div>
                     <div class="card-body">
                         <table id="produtos" class="table table-bordered table-striped">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
+                                        <label> </label>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label">Mostrar apenas produtos com estoque</label>
+                                            <input class="form-check-input" type="checkbox" id="filterStock" checked>
+                                            <label class="form-check-label">Mostrar apenas produtos em estoque</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
+                                        <label>Seleção de tamanho</label>
                                         <div class="input-group date" data-target-input="nearest">
                                             <div class="btn-group">
+                                                <button type="button" id="sizeUn" class="btn btn-default">Un</button>
                                                 <button type="button" id="sizeP" class="btn btn-default">P</button>
                                                 <button type="button" id="sizeM" class="btn btn-default">M</button>
                                                 <button type="button" id="sizeG" class="btn btn-default">G</button>
                                                 <button type="button" id="sizeGG" class="btn btn-default">GG</button>
+                                                <button type="button" id="exitFilter" class="btn btn-default"><i
+                                                        class="fas fa-times"></i></button>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Seleção de tipo</label>
+                                            <select class="form-control">
+                                                <option>Todos</option>
+                                                <option>option 2</option>
+                                                <option>option 3</option>
+                                                <option>option 4</option>
+                                                <option>option 5</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -127,6 +140,43 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 
 <script>
+testSize() {
+    if ($("#sizeUn").hasClass("active")) {
+        if (aDate[3] == 'Un') {
+            return true;
+        } else {
+            return false;
+        }
+    } else if ($("#sizeP").hasClass("active")) {
+        if (aDate[3] == 'P') {
+            return true;
+        } else {
+            return false;
+        }
+    } else if ($("#sizeM").hasClass("active")) {
+        if (aDate[3] == 'M') {
+            return true;
+        } else {
+            return false;
+        }
+    } else if ($("#sizeG").hasClass("active")) {
+        if (aDate[3] == 'G') {
+            return true;
+        } else {
+            return false;
+        }
+    } else if ($("#sizeGG").hasClass("active")) {
+        if (aDate[3] == "GG") {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return true;
+    }
+}
+
+
 $(document).ready(function() {
 
 });
@@ -137,25 +187,17 @@ var tablaTransacciones_dt = null
 
 // The plugin function for adding a new filtering routine
 $.fn.dataTableExt.afnFiltering.push(
-    function(oSettings, stock, iDataIndex) {
-        var index;
-        $('#produtos thead tr').each((tr_idx, tr) => {
-            $(tr).children('th').each((th_idx, th) => {
-                if ($(th).text() == 'Data') {
-                    index = th_idx;
-                }
-            });
-        });
-        // aData represents the table structure as an array of columns, so the script access the date value
-        // in the first column of the table via aData[0]
-
-        var evalDate = stock[5];
-
-        if (evalDate > 0) {
-            return true;
+    function(oSettings, aDate, iDataIndex) {
+        if ($('#filterStock').is(':checked')) {
+            if (aDate[5] > 0) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            return true;
         }
+
 
     });
 
@@ -360,8 +402,65 @@ $(function() {
 </script>
 
 <script src="https://momentjs.com/downloads/moment.min.js"></script>
-<script>
 
+<script>
+$('#filterStock').on('click', function() {
+    $('#produtos').DataTable().draw();
+});
+
+$('#sizeUn').on('click', function() {
+    $("#sizeUn").addClass('active');
+    $("#sizeP").removeClass('active');
+    $("#sizeM").removeClass('active');
+    $("#sizeG").removeClass('active');
+    $("#sizeGG").removeClass('active');
+    $('#produtos').DataTable().draw();
+});
+
+$('#sizeP').on('click', function() {
+    $("#sizeUn").removeClass('active');
+    $("#sizeP").addClass('active');
+    $("#sizeM").removeClass('active');
+    $("#sizeG").removeClass('active');
+    $("#sizeGG").removeClass('active');
+    $('#produtos').DataTable().draw();
+});
+
+$('#sizeM').on('click', function() {
+    $("#sizeUn").removeClass('active');
+    $("#sizeP").removeClass('active');
+    $("#sizeM").addClass('active');
+    $("#sizeG").removeClass('active');
+    $("#sizeGG").removeClass('active');
+    $('#produtos').DataTable().draw();
+});
+
+$('#sizeG').on('click', function() {
+    $("#sizeUn").removeClass('active');
+    $("#sizeP").removeClass('active');
+    $("#sizeM").removeClass('active');
+    $("#sizeG").addClass('active');
+    $("#sizeGG").removeClass('active');
+    $('#produtos').DataTable().draw();
+});
+
+$('#sizeGG').on('click', function() {
+    $("#sizeUn").removeClass('active');
+    $("#sizeP").removeClass('active');
+    $("#sizeM").removeClass('active');
+    $("#sizeG").removeClass('active');
+    $("#sizeGG").addClass('active');
+    $('#produtos').DataTable().draw();
+});
+
+$('#exitFilter').on('click', function() {
+    $("#sizeUn").removeClass('active');
+    $("#sizeP").removeClass('active');
+    $("#sizeM").removeClass('active');
+    $("#sizeG").removeClass('active');
+    $("#sizeGG").removeClass('active');
+    $('#produtos').DataTable().draw();
+});
 </script>
 
 

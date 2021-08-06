@@ -162,7 +162,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <!--<li class="nav-item">
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-truck-loading nav-icon"></i>
                                 <p>
@@ -185,7 +185,7 @@
                                 </li>
 
                             </ul>
-                        </li>-->
+                        </li>
                         <li class="nav-item">
                             <a href="{{route('Site.Clients')}}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>

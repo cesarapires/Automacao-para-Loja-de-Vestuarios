@@ -37,25 +37,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="IDUser">Data inicial</label>
-
-                                    <input type="date" class="form-control" data-target="#dateStart" value=""
-                                        id="dateStart" name="dateStart">
-
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="IDUser">Data final</label>
-
-                                    <input type="date" class="form-control" data-target="#dateEnd" value="" id="dateEnd"
-                                        name="dateEnd">
-
-                                </div>
-                                @include('Site.DataFilter.date')
-                            </div>
-                        </div>
+                        @include('Site.DataFilter.date')
                         <table id="vendas" class="table table-bordered table-striped">
                             <thead>
                                 <tr class="text-center">
