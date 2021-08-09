@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Cliente</label>
-                                    <select class="form-control select2bs4" id="client" style="width: 100%;">
+                                    <select class="form-control select2 select2-hidden-accessible" id="client" style="width: 100%;">
                                         <option value="NULL">Selecione o cliente</option>
                                         @foreach($clients as $clients)
                                         <option value="{{$clients->client_id}}">{{$clients->name}}</option>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="rgUser">Plataforma</label>
-                                    <select class="form-control select2bs4" id="platforms" name="platforms"
+                                    <select class="form-control" id="platforms" name="platforms"
                                         style="width: 100%;">
                                         <option data-ratePlatform="0">Selecione a plataforma</option>
                                         @foreach($platforms as $platforms)
@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="cpfUser">Pagamento</label>
-                                    <select class="form-control select2bs4" id="payment" name="payment"
+                                    <select class="form-control" id="payment" name="payment"
                                         style="width: 100%;">
                                         <option data-ratePayment="100">Selecione a forma de pagamento
                                         </option>
@@ -114,7 +114,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="rgUser">Parcelas</label>
-                                    <select class="form-control select2bs4" id="plots" name="plots"
+                                    <select class="form-control" id="plots" name="plots"
                                         style="width: 100%;">
                                         <option>Selecione as parcelas</option>
                                         @foreach($plots as $plots)
@@ -138,7 +138,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="rgUser">Frete</label>
-                                    <select class="form-control select2bs4" style="width: 100%;" name="shipping"
+                                    <select class="form-control" style="width: 100%;" name="shipping"
                                         id="shipping">
                                         <option>Selecione o frete</option>
                                         <option value="0">Por conta da empresa</option>
@@ -244,7 +244,7 @@
         </div>
     </div>
 </section>
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 function calcular() {
 
@@ -342,6 +342,9 @@ function calcular() {
 }
 
 $(document).ready(function() {
+    $(".select2").select2(
+        
+    );
     calcular();
 });
 

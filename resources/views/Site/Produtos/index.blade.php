@@ -422,61 +422,51 @@ $(function() {
 <script src="https://momentjs.com/downloads/moment.min.js"></script>
 
 <script>
+
+function removerClasse(){
+    $("#sizeUn").removeClass('active');
+    $("#sizeP").removeClass('active');
+    $("#sizeM").removeClass('active');
+    $("#sizeG").removeClass('active');
+    $("#sizeGG").removeClass('active');
+};
+
 $('#filterStock').on('click', function() {
     $('#produtos').DataTable().draw();
 });
 
 $('#sizeUn').on('click', function() {
+    removerClasse();
     $("#sizeUn").addClass('active');
-    $("#sizeP").removeClass('active');
-    $("#sizeM").removeClass('active');
-    $("#sizeG").removeClass('active');
-    $("#sizeGG").removeClass('active');
     $('#produtos').DataTable().draw();
 });
 
 $('#sizeP').on('click', function() {
-    $("#sizeUn").removeClass('active');
+    removerClasse();
     $("#sizeP").addClass('active');
-    $("#sizeM").removeClass('active');
-    $("#sizeG").removeClass('active');
-    $("#sizeGG").removeClass('active');
     $('#produtos').DataTable().draw();
 });
 
 $('#sizeM').on('click', function() {
-    $("#sizeUn").removeClass('active');
-    $("#sizeP").removeClass('active');
+    removerClasse();
     $("#sizeM").addClass('active');
-    $("#sizeG").removeClass('active');
-    $("#sizeGG").removeClass('active');
     $('#produtos').DataTable().draw();
 });
 
 $('#sizeG').on('click', function() {
-    $("#sizeUn").removeClass('active');
-    $("#sizeP").removeClass('active');
-    $("#sizeM").removeClass('active');
+    removerClasse();
     $("#sizeG").addClass('active');
-    $("#sizeGG").removeClass('active');
     $('#produtos').DataTable().draw();
 });
 
 $('#sizeGG').on('click', function() {
-    $("#sizeUn").removeClass('active');
-    $("#sizeP").removeClass('active');
-    $("#sizeM").removeClass('active');
-    $("#sizeG").removeClass('active');
+    removerClasse();
     $("#sizeGG").addClass('active');
     $('#produtos').DataTable().draw();
 });
 
 $('#exitFilter').on('click', function() {
-    $("#sizeUn").removeClass('active');
-    $("#sizeP").removeClass('active');
-    $("#sizeM").removeClass('active');
-    $("#sizeG").removeClass('active');
-    $("#sizeGG").removeClass('active');
+    removerClasse();
     $('#produtos').DataTable().draw();
 });
 
