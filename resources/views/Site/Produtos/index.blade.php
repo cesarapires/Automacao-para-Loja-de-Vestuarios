@@ -58,12 +58,11 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Seleção de tipo</label>
-                                            <select class="form-control">
+                                            <select class="form-control" id="filterType">
                                                 <option>Todos</option>
-                                                <option>option 2</option>
-                                                <option>option 3</option>
-                                                <option>option 4</option>
-                                                <option>option 5</option>
+                                                @foreach($types as $filterType)
+                                                    <option value="{{$filterType->name}}">{{$filterType->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -140,41 +139,6 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 
 <script>
-testSize() {
-    if ($("#sizeUn").hasClass("active")) {
-        if (aDate[3] == 'Un') {
-            return true;
-        } else {
-            return false;
-        }
-    } else if ($("#sizeP").hasClass("active")) {
-        if (aDate[3] == 'P') {
-            return true;
-        } else {
-            return false;
-        }
-    } else if ($("#sizeM").hasClass("active")) {
-        if (aDate[3] == 'M') {
-            return true;
-        } else {
-            return false;
-        }
-    } else if ($("#sizeG").hasClass("active")) {
-        if (aDate[3] == 'G') {
-            return true;
-        } else {
-            return false;
-        }
-    } else if ($("#sizeGG").hasClass("active")) {
-        if (aDate[3] == "GG") {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return true;
-    }
-}
 
 
 $(document).ready(function() {
@@ -188,16 +152,70 @@ var tablaTransacciones_dt = null
 // The plugin function for adding a new filtering routine
 $.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aDate, iDataIndex) {
+        var filterStock = true;
+        var filterSize = true;
+        var filterType = true;
         if ($('#filterStock').is(':checked')) {
             if (aDate[5] > 0) {
-                return true;
+                filterStock = true;
             } else {
-                return false;
+                filterStock = false;
             }
         } else {
-            return true;
+            filterStock = true;
         }
+        if ($("#sizeUn").hasClass("active")) {
+        if (aDate[3] == 'Un') {
+            filterSize = true;
+        } else {
+            filterSize = false;
+        }
+    } else if ($("#sizeP").hasClass("active")) {
+        if (aDate[3] == 'P') {
+            filterSize = true;
+        } else {
+            filterSize = false;
+        }
+    } else if ($("#sizeM").hasClass("active")) {
+        if (aDate[3] == 'M') {
+            filterSize = true;
+        } else {
+            filterSize = false;
+        }
+    } else if ($("#sizeG").hasClass("active")) {
+        if (aDate[3] == 'G') {
+            filterSize = true;
+        } else {
+            filterSize = false;
+        }
+    } else if ($("#sizeGG").hasClass("active")) {
+        if (aDate[3] == "GG") {
+            filterSize = true;
+        } else {
+            filterSize = false;
+        }
+    } else {
+        filterSize = true;
+    }
 
+    if($('#filterType').find(':selected').val() == 'Todos'){
+        filterType = true;
+    }
+    else{
+        if(aDate[8] == $('#filterType').find(':selected').val()){
+            filterType = true;
+        }
+        else{
+            filterType = false;
+        }
+    }
+
+    if(filterStock && filterSize && filterType){
+        return true;
+    }
+    else{
+        return false;
+    }
 
     });
 
@@ -459,6 +477,10 @@ $('#exitFilter').on('click', function() {
     $("#sizeM").removeClass('active');
     $("#sizeG").removeClass('active');
     $("#sizeGG").removeClass('active');
+    $('#produtos').DataTable().draw();
+});
+
+$("#filterType").change(function() {
     $('#produtos').DataTable().draw();
 });
 </script>
