@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Cliente</label>
-                                    <select class="form-control select2 select2-hidden-accessible" id="client" style="width: 100%;">
+                                    <select class="form-control select2bs4" id="client" style="width: 100%;">
                                         <option value="NULL">Selecione o cliente</option>
                                         @foreach($clients as $clients)
                                         <option value="{{$clients->client_id}}">{{$clients->name}}</option>
@@ -244,6 +244,7 @@
         </div>
     </div>
 </section>
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 function calcular() {
@@ -342,10 +343,14 @@ function calcular() {
 }
 
 $(document).ready(function() {
-    $(".select2").select2(
-        
-    );
     calcular();
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
 });
 
 $("#discountSale").blur(function() {

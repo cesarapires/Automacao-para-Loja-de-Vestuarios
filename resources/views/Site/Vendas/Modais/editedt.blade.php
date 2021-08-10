@@ -84,8 +84,9 @@ document.getElementById('edtidItenSale').value = idSaleIten
 document.getElementById('edtquantityProduct').value = quantityProduct
 document.getElementById('edtpriceProduct').value = priceProduct
 document.getElementById('edtupdatedAtItenSale').value = updatedAtItenSale
+$('#edtselectProduct').trigger('change');
 
-})
+});
 
 $("#edtselectProduct").change(function() {
     var priceProduct = ($(this).find(':selected').attr('data-priceSell'));

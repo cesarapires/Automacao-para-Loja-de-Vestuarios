@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
-    <link rel="stylesheet" href="{{asset('plugins\select2\css\select2.min.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
@@ -102,10 +104,6 @@
 
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2"
-                            alt="User Image">
-                    </div>
                     <div class="info">
                         <a href="{{route('Site.User')}}" class="d-block">{{Auth::user()->name}}</a>
                     </div>
