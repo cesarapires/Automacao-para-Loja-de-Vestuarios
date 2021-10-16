@@ -154,8 +154,6 @@ class SalesController extends Controller
         DB::table('receivables')->
         where('sale_id','=',$request->opensaleid)->
         delete();
-;
-
         return redirect('Vendas');
     }
 
@@ -293,8 +291,11 @@ class SalesController extends Controller
             'status'=>'A',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
-
-        $this->createNewSale();
+        $sales = DB::table('sales')->latest()->first();
+        if($request->idSale == $sales->sale_id){
+            $this->createNewSale();
+        }
+      
         return redirect('Vendas');
     }
 
