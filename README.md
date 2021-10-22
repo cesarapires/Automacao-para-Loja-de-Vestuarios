@@ -11,7 +11,7 @@
 
 # Sobre o NSD - Automação para Loja de Vestuário
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O NSD - Automação para Loja de Vestuário é um sistema WEB com base no Laravel (Framework PHP), que tem como objetivo facilitar a vida do empreendedor, já que nele você conta com diferentes automações para controlar todas as entradas e saídas da empresa. Com a utilização do sistema você poderá controlar seu estoque, administrar entradas e saídas, cadastrar clientes, verificar suas despesas e também ter controle das contas a receber, já que ao realizar as vendas no nosso sistema automaticamente terá a geração das contas a receber. Além disso com os relatórios você poderá ter acesso a vários indicadores de estoque, entradas e saídas. 
 
 <h1 align="center">
     <a href="https://automacaolojavestuario.herokuapp.com/">Acessar a demonstração</a>
