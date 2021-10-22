@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="public\dist\img\Project\LogoNSDAUTOLOVE.png" width="400"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -7,17 +7,45 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+
+
+# Sobre o NSD - Automação para Loja de Vestuário
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<h1 align="center">
+    <a href="https://automacaolojavestuario.herokuapp.com/">Acessar a demonstração</a>
+</h1>
+
+
+
+## Como baixar o projeto
+
+1. **Instalação:**
+
+   ```shell
+   git clone git@github.com:cesarapires/Automacao-para-Loja-de-Vestuarios.git
+   composer install
+   copy .env.example .env
+   php artisan key:generate
+   ```
+
+## Features
+
+- [x] Cadastro de produtos
+- [x] Cadastro de tipos
+- [x] Cadastro de tamanhos
+- [ ] Cadastro de entradas
+- [ ] Cadastro de fornedores
+- [x] Cadastro de saidas
+- [x] Cadastro de clientes
+- [x] Cadastro de pagamentos
+- [x] Cadastro de parcelas
+- [x] Cadastro de plataformas de venda  
+- [x] Cadastro de ajustes no caixas 
+- [x] Cadastro de contas a receber
+- [x] Cadastro de contas a pagar
+- [x] Cadastro de fluxo de caixa
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
@@ -26,6 +54,14 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+
+## Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [Laravel](https://laravel.com/)
+- [JavaScript](https://developer.mozilla.org/)
+- [JQuery](https://jquery.com/)
 
 ## Laravel Sponsors
 
