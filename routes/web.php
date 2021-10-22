@@ -72,10 +72,14 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
         Route::post('/Vendas/Salvar', 'SalesController@saveSale')->middleware(['auth'])->name('Site.SaveSales');
         Route::get('/Vendas/Editar/{idSale}','SalesController@editSale')->middleware(['auth'])->name('Site.EditSales');
         Route::get('/Vendas/Buscar/{idSale}', 'SalesController@searchSale')->middleware(['auth'])->name('Site.SearchSales');
+        Route::get('/Vendas/Imprimir/{idSale}', 'SalesController@printSale')->middleware(['auth'])->name('Site.PrintSales');
 
         Route::post('/Vendas/AdicionarItem', 'SalesController@additensale')->middleware(['auth'])->name('Site.AddIten');
         Route::post('/Vendas/EditarItem', 'SalesController@edtitensale')->middleware(['auth'])->name('Site.EdtIten');
         Route::post('/Vendas/DeletarItem', 'SalesController@delitensale')->middleware(['auth'])->name('Site.DelIten');
+        Route::post('/Vendas/Editar/AdicionarItem/{idSale}', 'SalesController@additensaleedt')->middleware(['auth'])->name('Site.AddItenEdt');
+        Route::post('/Vendas/Editar/EditarItem/{idSale}', 'SalesController@edtitensaleedt')->middleware(['auth'])->name('Site.EdtItenEdt');
+        Route::post('/Vendas/Editar/DeletarItem/{idSale}', 'SalesController@delitensaleedt')->middleware(['auth'])->name('Site.DelItenEdt');
 
         Route::post('/Vendas/AbrirVenda', 'SalesController@openSale')->middleware(['auth'])->name('Site.OpenSale');
         Route::post('/Vendas/FecharVenda', 'SalesController@closeSale')->middleware(['auth'])->name('Site.CloseSale');

@@ -1,125 +1,3 @@
-@extends('Layout.site')
-
-@section('content')
-
-<link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-
-
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Ajuste | <button class="btn btn-success btn-sm" data-toggle="modal"
-                        data-target="#modalnewadjustment">
-                        <i class="fas fa-plus"></i>
-                        Novo</button>
-                </h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active">NSD Dashboard v1 | Ajuste</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">
-
-                        </h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="IDUser">Data inicial</label>
-                                    <div class="input-group date" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#dateStart" value="01/01/2021" id="dateStart" name="dateStart">
-                                        <div class="input-group-append" data-target="#dateStart"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="IDUser">Data final</label>
-                                    <div class="input-group date" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#dateEnd" value="31/12/2021" id="dateEnd" name="dateEnd">
-                                        <div class="input-group-append" data-target="#dateEnd"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <table id="ajuste" class="table table-bordered table-striped">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>ID</th>
-                                    <th>Data</th>
-                                    <th>Descrição</th>
-                                    <th>Tipo</th>
-                                    <th>Valor</th>
-                                    <th>Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($adjustment as $adjustment)
-                                <tr class="text-center">
-                                    <td>{{$adjustment->adjustment_id}}</td>
-                                    <td>{{date('d/m/Y', strtotime($adjustment->date_adjustment))}}</td>
-                                    <td>{{$adjustment->description}}</td>
-                                                <td>
-                                                    @if($adjustment->type == 'C')
-                                                    Crédito
-                                                </td>
-
-                                                <td><span style="color: green">R$
-                                                        {!!number_format($adjustment->value,2)!!}</span></td>
-
-                                                @else
-                                                Débito
-                                                </td>
-                                                <td><span style="color: red">R$
-                                                        {!!number_format($adjustment->value,2)!!}</span></td>
-                                                @endif
-
-                                                <td>
-                                                    <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                                        data-target="#modaledtadjustment"
-                                                        data-whatever='{{$adjustment->adjustment_id}}'>
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                        Editar
-                                                    </button>
-                                                    <button class="btnEdit btn btn-outline-danger btn-sm"
-                                                        data-toggle="modal" data-target="#modaldeladjustment"
-                                                        data-whatever='{{$adjustment->adjustment_id}}'>
-                                                        <i class="fas fa-trash"></i>
-                                                        Apagar
-                                                    </button>
-                                                </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!--<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
 <!-- DataTables  & Plugins -->
 <script type="text/javascript" src="{{asset('assets/jquery-ui-1.8.4.custom/js/jquery-ui-1.8.4.custom.min.js')}}">
@@ -139,19 +17,41 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 
-<script type="text/javascript">
-var tablaTransacciones = $('#ajuste');
+
+<script>
+$(document).ready(function() {
+    $("#day").removeClass('active');
+    $("#month").addClass('active');
+    $("#year").removeClass('active');
+    var primeiraData = moment().startOf('month').format('YYYY-MM-DD');
+    var segundaData = moment().endOf('month').format('YYYY-MM-DD');
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+
+
+});
+
+var tablaTransacciones = $('#vendas');
 
 var tablaTransacciones_dt = null
 
 // The plugin function for adding a new filtering routine
 $.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aData, iDataIndex) {
-        var dateStart = parseDateValue($("#dateStart").val());
-        var dateEnd = parseDateValue($("#dateEnd").val());
+        var index;
+        $('#vendas thead tr').each((tr_idx, tr) => {
+            $(tr).children('th').each((th_idx, th) => {
+                if ($(th).text() == 'Data') {
+                    index = th_idx;
+                }
+            });
+        });
+        var dateStart = removefeature($("#dateStart").val());
+        var dateEnd = removefeature($("#dateEnd").val());
         // aData represents the table structure as an array of columns, so the script access the date value
         // in the first column of the table via aData[0]
-        var evalDate = parseDateValue(aData[1]);
+
+        var evalDate = removebar(aData[index]);
 
         if (evalDate >= dateStart && evalDate <= dateEnd) {
             return true;
@@ -161,8 +61,15 @@ $.fn.dataTableExt.afnFiltering.push(
 
     });
 
+function removefeature(rawDate) {
+    var dateArray = rawDate.split("-");
+    var parsedDate = dateArray[0] + dateArray[1] + dateArray[2];
+    return parsedDate;
+}
+
+
 // Function for converting a mm/dd/yyyy date value into a numeric string for comparison yyyymmdd(example 08/12/2010 becomes 20100812
-function parseDateValue(rawDate) {
+function removebar(rawDate) {
     var dateArray = rawDate.split("/");
     var parsedDate = dateArray[2] + dateArray[1] + dateArray[0];
     return parsedDate;
@@ -356,20 +263,86 @@ $(function() {
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
-    }).buttons().container().appendTo('#ajuste_wrapper .col-md-6:eq(0)');
+    }).buttons().container().appendTo('#vendas_wrapper .col-md-6:eq(0)');
     // Create event listeners that will filter the table whenever the user types in either date range box or
     // changes the value of either box using the Datepicker pop-up calendar
-    $('#dateStart').change(function() {
-        $('#ajuste').DataTable().draw();
-    });
-    $('#dateEnd').change(function() {
-        $('#ajuste').DataTable().draw();
-    });
 });
 </script>
 
-@include('Site.Configuracao.Ajuste.Modal.new')
-@include('Site.Configuracao.Ajuste.Modal.edit')
-@include('Site.Configuracao.Ajuste.Modal.delete')
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script>
+$('#dateStart').change(function() {
+    $('#vendas').DataTable().draw();
+});
+$('#dateEnd').change(function() {
+    $('#vendas').DataTable().draw();
+});
 
-@endsection('content')
+$("#left").click(function() {
+    $("#left").removeClass('active');
+    var primeiraData = $('#dateStart').val();
+    var segundaData = $('#dateEnd').val();
+    if ($("#day").hasClass("active")) {
+        primeiraData = moment(primeiraData).subtract(1, 'days').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).subtract(1, 'days').format('YYYY-MM-DD');
+    } else if ($("#month").hasClass("active")) {
+        primeiraData = moment(primeiraData).subtract(1, 'month').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).subtract(1, 'month').format('YYYY-MM-DD');
+    } else if ($("#year").hasClass("active")) {
+        primeiraData = moment(primeiraData).subtract(1, 'year').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).subtract(1, 'year').format('YYYY-MM-DD');
+    }
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
+});
+$("#right").click(function() {
+    var primeiraData = $('#dateStart').val();
+    var segundaData = $('#dateEnd').val();
+    if ($("#day").hasClass("active")) {
+        primeiraData = moment(primeiraData).add(1, 'days').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).add(1, 'days').format('YYYY-MM-DD');
+    } else if ($("#month").hasClass("active")) {
+        primeiraData = moment(primeiraData).add(1, 'month').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).add(1, 'month').format('YYYY-MM-DD');
+    } else if ($("#year").hasClass("active")) {
+        primeiraData = moment(primeiraData).add(1, 'year').format('YYYY-MM-DD');
+        segundaData = moment(segundaData).add(1, 'year').format('YYYY-MM-DD');
+    }
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
+});
+
+$("#day").click(function() {
+    $("#day").addClass('active');
+    $("#month").removeClass('active');
+    $("#year").removeClass('active');
+    var primeiraData = moment().format('YYYY-MM-DD');
+    var segundaData = moment().format('YYYY-MM-DD');
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
+});
+
+$("#month").click(function() {
+    $("#day").removeClass('active');
+    $("#month").addClass('active');
+    $("#year").removeClass('active');
+    var primeiraData = moment().startOf('month').format('YYYY-MM-DD');
+    var segundaData = moment().endOf('month').format('YYYY-MM-DD');
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
+});
+$("#year").click(function() {
+    $("#day").removeClass('active');
+    $("#month").removeClass('active');
+    $("#year").addClass('active');
+    var primeiraData = moment().startOf('year').format('YYYY-MM-DD');
+    var segundaData = moment().endOf('year').format('YYYY-MM-DD');
+    $('#dateStart').val(primeiraData);
+    $('#dateEnd').val(segundaData);
+    $('#vendas').DataTable().draw();
+});
+</script>

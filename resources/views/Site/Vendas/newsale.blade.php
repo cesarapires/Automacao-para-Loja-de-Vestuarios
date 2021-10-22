@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="rgUser">Plataforma</label>
-                                    <select class="form-control select2bs4" id="platforms" name="platforms"
+                                    <select class="form-control" id="platforms" name="platforms"
                                         style="width: 100%;">
                                         <option data-ratePlatform="0">Selecione a plataforma</option>
                                         @foreach($platforms as $platforms)
@@ -73,13 +73,13 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Plataforma</label>
                                     <input type="number" class="form-control" id="ratePlatform" name="ratePlatform"
-                                        value="{{$sales->platform_rate}}" Readonly>
+                                        value="{{$sales->platform_rate}}" Readonly step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="cpfUser">Pagamento</label>
-                                    <select class="form-control select2bs4" id="payment" name="payment"
+                                    <select class="form-control" id="payment" name="payment"
                                         style="width: 100%;">
                                         <option data-ratePayment="100">Selecione a forma de pagamento
                                         </option>
@@ -98,23 +98,23 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Fixa</label>
                                     <input type="number" class="form-control" name="ratefixPayment" id="ratefixPayment"
-                                        value="0" readonly>
+                                        value="0" readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Variável</label>
                                     <input type="number" class="form-control" name="ratePayment" id="ratePayment"
-                                        value="0" readonly>
+                                        value="0" readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Mensal</label>
                                     <input type="number" class="form-control" id="ratevariablePayment"
-                                        name="ratevariablePayment" value="0" Readonly>
+                                        name="ratevariablePayment" value="0" Readonly step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="rgUser">Parcelas</label>
-                                    <select class="form-control select2bs4" id="plots" name="plots"
+                                    <select class="form-control" id="plots" name="plots"
                                         style="width: 100%;">
                                         <option>Selecione as parcelas</option>
                                         @foreach($plots as $plots)
@@ -127,18 +127,18 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Cliente</label>
                                     <input type="number" class="form-control" id="rateClient" name="rateClient"
-                                        value="0" Readonly>
+                                        value="0" Readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa Vendedor</label>
                                     <input type="number" class="form-control" id="rateCompany" name="rateCompany"
-                                        value="0" Readonly>
+                                        value="0" Readonly step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="rgUser">Frete</label>
-                                    <select class="form-control select2bs4" style="width: 100%;" name="shipping"
+                                    <select class="form-control" style="width: 100%;" name="shipping"
                                         id="shipping">
                                         <option>Selecione o frete</option>
                                         <option value="0">Por conta da empresa</option>
@@ -149,34 +149,34 @@
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Frete</label>
                                     <input type="number" class="form-control" name="shippingValue" id="shippingValue"
-                                        value="0">
+                                        value="0" step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Desconto</label>
                                     <input type="number" class="form-control" id="discountSale" name="discountSale"
-                                        value="0">
+                                        value="0" step='0.01'>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
                                     <label for="rgUser">Total Itens</label>
                                     <input type="number" class="form-control" id="itensTotal" name="itensTotal"
-                                        value="0" readonly>
+                                        value="0" readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="cpfUser">Valor da Venda</label>
                                     <input type="number" class="form-control" id="priceSale" name="priceSale" value="0"
-                                        readonly>
+                                        readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Taxa</label>
                                     <input type="number" class="form-control" id="ratePaymentValue"
-                                        name="ratePaymentValue" value="0" readonly>
+                                        name="ratePaymentValue" value="0" readonly step='0.01'>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="rgUser">Valor Final</label>
                                     <input type="number" class="form-control" id="amountSale" name="amountSale"
-                                        value="0" readonly>
+                                        value="0" readonly step='0.01'>
                                 </div>
                             </div>
                             <br>
@@ -244,7 +244,8 @@
         </div>
     </div>
 </section>
-
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 function calcular() {
 
@@ -343,6 +344,13 @@ function calcular() {
 
 $(document).ready(function() {
     calcular();
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
 });
 
 $("#discountSale").blur(function() {

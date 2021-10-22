@@ -31,11 +31,11 @@
 <script>
 $('#modaldeletesale').on('show.bs.modal', function(event) {
 
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var modal = $(this)
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var modal = $(this);
 
-    var saleId = button.data('whatever').saleId
+    var saleId = button.data('whatever');
 
-    modal.find('#delesaleid').val(saleId)
+    $('#delesaleid').val(saleId);
 })
 </script>

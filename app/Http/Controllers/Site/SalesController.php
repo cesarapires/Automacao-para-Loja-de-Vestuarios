@@ -29,6 +29,7 @@ class SalesController extends Controller
         ->join('types', 'products.type_id', '=', 'types.type_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
         ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->where('stock','>',0)
         ->get();
         $clients = DB::table('clients')->get();
         $plots = DB::table('plots')->get();
@@ -59,6 +60,7 @@ class SalesController extends Controller
         ->join('types', 'products.type_id', '=', 'types.type_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
         ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
+        ->where('stock','>',0)
         ->get();
         $clients = DB::table('clients')->get();
         $plots = DB::table('plots')->get();
@@ -90,22 +92,25 @@ class SalesController extends Controller
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
         ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
         ->get();
-        $clients = DB::table('clients')->get();
         $plots = DB::table('plots')->get();
         $payments = DB::table('payments')->get();
         $platforms = DB::table('platforms')->get();
-        $sales = DB::table('sales')
+
+        $sales['InfoVenda'] = DB::table('sales')
         ->join('clients','sales.client_id','=','clients.client_id')
-        ->select('*')
+        ->join('payments', 'sales.payment_id','=','payments.payment_id')
+        ->join('plots', 'sales.plot_id','=','plots.plot_id')
+        ->select('sales.*','clients.*','payments.name as payment' , 'plots.name as plot')
         ->where('sales.sale_id','=',$idSale)
         ->get();
-        $saleitens = DB::table('saleitens')
+        
+        $sales['Produtos'] = DB::table('saleitens')
         ->join('products', 'saleitens.product_id', '=', 'products.product_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
         ->select('saleitens.*', 'products.name', 'sizes.name as size')
         ->where('sale_id','=',$idSale)
         ->get();
-        $exit = array_merge($sales[1],$saleitens);
+        //$exit = array_merge($sales[1],$saleitens);
         return response()->json($sales);
     }
 
@@ -149,8 +154,6 @@ class SalesController extends Controller
         DB::table('receivables')->
         where('sale_id','=',$request->opensaleid)->
         delete();
-;
-
         return redirect('Vendas');
     }
 
@@ -288,8 +291,11 @@ class SalesController extends Controller
             'status'=>'A',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
-
-        $this->createNewSale();
+        $sales = DB::table('sales')->latest()->first();
+        if($request->idSale == $sales->sale_id){
+            $this->createNewSale();
+        }
+      
         return redirect('Vendas');
     }
 
@@ -329,5 +335,44 @@ class SalesController extends Controller
         return redirect('Vendas/Nova');
     }
 
+    public function additensaleedt(Request $request)
+    {
+        DB::table('saleitens')->insert([
+            'sale_id'=>$request->idSale,
+            'product_id'=>$request->idProduct,
+            'quantity'=>$request->quantityProduct,
+            'price'=>$request->priceProduct,
+            'subtotal'=>($request->quantityProduct)*($request->priceProduct),
+            'created_at'=>date("Y-m-d H:i:s"), 
+            'updated_at' =>date("Y-m-d H:i:s")
+        ]);
+        return redirect('Vendas/Editar/'.$request->idSale);
+    }
+
+    public function edtitensaleedt(Request $request)
+    {
+            DB::table('saleitens')->
+            where('saleitens_id','=',$request->edtidItenSale)->
+            update([
+                'product_id'=>$request->edtidProduct,
+                'quantity'=>$request->edtquantityProduct,
+                'price'=>$request->edtpriceProduct,
+                'subtotal'=>($request->edtquantityProduct)*($request->edtpriceProduct), 
+                'updated_at' => date("Y-m-d H:i:s")  
+            ]);         
+        return redirect('Vendas/Editar/'.$request->idSale);
+    }
+
+    public function delitensaleedt(Request $request)
+    {
+        DB::table('saleitens')->
+        where('saleitens_id','=',$request->delsaleitens_id)->
+        delete();
+        return redirect('Vendas/Editar/'.$request->idSale);
+    }
+
+    public function printSale($idSale){
+        return view('Site.Vendas.printsale',['idSale'=>$idSale]);
+    }
 
 }
