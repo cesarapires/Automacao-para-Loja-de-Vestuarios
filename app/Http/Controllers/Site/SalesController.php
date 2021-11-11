@@ -159,56 +159,84 @@ class SalesController extends Controller
 
     public function closeSale(Request $request)
     {
-        DB::table('sales')->
-        where('sale_id','=',$request->closesaleid)->
-        update([
-            'status'=>'F',
-            'updated_at' => date("Y-m-d H:i:s"),
-        ]);
-
         $sale = DB::table('sales')->select()->where('sales.sale_id','=',$request->closesaleid)->get();
 
         $plot = DB::table('plots')->select('number')->where('plots.plot_id','=',$sale[0]->plot_id)->get();
 
-        $payment =DB::table('payments')->select('credit')->where('payments.payment_id','=',$sale[0]->payment_id)->get();
+        $payment =DB::table('payments')->select('*')->where('payments.payment_id','=',$sale[0]->payment_id)->get();
     
-        $amount = $sale[0]->amount;
-        if($payment[0]->credit == 1){
-            $valuePlot = $amount/$plot[0]->number;
-            for($cont = 1; $cont<=$plot[0]->number;$cont++){
-                $days = $cont*30;
-                DB::table('receivables')->insert([
-                    'client_id'=>$sale[0]->client_id,
-                    'sale_id'=>$sale[0]->sale_id,
-                    'date_sale'=>$sale[0]->date_sale,
-                    'date_duereceivable'=>date("Y-m-d", strtotime($sale[0]->date_sale.'+'.$days.'days')),
-                    'value'=>$valuePlot,
-                    'status'=>0,
-                    'numberplot'=>$cont,
-                    'created_at' => date("Y-m-d H:i:s"),  
-                    'updated_at' => date("Y-m-d H:i:s"),  
-                ]);        
-            }
-        }
-        else{
-            $nameClient = DB::table('clients')
-            ->select('name')
-            ->where('clients.client_id','=',$sale[0]->client_id)
-            ->get();
-
-            
-            DB::table('cashiers')->insert([
-                'description'=>$nameClient[0]->name,
+        if($payment[0]->exemption == 1){
+            $days=30;
+            $date = date("Y-m-d", strtotime($sale[0]->date_sale.'+'.$days.'days'));
+            DB::table('receivables')->insert([
                 'client_id'=>$sale[0]->client_id,
                 'sale_id'=>$sale[0]->sale_id,
-                'date_receivable'=>$sale[0]->date_sale,
-                'value'=>$amount,
-                'type'=>'C',
+                'payment_id'=>$sale[0]->payment_id,
+                'date_sale'=>$sale[0]->date_sale,
+                'date_duereceivable'=>$date,
+                'value'=>$sale[0]->amount,
+                'status'=>0,
+                'numberplot'=>1,
                 'created_at' => date("Y-m-d H:i:s"),  
                 'updated_at' => date("Y-m-d H:i:s"),  
-                'sale_id'=>$sale[0]->sale_id,
             ]);  
-            
+        }
+        else{
+            if($payment[0]->credit == 1){
+                if($plot[0]->number ==0){
+                    $days=1;
+                    $date = date("Y-m-d", strtotime($sale[0]->date_sale.'+'.$days.'days'));
+                    DB::table('receivables')->insert([
+                        'client_id'=>$sale[0]->client_id,
+                        'sale_id'=>$sale[0]->sale_id,
+                        'payment_id'=>$sale[0]->payment_id,
+                        'date_sale'=>$sale[0]->date_sale,
+                        'date_duereceivable'=>$date,
+                        'value'=>$sale[0]->amount,
+                        'status'=>0,
+                        'numberplot'=>1,
+                        'created_at' => date("Y-m-d H:i:s"),  
+                        'updated_at' => date("Y-m-d H:i:s"),  
+                    ]);  
+                }else{
+                    $valuePlot = $sale[0]->amount/$plot[0]->number;
+                    for($cont = 1; $cont<=$plot[0]->number;$cont++){
+                        $days = $cont*30;
+
+                        DB::table('receivables')->insert([
+                            'client_id'=>$sale[0]->client_id,
+                            'sale_id'=>$sale[0]->sale_id,
+                            'payment_id'=>$sale[0]->payment_id,
+                            'date_sale'=>$sale[0]->date_sale,
+                            'date_duereceivable'=>date("Y-m-d", strtotime($sale[0]->date_sale.'+'.$days.'days')),
+                            'value'=>$valuePlot,
+                            'status'=>0,
+                            'numberplot'=>$cont,
+                            'created_at' => date("Y-m-d H:i:s"),  
+                            'updated_at' => date("Y-m-d H:i:s"),  
+                        ]);        
+                    }
+                }
+            }
+            else{
+                $nameClient = DB::table('clients')
+                ->select('name')
+                ->where('clients.client_id','=',$sale[0]->client_id)
+                ->get();
+
+                DB::table('cashiers')->insert([
+                    'description'=>$nameClient[0]->name,
+                    'client_id'=>$sale[0]->client_id,
+                    'sale_id'=>$sale[0]->sale_id,
+                    'payment_id'=>$sale[0]->payment_id,
+                    'date_receivable'=>$sale[0]->date_sale,
+                    'value'=>$sale[0]->amount,
+                    'type'=>'C',
+                    'created_at' => date("Y-m-d H:i:s"),  
+                    'updated_at' => date("Y-m-d H:i:s"),  
+                    'sale_id'=>$sale[0]->sale_id,
+                ]);  
+            }
         }
         $saleitens = DB::table('saleitens')
         ->select()
@@ -227,6 +255,14 @@ class SalesController extends Controller
                 'stock'=> $newStock           
             ]);      
         }
+
+        DB::table('sales')->
+        where('sale_id','=',$request->closesaleid)->
+        update([
+            'status'=>'F',
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
+
         return redirect('Vendas');
     }
 

@@ -15,7 +15,8 @@ class CreateReceivablesTable extends Migration
     {
         Schema::create('receivables', function (Blueprint $table) {
             $table->id('receivable_id');
-            $table->foreignId('client_id')->nullable()->references('client_id')->on('clients')->onDelete('cascade');;
+            $table->foreignId('payment_id')->nullable()->references('payment_id')->on('payments')->onDelete('cascade');
+            $table->foreignId('client_id')->nullable()->references('client_id')->on('clients')->onDelete('cascade');
             $table->foreignId('sale_id')->nullable()->references('sale_id')->on('sales');
             $table->date('date_sale')->nullable();
             $table->date('date_paymentreceivable')->nullable();

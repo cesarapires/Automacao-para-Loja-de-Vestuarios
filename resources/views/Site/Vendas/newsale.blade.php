@@ -279,8 +279,6 @@ function calcular() {
     */
     if (idShipping == 0) {
         var priceSale = (sumItens - discount);
-        var rateValue = ((ratePayment / 100) * (priceSale) + ratefixPayment);
-        var amountSale = (priceSale - rateValue - ratePlatform - shippingValue);
     }
     /*
     Frete por conta de qualquer pessoa, não incluido a empresa
@@ -291,48 +289,36 @@ function calcular() {
     */
     else {
         var priceSale = (sumItens + shippingValue - discount);
-        var rateValue = ((ratePayment / 100) * (priceSale) + ratefixPayment);
-        var amountSale = (priceSale - rateValue - ratePlatform)
     }
+    var rateValue = ((ratePayment / 100) * (priceSale) + ratefixPayment);
+    var amountSale = (priceSale - rateValue - ratePlatform)
 
 
 
     /* ----- Cálculo do PagSeguro ----------*/
     ratevariablePayment = parseFloat((ratevariablePayment / 100)).toFixed(4);
-    var valorParcela = parseFloat((priceSale) / numberPlot).toFixed(4);
     var rateVariableCompany = parseFloat(0);
     var rateVariableClient = parseFloat(0);
-    var mult = 1;
     var priceRate = priceSale; 
 
     if (pagseguro == 1) {
+      
         if (numberPlot > 1) {
-            for (plot = 1; plot <= numberPlot; plot++) {
-                rateVariableCompany = rateVariableCompany + valorParcela / (Math.pow(1 + parseFloat(
-                    ratevariablePayment), plot));
-            }
-            rateVariableCompany = priceSale - rateVariableCompany;
-            if (parseInt(numberPlot) > parseInt(plotExemption)) {
-
-                mult = numberPlot - plotExemption;
-                var p1 = priceSale * parseFloat(ratevariablePayment);
-                var p2 = (Math.pow(1 + parseFloat(ratevariablePayment), mult));
-                var p3 = (Math.pow(1 + parseFloat(ratevariablePayment), mult) - 1);
-
-                valorParcela = (p1 * (p2 / p3));
-
-                rateVariableClient = (valorParcela * mult) - priceSale;
-                priceRate = valorParcela * mult;
-            }
-
-            rateVariableCompany = rateVariableCompany - rateVariableClient;
-            priceSale = priceRate;
-
+            var fator = parseFloat(ratevariablePayment)/(1-1/(Math.pow(1 + parseFloat(ratevariablePayment), numberPlot)));
+            valorParcela  = priceSale*fator
+            priceRate = numberPlot*valorParcela;
         }
+        rateVariableCompany = priceSale*ratevariablePayment;
+        rateVariableClient = priceRate - priceSale;
+        priceSale = priceRate;
+    } 
+    else{
+        rateVariableCompany = priceSale*parseFloat(ratePayment/100).toFixed(4);
     }
+    
 
-    amountSale = amountSale - rateVariableCompany;
-    rateValue = rateValue + rateVariableCompany;
+    amountSale = amountSale - rateVariableCompany - ratefixPayment;
+    rateValue = rateVariableClient + rateVariableCompany + ratefixPayment;
 
     $("#rateClient").val((rateVariableClient).toFixed(2));
     $("#rateCompany").val((rateVariableCompany).toFixed(2));

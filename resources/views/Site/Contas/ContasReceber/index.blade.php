@@ -42,9 +42,9 @@
                         <table id="vendas" class="table table-bordered table-striped">
                             <thead>
                                 <tr class="text-center">
-                                    <th>ID</th>
                                     <th>Cliente</th>
                                     <th>ID Venda</th>
+                                    <th>Forma</th>
                                     <th>Data</th>
                                     <th>Parcela</th>
                                     <th>Vencimento</th>
@@ -56,9 +56,9 @@
                             <tbody>
                                 @foreach($receivables as $receivables)
                                 <tr class="text-center">
-                                    <td>{{$receivables->receivable_id}}</td>
                                     <td>{{$receivables->nameClient}}</td>
                                     <td>{{$receivables->sale_id}}</td>
+                                    <td>{{$receivables->namePayment}}</td>
                                     <td>{{date('d/m/Y', strtotime($receivables->date_sale))}}</td>
                                     <td>{{$receivables->numberplot }}</td>
                                     <td>{{date('d/m/Y', strtotime($receivables->date_duereceivable))}}</td>
@@ -75,13 +75,11 @@
                                             data-target="#modaledtreceivable"
                                             data-whatever='{{$receivables->receivable_id}}'>
                                             <i class="fas fa-pencil-alt"></i>
-                                            Editar
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
                                             data-target="#modaldelreceivable"
                                             data-whatever='{{$receivables->receivable_id}}'>
                                             <i class="fas fa-trash"></i>
-                                            Apagar
                                         </button>
                                     </td>
                                 </tr>

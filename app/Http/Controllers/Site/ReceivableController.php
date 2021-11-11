@@ -11,7 +11,8 @@ class ReceivableController extends Controller
     public function index(){
         $receivables = DB::table('receivables')
         ->join('clients', 'receivables.client_id', '=', 'clients.client_id')
-        ->select('receivables.*','clients.name as nameClient')
+        ->join('payments', 'receivables.payment_id', '=', 'payments.payment_id')
+        ->select('receivables.*','clients.name as nameClient','payments.name as namePayment')
         ->get();
         $clients = DB::table('clients')->get();
         return view('Site.Contas.ContasReceber.index',[
