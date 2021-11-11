@@ -41,6 +41,21 @@ class HomeController extends Controller
         foreach($stockValue as $stockValue){
             $stockPrice = $stockPrice+($stockValue->stock*$stockValue->price_buy);
         }
+
+        $cashflowD = DB::table('cashiers')
+            ->select(DB::raw('SUM(value), MONTH(date_receivable)'))
+            ->where('cashiers.type','=','D')
+            ->groupBy(DB::raw('MONTH(date_receivable)'))
+            ->get();
+
+        $cashflowC = DB::table('cashiers')
+            ->select(DB::raw('SUM(value), MONTH(date_receivable)'))
+            ->where('cashiers.type','=','C')
+            ->groupBy(DB::raw('MONTH(date_receivable)'))
+            ->get();
+
+        dd($cashflowD,$cashflowC);
+
         return view('Site.Home.index',[
             'numberStock' => $numberStock,
             'stockPrice' => $stockPrice,
