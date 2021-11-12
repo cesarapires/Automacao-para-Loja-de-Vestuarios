@@ -111,6 +111,7 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <!-- Page specific script -->
 <script>
+    $(function () { 
         var MonthC = new Array();
         var MonthD = new Array();
         var ValueD = new Array();
@@ -124,46 +125,46 @@
             MonthD.push(Object.keys(request.response.debit));
             ValueC.push(Object.values(request.response.debit));
             ValueD.push(Object.values(request.response.debit));
-        }
-        
-        const ctx = document.getElementById('barChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["1","2","3","4","5"],
-            datasets: [
-            {
-            label               : 'Receita',
-            backgroundColor     : 'rgba(31,163,53,1)',
-            borderColor         : 'rgba(31,163,53,1)',
-            pointRadius          : false,
-            pointColor          : '#3b8bba',
-            pointStrokeColor    : 'rgba(31,163,53,1)',
-            pointHighlightFill  : '#fff',
-            pointHighlightStroke: 'rgba(31,163,53,1)',
-            data                : ValueC
+            const ctx = document.getElementById('barChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(request.response.credit),
+                datasets: [
+                {
+                label               : 'Receita',
+                backgroundColor     : 'rgba(31,163,53,1)',
+                borderColor         : 'rgba(31,163,53,1)',
+                pointRadius          : false,
+                pointColor          : '#3b8bba',
+                pointStrokeColor    : 'rgba(31,163,53,1)',
+                pointHighlightFill  : '#fff',
+                pointHighlightStroke: 'rgba(31,163,53,1)',
+                data                : Object.values(request.response.credit)
+                },
+                {
+                label               : 'Despesa',
+                backgroundColor     : 'rgba(227, 41, 41, 1)',
+                borderColor         : 'rgba(227, 41, 41, 1)',
+                pointRadius         : false,
+                pointColor          : 'rgba(227, 41, 41, 1)',
+                pointStrokeColor    : '#c1c7d1',
+                pointHighlightFill  : '#fff',
+                pointHighlightStroke: 'rgba(227, 41, 41, 1)',
+                data                : Object.values(request.response.debit)
+                },
+            ]
             },
-            {
-            label               : 'Despesa',
-            backgroundColor     : 'rgba(227, 41, 41, 1)',
-            borderColor         : 'rgba(227, 41, 41, 1)',
-            pointRadius         : false,
-            pointColor          : 'rgba(227, 41, 41, 1)',
-            pointStrokeColor    : '#c1c7d1',
-            pointHighlightFill  : '#fff',
-            pointHighlightStroke: 'rgba(227, 41, 41, 1)',
-            data                : ValueD
-            },
-        ]
-        },
-        
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+            
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
-            }
-            }
-        });
+                }
+            });
+        }
+    })
 </script>
 @endsection('content')
