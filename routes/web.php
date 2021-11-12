@@ -106,6 +106,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Caixa/Cadastrar', 'CashierController@store')->middleware(['auth'])->name('Site.CashierStore');
     Route::post('/Caixa/Editar', 'CashierController@update')->middleware(['auth'])->name('Site.CashierUpdate');
     Route::post('/Caixa/Deletar', 'CashierController@delete')->middleware(['auth'])->name('Site.CashierDelete');
+    Route::get('/Caixa/Grafico', 'CashierController@chart')->middleware(['auth'])->name('Site.CashierChart');
 
     Route::get('/Relatorio', 'ReportController@index')->middleware(['auth'])->name('Site.Report');
 

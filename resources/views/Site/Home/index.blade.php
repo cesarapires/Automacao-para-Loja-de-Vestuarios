@@ -111,44 +111,59 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <!-- Page specific script -->
 <script>
-const ctx = document.getElementById('barChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-        {
-          label               : 'Receita',
-          backgroundColor     : 'rgba(31,163,53,1)',
-          borderColor         : 'rgba(31,163,53,1)',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(31,163,53,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(31,163,53,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
-        },
-        {
-          label               : 'Despesa',
-          backgroundColor     : 'rgba(227, 41, 41, 1)',
-          borderColor         : 'rgba(227, 41, 41, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(227, 41, 41, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(227, 41, 41, 1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-      ]
-    },
-    
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
+        var MonthC = new Array();
+        var MonthD = new Array();
+        var ValueD = new Array();
+        var ValueC = new Array();
+        var request = new XMLHttpRequest();
+        request.open('GET', "{{url('Caixa/Grafico')}}");
+        request.responseType = 'json';
+        request.send();
+        request.onload = function() {
+            MonthC.push(Object.keys(request.response.credit));
+            MonthD.push(Object.keys(request.response.debit));
+            ValueC.push(Object.values(request.response.debit));
+            ValueD.push(Object.values(request.response.debit));
         }
-    }
-});
+        
+        const ctx = document.getElementById('barChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["1","2","3","4","5"],
+            datasets: [
+            {
+            label               : 'Receita',
+            backgroundColor     : 'rgba(31,163,53,1)',
+            borderColor         : 'rgba(31,163,53,1)',
+            pointRadius          : false,
+            pointColor          : '#3b8bba',
+            pointStrokeColor    : 'rgba(31,163,53,1)',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(31,163,53,1)',
+            data                : ValueC
+            },
+            {
+            label               : 'Despesa',
+            backgroundColor     : 'rgba(227, 41, 41, 1)',
+            borderColor         : 'rgba(227, 41, 41, 1)',
+            pointRadius         : false,
+            pointColor          : 'rgba(227, 41, 41, 1)',
+            pointStrokeColor    : '#c1c7d1',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(227, 41, 41, 1)',
+            data                : ValueD
+            },
+        ]
+        },
+        
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+            }
+        });
 </script>
 @endsection('content')
