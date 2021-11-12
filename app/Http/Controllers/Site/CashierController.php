@@ -75,6 +75,7 @@ class CashierController extends Controller
 
     $cashflowD = collect();
     $cashflowC = collect();
+
     
     foreach($cashD as $cashD){
         $cashflowD[$cashD->month] = $cashD->value;

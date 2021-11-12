@@ -126,6 +126,30 @@ class ReceivableController extends Controller
         return response()->json($selectreceivables);
     }
 
+    public function sumReceivable($client_id){
+        $dueReceivable = DB::table('receivables')
+        ->where('client_id','=',$client_id)
+        ->where('receivables.date_duereceivable','<',date('Y-m-d'))
+        ->where('receivables.status','=','0')
+        ->sum('value');
+
+        $openReceivable = DB::table('receivables')
+        ->where('client_id','=',$client_id)
+        ->where('receivables.date_duereceivable','>=',date('Y-m-d'))
+        ->where('receivables.status','=','0')
+        ->sum('value');
+
+        $datelastReceovable =DB::table('sales')
+        ->select('date_sale')
+        ->where('sales.client_id','=',$client_id)
+        ->latest()->first();
+
+        return ['due'=>$dueReceivable,
+        'open'=>$openReceivable,
+        'date_receivable'=>$datelastReceovable,
+    ];
+    }
+
     public function delete(Request $request)
     {
 

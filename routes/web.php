@@ -100,6 +100,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/ContasReceber/Cadastrar', 'ReceivableController@store')->middleware(['auth'])->name('Site.ReceivableStore');
     Route::post('/ContasReceber/Editar', 'ReceivableController@update')->middleware(['auth'])->name('Site.ReceivableUpdate');
     Route::post('/ContasReceber/Deletar', 'ReceivableController@delete')->middleware(['auth'])->name('Site.ReceivableDelete');
+    Route::get('/ContasReceber/SomarTotaisCliente/{client_id}', 'ReceivableController@sumReceivable')->middleware(['auth'])->name('Site.SumReceivableClient');
 
     Route::get('/Caixa', 'CashierController@index')->middleware(['auth'])->name('Site.Cashier');
     Route::get('/Caixa/Buscar/{idCashier}', 'CashierController@modalselectcachiers')->middleware(['auth'])->name('Site.CashierSelectUpdate');
