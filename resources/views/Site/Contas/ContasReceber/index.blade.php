@@ -84,8 +84,9 @@
                                     <label>ㅤ</label>
                                     <div class="input-group date" data-target-input="nearest">
                                         <div class="btn-group">
-                                            <button type="button" id="year" class="btn btn-default">Abertos</button>
-                                            <button type="button" id="month" class="btn btn-default">Vencidos</button>
+                                            <button type="button" id="receivableclose" class="btn btn-default">Fechados</button>
+                                            <button type="button" id="receivableopen" class="btn btn-default">Abertos</button>
+                                            <button type="button" id="receivabledue" class="btn btn-default">Vencidos</button>
                                             <button type="button" id="exitFilter" class="btn btn-default"><i
                                                     class="fas fa-times"></i></button>
                                         </div>
@@ -103,6 +104,7 @@
                                     <th>Parcela</th>
                                     <th>Vencimento</th>
                                     <th>Valor</th>
+                                    <th>Status</th>
                                     <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
@@ -124,6 +126,7 @@
                                         <i class="far fa-square"></i>
                                         @endif
                                     </td>
+                                    <td>{{$receivables->status}}</td>
                                     <td>
                                         <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
                                             data-target="#modaledtreceivable"
@@ -168,6 +171,35 @@
 
 
 <script>
+function removerClasse() {
+    $("#receivableopen").removeClass('active');
+    $("#receivabledue").removeClass('active');
+    $("#receivableclose").removeClass('active');
+};
+
+$('#receivableopen').on('click', function() {
+    removerClasse();
+    $("#receivableopen").addClass('active');
+    $('#vendas').DataTable().draw();
+});
+
+$('#receivabledue').on('click', function() {
+    removerClasse();
+    $("#receivabledue").addClass('active');
+    $('#vendas').DataTable().draw();
+});
+
+$('#receivableclose').on('click', function() {
+    removerClasse();
+    $("#receivableclose").addClass('active');
+    $('#vendas').DataTable().draw();
+});
+
+$('#exitFilter').on('click', function() {
+    removerClasse();
+    $('#vendas').DataTable().draw();
+});
+
 $(document).ready(function() {
     $("#day").removeClass('active');
     $("#month").addClass('active');
@@ -188,8 +220,9 @@ var tablaTransacciones_dt = null
 $.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aData, iDataIndex) {
         var filterPayment = true;
-        var filterdateSale = true;
+        var filterStatus = true;
         var filterdateDue = true;
+
         var index;
         $('#vendas thead tr').each((tr_idx, tr) => {
             $(tr).children('th').each((th_idx, th) => {
@@ -204,6 +237,8 @@ $.fn.dataTableExt.afnFiltering.push(
         // in the first column of the table via aData[0]
 
         var evalDate = removebar(aData[index]);
+        var dueDate = removebar(aData[5]);
+        var data = moment().format('YYYYMMDD')
 
         if ($('#filterPayment').find(':selected').val() == 'Todos') {
             filterPayment = true;
@@ -215,13 +250,48 @@ $.fn.dataTableExt.afnFiltering.push(
             }
         }
 
+        if ($("#receivableopen").hasClass("active")) {
+            if (aData[8] == "0") {
+                filterStatus = true;
+            } 
+            else {
+                filterStatus = false;
+            }
+        } 
+        else if ($("#receivableclose").hasClass("active")) {
+            if (aData[8] == "1") {
+                filterStatus = true;              
+            } 
+            else {
+                filterStatus = false;
+            }
+        }
+
+        else if ($("#receivabledue").hasClass("active")) {
+            if (aData[8] == "0") {
+                alert(data);
+                if(aData[5]<data){
+                    filterStatus = true;
+                }
+                else{
+                    filterStatus = false;
+                }
+            } 
+            else {
+                filterStatus = false;
+            }
+        } 
+        else{
+            filterStatus = true;
+        }
+
         if (evalDate >= dateStart && evalDate <= dateEnd) {
             filterdateSale = true;
         } else {
             filterdateSale = false;
         }
 
-        if (filterdateSale && filterPayment) {
+        if (filterdateSale && filterPayment && filterStatus) {
             return true;
         } else {
             return false;
@@ -246,6 +316,7 @@ function removebar(rawDate) {
 
 $(function() {
     tablaTransacciones_dt = tablaTransacciones.DataTable({
+      
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
