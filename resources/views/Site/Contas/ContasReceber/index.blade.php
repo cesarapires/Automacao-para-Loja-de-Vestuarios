@@ -269,8 +269,7 @@ $.fn.dataTableExt.afnFiltering.push(
 
         else if ($("#receivabledue").hasClass("active")) {
             if (aData[8] == "0") {
-                alert(data);
-                if(aData[5]<data){
+                if(dueDate<data){
                     filterStatus = true;
                 }
                 else{
