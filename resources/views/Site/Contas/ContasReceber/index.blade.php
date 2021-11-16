@@ -315,7 +315,11 @@ function removebar(rawDate) {
 
 $(function() {
     tablaTransacciones_dt = tablaTransacciones.DataTable({
-      
+        "columnDefs": [{
+            "targets": [8],
+            "visible": false,
+            "searchable": false
+        }],
         language: {
             "emptyTable": "Nenhum registro encontrado",
             "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
