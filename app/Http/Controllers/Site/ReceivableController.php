@@ -14,10 +14,12 @@ class ReceivableController extends Controller
         ->join('payments', 'receivables.payment_id', '=', 'payments.payment_id')
         ->select('receivables.*','clients.name as nameClient','payments.name as namePayment')
         ->get();
+        $payments = DB::table('payments')->get();
         $clients = DB::table('clients')->get();
         return view('Site.Contas.ContasReceber.index',[
             'receivables'=>$receivables,
-            'clients' => $clients
+            'clients' => $clients,
+            'payments' => $payments
         ]);
     }
 
