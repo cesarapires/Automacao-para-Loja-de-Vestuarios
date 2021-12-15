@@ -152,7 +152,7 @@ var tablaTransacciones_dt = null
 // The plugin function for adding a new filtering routine
 $.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aDate, iDataIndex) {
-        var filterStock = true;
+        var filterPayment = true;
         var filterSize = true;
         var filterType = true;
         if ($('#filterStock').is(':checked')) {

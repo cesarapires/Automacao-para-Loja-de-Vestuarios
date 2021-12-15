@@ -11,12 +11,15 @@ class ReceivableController extends Controller
     public function index(){
         $receivables = DB::table('receivables')
         ->join('clients', 'receivables.client_id', '=', 'clients.client_id')
-        ->select('receivables.*','clients.name as nameClient')
+        ->join('payments', 'receivables.payment_id', '=', 'payments.payment_id')
+        ->select('receivables.*','clients.name as nameClient','payments.name as namePayment')
         ->get();
+        $payments = DB::table('payments')->get();
         $clients = DB::table('clients')->get();
         return view('Site.Contas.ContasReceber.index',[
             'receivables'=>$receivables,
-            'clients' => $clients
+            'clients' => $clients,
+            'payments' => $payments
         ]);
     }
 
@@ -123,6 +126,30 @@ class ReceivableController extends Controller
         ->where('receivable_id','=',$idReceivable)
         ->get();
         return response()->json($selectreceivables);
+    }
+
+    public function sumReceivable($client_id){
+        $dueReceivable = DB::table('receivables')
+        ->where('client_id','=',$client_id)
+        ->where('receivables.date_duereceivable','<',date('Y-m-d'))
+        ->where('receivables.status','=','0')
+        ->sum('value');
+
+        $openReceivable = DB::table('receivables')
+        ->where('client_id','=',$client_id)
+        ->where('receivables.date_duereceivable','>=',date('Y-m-d'))
+        ->where('receivables.status','=','0')
+        ->sum('value');
+
+        $datelastReceovable =DB::table('sales')
+        ->select('date_sale')
+        ->where('sales.client_id','=',$client_id)
+        ->latest()->first();
+
+        return ['due'=>$dueReceivable,
+        'open'=>$openReceivable,
+        'date_receivable'=>$datelastReceovable,
+    ];
     }
 
     public function delete(Request $request)

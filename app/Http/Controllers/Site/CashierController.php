@@ -59,4 +59,36 @@ class CashierController extends Controller
         ->get();
         return response()->json($selectCashier);
     }
+
+    public function chart(){
+        $cashD = DB::table('cashiers')
+        ->select(DB::raw('SUM(value) as value, MONTH(date_receivable) as month'))
+        ->where('cashiers.type','=','D')
+        ->groupBy(DB::raw('MONTH(date_receivable)'))
+        ->get();
+
+        $cashC = DB::table('cashiers')
+        ->select(DB::raw('SUM(value) as value, MONTH(date_receivable) as month'))
+        ->where('cashiers.type','=','C')
+        ->groupBy(DB::raw('MONTH(date_receivable)'))
+        ->get();
+
+    $cashflowD = collect();
+    $cashflowC = collect();
+
+    
+    foreach($cashD as $cashD){
+        $cashflowD[$cashD->month] = $cashD->value;
+    }
+
+    foreach($cashC as $cashC){
+        $cashflowC[$cashC->month] = $cashC->value;
+    }
+
+    return response()->json(array(
+        'credit' => $cashflowC,
+        'debit' => $cashflowD,
+    ));
+
+    }
 }

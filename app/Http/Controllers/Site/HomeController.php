@@ -19,6 +19,8 @@ class HomeController extends Controller
         $numberStock = DB::table('products')->sum('stock');
         $stockValue = DB::table('products')->get();
         $stockPrice = 0;
+
+        $clients = DB::table('clients')->get();
         $payable = DB::table('payables')
         ->where('payables.status','=',0)
         ->sum('value');
@@ -41,7 +43,12 @@ class HomeController extends Controller
         foreach($stockValue as $stockValue){
             $stockPrice = $stockPrice+($stockValue->stock*$stockValue->price_buy);
         }
+
+        //dd($cashflowD,$cashflowC);
+
+
         return view('Site.Home.index',[
+            'clients'=>$clients,
             'numberStock' => $numberStock,
             'stockPrice' => $stockPrice,
             'payable' => $payable,
