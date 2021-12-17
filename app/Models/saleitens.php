@@ -10,7 +10,8 @@ class saleitens extends Model
     protected $fillable = [
         'saleitens_id',
         'sale_id', 
-        'product_id', 
+        'product_id',
+        'name',
         'quantity', 
         'price', 
         'subtotal', 
