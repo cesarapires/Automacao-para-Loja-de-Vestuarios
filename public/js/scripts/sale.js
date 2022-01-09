@@ -14,7 +14,7 @@ function loadtable() {
         "deferRender": true,
         "datatype": 'json',
         "ajax": {
-            "url": `http://127.0.0.1:8000/api/saleitens/listsaleitens/${sale_id}`,
+            "url": `api/saleitens/listsaleitens/${sale_id}`,
             "type": "POST",
         },
         "columns": [
