@@ -27,12 +27,12 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     |--------------------------------------------------------------------------
     | Web Routes
     |--------------------------------------------------------------------------
-    | 
+    |
     | Aqui estão as rotas relacionadas ao produtos desde as rotas dos tamanhos
     | e tipos até as rotas de cadastro.
     |
     */
-    
+
     #Aqui estão as rotas relacionadas ao CRUD de produtos, todos com as devidas autenticação de usuário
     Route::get('/Produtos', 'ProductsController@index')->middleware(['auth'])->name('Site.Products');
     Route::post('/Produtos/CadastroProduto', 'ProductsController@storeProduct')->middleware(['auth'])->name('Site.ProductsStore');
@@ -55,22 +55,22 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::post('/Clientes/Alterarlientes', 'ClientsController@update')->middleware(['auth'])->name('Site.ClientsUpdate');
     Route::post('/Clientes/DeleteClientes', 'ClientsController@delete')->middleware(['auth'])->name('Site.ClientsDelete');
     Route::get('/Clientes/Buscar/{idClient}','ClientsController@searchClient')->middleware(['auth'])->name('Site.ClientSearch');
-    /* 
+    /*
     |--------------------------------------------------------------------------
     | Web Routes Vendas
     |--------------------------------------------------------------------------
-    | 
-    | Neste trecho você encontra as rotas relacionadas a venda, como abrir e 
-    | fechar venda, apagar, editar e salvar uma nova. Além também de poder 
+    |
+    | Neste trecho você encontra as rotas relacionadas a venda, como abrir e
+    | fechar venda, apagar, editar e salvar uma nova. Além também de poder
     | ter acesso ao CRUD de itens da venda onde será salvo todos os itens que
     | foram marcado em alguma veda.
     |
     */
          #Aqui estão as rotas relacionadas ao CRUD de Vendas
         Route::get('/Vendas','SalesController@index')->middleware(['auth'])->name('Site.Sales');
-        Route::get('/Vendas/Nova', 'SalesController@indexNew')->middleware(['auth'])->name('Site.NewSales');
+        Route::get('/Vendas/Nova', 'SalesController@detail_sales')->middleware(['auth'])->name('Site.NewSales');
         Route::post('/Vendas/Salvar', 'SalesController@saveSale')->middleware(['auth'])->name('Site.SaveSales');
-        Route::get('/Vendas/Editar/{idSale}','SalesController@editSale')->middleware(['auth'])->name('Site.EditSales');
+        Route::get('/Vendas/Editar/{idSale}','SalesController@detail_sales')->middleware(['auth'])->name('Site.EditSales');
         Route::get('/Vendas/Buscar/{idSale}', 'SalesController@searchSale')->middleware(['auth'])->name('Site.SearchSales');
         Route::get('/Vendas/Imprimir/{idSale}', 'SalesController@printSale')->middleware(['auth'])->name('Site.PrintSales');
 
@@ -116,7 +116,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     #Aqui estão as rotas relacionadas ao CRUD de Configuração
     Route::get('/Configuracao', 'SettingsController@index')->middleware(['auth'])->name('Site.Setting');
-    
+
     #Aqui estão as rotas relacionadas ao CRUD de Plataformas
     Route::get('/Configuracao/Plataformas', 'SettingsController@indexPlatform')->middleware(['auth'])->name('Site.Platform');
     Route::post('/Configuracao/CadastroPlataformas', 'SettingsController@storePlatforms')->middleware(['auth'])->name('Site.PlatformStore');

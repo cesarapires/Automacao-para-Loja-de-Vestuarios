@@ -21,11 +21,3 @@ class saleitens extends JsonResource
         ];
     }
 }
-'saleitens_id',
-        'sale_id', 
-        'product_id', 
-        'quantity', 
-        'price', 
-        'subtotal', 
-        'created_at', 
-        'updated_at',

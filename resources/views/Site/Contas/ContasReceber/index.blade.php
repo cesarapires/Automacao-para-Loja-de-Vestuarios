@@ -253,15 +253,15 @@ $.fn.dataTableExt.afnFiltering.push(
         if ($("#receivableopen").hasClass("active")) {
             if (aData[8] == "0") {
                 filterStatus = true;
-            } 
+            }
             else {
                 filterStatus = false;
             }
-        } 
+        }
         else if ($("#receivableclose").hasClass("active")) {
             if (aData[8] == "1") {
-                filterStatus = true;              
-            } 
+                filterStatus = true;
+            }
             else {
                 filterStatus = false;
             }
@@ -275,11 +275,11 @@ $.fn.dataTableExt.afnFiltering.push(
                 else{
                     filterStatus = false;
                 }
-            } 
+            }
             else {
                 filterStatus = false;
             }
-        } 
+        }
         else{
             filterStatus = true;
         }
