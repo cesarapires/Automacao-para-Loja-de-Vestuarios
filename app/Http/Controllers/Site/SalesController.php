@@ -22,9 +22,9 @@ class SalesController extends Controller
         ]);
     }
 
-    public function indexNew()
+    public function detail_sales($sale_id = null)
     {
-        
+
         $products = DB::table('products')
         ->join('types', 'products.type_id', '=', 'types.type_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
@@ -35,14 +35,19 @@ class SalesController extends Controller
         $plots = DB::table('plots')->get();
         $payments = DB::table('payments')->get();
         $platforms = DB::table('platforms')->get();
-        $sales = DB::table('sales')->latest()->first();
+        if($sale_id == null){
+            $sales = DB::table('sales')->select('*')->latest()->first();
+        }
+        else{
+            $sales = DB::table('sales')->select('*')->where('sale_id','=',$sale_id)->first();
+        }
         $saleitens = DB::table('saleitens')
         ->join('products', 'saleitens.product_id', '=', 'products.product_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
         ->select('saleitens.*', 'products.name', 'sizes.name as size')
         ->where('sale_id','=',$sales->sale_id)
         ->get();
-        return view('Site.Vendas.newsale',[
+        return view('Site.Vendas.sale',[
             'products' => $products,
             'clients' => $clients,
             'plots' => $plots,
@@ -51,41 +56,9 @@ class SalesController extends Controller
             'sales' => $sales,
             'saleitens' => $saleitens
         ]);
-       
+
     }
 
-    public function editSale($idSale)
-    {
-        $products = DB::table('products')
-        ->join('types', 'products.type_id', '=', 'types.type_id')
-        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
-        ->select('products.*', 'types.name as type_name', 'sizes.name as size_name')
-        ->where('stock','>',0)
-        ->get();
-        $clients = DB::table('clients')->get();
-        $plots = DB::table('plots')->get();
-        $payments = DB::table('payments')->get();
-        $platforms = DB::table('platforms')->get();
-        $sales = DB::table('sales')
-        ->select('*')
-        ->where('sales.sale_id','=',$idSale)
-        ->get();
-        $saleitens = DB::table('saleitens')
-        ->join('products', 'saleitens.product_id', '=', 'products.product_id')
-        ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
-        ->select('saleitens.*', 'products.name', 'sizes.name as size')
-        ->where('sale_id','=',$idSale)
-        ->get();
-        return view('Site.Vendas.editsale',[
-            'products' => $products,
-            'clients' => $clients,
-            'plots' => $plots,
-            'payments' => $payments,
-            'platforms' => $platforms,
-            'sales' => $sales[0],
-            'saleitens' => $saleitens
-        ]);
-    }
     public function searchSale($idSale){
         $products = DB::table('products')
         ->join('types', 'products.type_id', '=', 'types.type_id')
@@ -103,7 +76,7 @@ class SalesController extends Controller
         ->select('sales.*','clients.*','payments.name as payment' , 'plots.name as plot')
         ->where('sales.sale_id','=',$idSale)
         ->get();
-        
+
         $sales['Produtos'] = DB::table('saleitens')
         ->join('products', 'saleitens.product_id', '=', 'products.product_id')
         ->join('sizes', 'products.size_id', '=', 'sizes.size_id')
@@ -122,7 +95,7 @@ class SalesController extends Controller
             'status'=>'A',
             'updated_at' => date("Y-m-d H:i:s"),
         ]);
-        
+
         $saleitens = DB::table('saleitens')
         ->select()
         ->where('saleitens.sale_id', '=', $request->opensaleid)
@@ -131,14 +104,14 @@ class SalesController extends Controller
             $products = DB::table('products')
             ->select('*')
             ->where('products.product_id', '=', $saleitens->product_id)
-            ->get();  
+            ->get();
             $newStock = $products[0]->stock + $saleitens->quantity;
             DB::table('products')->
             where('product_id','=',$saleitens->product_id)->
             update([
                 'stock'=> $newStock
-                
-            ]);      
+
+            ]);
         }
 
         $receivableID = DB::table('receivables')->select()->where('sale_id','=',$request->opensaleid)->get();
@@ -164,7 +137,7 @@ class SalesController extends Controller
         $plot = DB::table('plots')->select('number')->where('plots.plot_id','=',$sale[0]->plot_id)->get();
 
         $payment =DB::table('payments')->select('*')->where('payments.payment_id','=',$sale[0]->payment_id)->get();
-    
+
         if($payment[0]->exemption == 1){
             $days=30;
             $date = date("Y-m-d", strtotime($sale[0]->date_sale.'+'.$days.'days'));
@@ -177,9 +150,9 @@ class SalesController extends Controller
                 'value'=>$sale[0]->amount,
                 'status'=>0,
                 'numberplot'=>1,
-                'created_at' => date("Y-m-d H:i:s"),  
-                'updated_at' => date("Y-m-d H:i:s"),  
-            ]);  
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ]);
         }
         else{
             if($payment[0]->credit == 1){
@@ -195,9 +168,9 @@ class SalesController extends Controller
                         'value'=>$sale[0]->amount,
                         'status'=>0,
                         'numberplot'=>1,
-                        'created_at' => date("Y-m-d H:i:s"),  
-                        'updated_at' => date("Y-m-d H:i:s"),  
-                    ]);  
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'updated_at' => date("Y-m-d H:i:s"),
+                    ]);
                 }else{
                     $valuePlot = $sale[0]->amount/$plot[0]->number;
                     for($cont = 1; $cont<=$plot[0]->number;$cont++){
@@ -212,9 +185,9 @@ class SalesController extends Controller
                             'value'=>$valuePlot,
                             'status'=>0,
                             'numberplot'=>$cont,
-                            'created_at' => date("Y-m-d H:i:s"),  
-                            'updated_at' => date("Y-m-d H:i:s"),  
-                        ]);        
+                            'created_at' => date("Y-m-d H:i:s"),
+                            'updated_at' => date("Y-m-d H:i:s"),
+                        ]);
                     }
                 }
             }
@@ -232,10 +205,10 @@ class SalesController extends Controller
                     'date_receivable'=>$sale[0]->date_sale,
                     'value'=>$sale[0]->amount,
                     'type'=>'C',
-                    'created_at' => date("Y-m-d H:i:s"),  
-                    'updated_at' => date("Y-m-d H:i:s"),  
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s"),
                     'sale_id'=>$sale[0]->sale_id,
-                ]);  
+                ]);
             }
         }
         $saleitens = DB::table('saleitens')
@@ -247,13 +220,13 @@ class SalesController extends Controller
             $products = DB::table('products')
             ->select('*')
             ->where('products.product_id', '=', $saleitens->product_id)
-            ->get();  
+            ->get();
             $newStock = $products[0]->stock - $saleitens->quantity;
             DB::table('products')->
             where('product_id','=',$saleitens->product_id)->
             update([
-                'stock'=> $newStock           
-            ]);      
+                'stock'=> $newStock
+            ]);
         }
 
         DB::table('sales')->
@@ -331,7 +304,7 @@ class SalesController extends Controller
         if($request->idSale == $sales->sale_id){
             $this->createNewSale();
         }
-      
+
         return redirect('Vendas');
     }
 
@@ -342,8 +315,8 @@ class SalesController extends Controller
             'product_id'=>$request->idProduct,
             'quantity'=>$request->quantityProduct,
             'price'=>$request->priceProduct,
-            'subtotal'=>($request->quantityProduct)*($request->priceProduct),
-            'created_at'=>date("Y-m-d H:i:s"), 
+            'subtotal'=>$request->quantityProduct*$request->priceProduct,
+            'created_at'=>date("Y-m-d H:i:s"),
             'updated_at' =>date("Y-m-d H:i:s")
         ]);
         return redirect('Vendas/Nova');
@@ -357,9 +330,9 @@ class SalesController extends Controller
                 'product_id'=>$request->edtidProduct,
                 'quantity'=>$request->edtquantityProduct,
                 'price'=>$request->edtpriceProduct,
-                'subtotal'=>($request->edtquantityProduct)*($request->edtpriceProduct), 
-                'updated_at' => date("Y-m-d H:i:s")  
-            ]);        
+                'subtotal'=>($request->edtquantityProduct)*($request->edtpriceProduct),
+                'updated_at' => date("Y-m-d H:i:s")
+            ]);
         return redirect('Vendas/Nova');
     }
 
@@ -379,7 +352,7 @@ class SalesController extends Controller
             'quantity'=>$request->quantityProduct,
             'price'=>$request->priceProduct,
             'subtotal'=>($request->quantityProduct)*($request->priceProduct),
-            'created_at'=>date("Y-m-d H:i:s"), 
+            'created_at'=>date("Y-m-d H:i:s"),
             'updated_at' =>date("Y-m-d H:i:s")
         ]);
         return redirect('Vendas/Editar/'.$request->idSale);
@@ -393,9 +366,9 @@ class SalesController extends Controller
                 'product_id'=>$request->edtidProduct,
                 'quantity'=>$request->edtquantityProduct,
                 'price'=>$request->edtpriceProduct,
-                'subtotal'=>($request->edtquantityProduct)*($request->edtpriceProduct), 
-                'updated_at' => date("Y-m-d H:i:s")  
-            ]);         
+                'subtotal'=>($request->edtquantityProduct)*($request->edtpriceProduct),
+                'updated_at' => date("Y-m-d H:i:s")
+            ]);
         return redirect('Vendas/Editar/'.$request->idSale);
     }
 
