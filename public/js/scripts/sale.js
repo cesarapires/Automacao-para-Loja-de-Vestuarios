@@ -1,3 +1,6 @@
+var base_url = window.location.origin;
+
+
 $(document).ready(function() {
     loadtable();
 });
@@ -14,7 +17,7 @@ function loadtable() {
         "deferRender": true,
         "datatype": 'json',
         "ajax": {
-            "url": `api/saleitens/listsaleitens/${sale_id}`,
+            "url": `${base_url}/api/saleitens/listsaleitens/${sale_id}`,
             "type": "POST",
         },
         "columns": [

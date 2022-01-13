@@ -1,3 +1,5 @@
+var base_url = window.location.origin;
+
 //Função de trocar os itens do modal de itens
 $("#selectProduct").change(function() {
     var priceProduct = ($(this).find(':selected').attr('data-priceSell'));
@@ -54,7 +56,7 @@ function get_iten(){
     let saleitens_id = $("input[name=saleitens_id]").val();
     $.ajax({
         type: "GET",
-        url: `api/saleitens/${saleitens_id}`,
+        url: `${base_url}/api/saleitens/${saleitens_id}`,
     }).done(function (Response) {
         if(Response){
             $("input[name=product_id]").val(Response[0].product_id);
@@ -81,7 +83,7 @@ function add_iten(){
     let _token   = $('input[name="_token"]').val();
     $.ajax({
         type: "POST",
-        url: 'api/saleitens',
+        url: `${base_url}/api/saleitens`,
         data: {
             name:name,
             sale_id:sale_id,
@@ -116,7 +118,7 @@ function edit_iten(){
     let _token   = $('input[name="_token"]').val();
     $.ajax({
         type: "PUT",
-        url: `api/saleitens/${sale_id}`,
+        url: `${base_url}/api/saleitens/${sale_id}`,
         data: {
             saleitens_id: saleitens_id,
             name:name,
@@ -146,7 +148,7 @@ function delete_iten(){
     let _token   = $('input[name="_token"]').val();
     $.ajax({
         type: "DELETE",
-        url: `api/saleitens/${sale_id}`,
+        url: `${base_url}/api/saleitens/${sale_id}`,
         data: {
             saleitens_id: saleitens_id,
             _token: _token
