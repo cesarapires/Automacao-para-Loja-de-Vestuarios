@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api as RouteApi;
+use App\Http\Controllers\API as RouteApi;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('saleitens', RouteApi\SaleItensController::class);
-Route::post('saleitens/listsaleitens/{sale_id}', [RouteApi\SaleItensController::class, 'list_sale_itens'])->name('get_list_itens_sale');
+Route::post('saleitens/listsaleitens/{slug}', [RouteApi\SaleItensController::class, 'list_sale_itens'])->name('get_list_itens_sale');
