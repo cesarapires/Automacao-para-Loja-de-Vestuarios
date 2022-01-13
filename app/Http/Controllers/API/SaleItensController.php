@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\SaleItens as SaleItens;
-use App\Http\Resource\SaleItens as SaleItensResource;
+use App\Models\saleitens as SaleItens;
+use App\Http\Resource\saleitens as SaleItensResource;
 
 class SaleItensController extends Controller
 {
