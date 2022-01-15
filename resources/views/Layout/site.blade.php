@@ -53,6 +53,7 @@
     <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
     <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
     <!-- Page specific script -->
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
     <!-- Select2 script -->
     <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
