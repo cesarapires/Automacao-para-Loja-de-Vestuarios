@@ -58,6 +58,5 @@
     </div>
 </div>
 
-<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
-
+<!-- Adição do JS da página -->
 <script src="{{asset('js/scripts/modal_item.js')}}"></script>
