@@ -48,8 +48,6 @@ $('#exitFilter').on('click', function() {
 
 function loadtable() {
 
-    var tablaTransacciones = $('#vendas');
-
     var tablaTransacciones_dt = null
 
     // The plugin function for adding a new filtering routine
@@ -58,20 +56,18 @@ function loadtable() {
             var filterPayment = true;
             var filterStatus = true;
             var filterdateDue = true;
-            //Data = 3
-            //Vencimento = 5
 
+            //Filtrar por data de vencimento index = 5, filtro por data da compra index = 2
             $('#datetype').val() == 0 ? index = 3 : index = 5;
            
             var dateStart = removefeature($("#dateStart").val());
             var dateEnd = removefeature($("#dateEnd").val());
-            // aData represents the table structure as an array of columns, so the script access the date value
-            // in the first column of the table via aData[0]
 
             var evalDate = removebar(aData[index]);
             var dueDate = removebar(aData[5]);
             var data = moment().format('YYYYMMDD')
 
+            //Filtro por forma de pagamento
             if ($('#filterPayment').find(':selected').val() == 'Todos') {
                 filterPayment = true;
             } else {
@@ -82,31 +78,28 @@ function loadtable() {
                 }
             }
 
+            //Filtro por Status - Filtrar as contas abertas
             if ($("#receivableopen").hasClass("active")) {
-                if (aData[8] == "0") {
+                if (aData[7] == "Aberto") {
                     filterStatus = true;
                 }
                 else {
                     filterStatus = false;
                 }
             }
+            //Filtrar as fechadas
             else if ($("#receivableclose").hasClass("active")) {
-                if (aData[8] == "1") {
+                if (aData[7] == "Pago") {
                     filterStatus = true;
                 }
                 else {
                     filterStatus = false;
                 }
             }
-
+            //Filtrar as contas vencidas
             else if ($("#receivabledue").hasClass("active")) {
-                if (aData[8] == "0") {
-                    if(dueDate<data){
-                        filterStatus = true;
-                    }
-                    else{
-                        filterStatus = false;
-                    }
+                if (aData[7] == "Vencido") {
+                    filterStatus = true;
                 }
                 else {
                     filterStatus = false;
@@ -115,7 +108,7 @@ function loadtable() {
             else{
                 filterStatus = true;
             }
-
+            //Filtro de datas
             if (evalDate >= dateStart && evalDate <= dateEnd) {
                 filterdateSale = true;
             } else {

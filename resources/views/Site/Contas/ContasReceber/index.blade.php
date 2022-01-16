@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label for="IDUser">Filtro Data</label>
+                                    <label for="IDUser">Filtrar data por</label>
                                     <select type="date" class="form-control" data-target="#dateStart" value=""
                                         id="datetype" name="datetype">
                                         <option value="0">Data da compra</option>
@@ -79,7 +79,7 @@
                             <div class='row'>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Filtrar por tipo</label>
+                                        <label>Forma de pagamento</label>
                                         <select class="form-control" id="filterPayment">
                                             <option>Todos</option>
                                             @foreach($payments as $payments)
@@ -129,9 +129,13 @@
                                     <td>R$ {!!number_format($receivables->value,2, ',', ' ')!!}</td>
                                     <td>
                                         @if($receivables->status == 1)
-                                        <i class="far fa-check-square"></i>
+                                        <button type="button" class="btn btn-block btn-success btn-sm">Pago</button>
                                         @else
-                                        <i class="far fa-square"></i>
+                                            @if($receivables->date_duereceivable > date("Y-m-d", strtotime('now')))
+                                                <button type="button" class="btn btn-block btn-warning btn-sm">Aberto</button>
+                                            @else
+                                                <button type="button" class="btn btn-block btn-danger btn-sm">Vencido</button>
+                                            @endif
                                         @endif
                                     </td>
                                     <td>{{$receivables->status}}</td>
