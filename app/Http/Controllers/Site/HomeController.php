@@ -20,7 +20,10 @@ class HomeController extends Controller
         $stockValue = DB::table('products')->get();
         $stockPrice = 0;
 
-        $clients = DB::table('clients')->get();
+        $clients = DB::table('clients')->select('clients.client_id','name')
+        ->join('receivables', 'receivables.client_id', '=', 'clients.client_id')
+        ->where('receivables.value_receivable', null)
+        ->get();
         $payable = DB::table('payables')
         ->where('payables.status','=',0)
         ->sum('value');

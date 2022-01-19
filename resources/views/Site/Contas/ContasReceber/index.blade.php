@@ -10,15 +10,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Contas a Receber | <a class="btn btn-success btn-sm" data-toggle="modal"
-                        data-target="#modalnewreceiable">
-                        <i class="fas fa-plus"></i>
-                        Nova</a>
-                </h1>
+                <h1 class="m-0">Contas a Receber</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active">NSD Dashboard v1 | Contas a Receber</li>
+                    <li class="breadcrumb-item active">NSD Dashboard</li>
                 </ol>
             </div>
         </div>
@@ -32,10 +28,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
-
-                        </h3>
-
+                        <a class="btn btn-success btn-sm" data-toggle="modal"
+                        data-target="#modalnewreceiable">
+                        <i class="fas fa-plus"></i> Nova</a>
+                        <a class="btn btn-info btn-sm" data-toggle="modal"
+                        data-target="#modal_receivables">
+                        <i class="fas fa-hand-holding-usd"></i> Receber</a>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -162,12 +160,13 @@
     </div>
 </section>
 
-<script src="{{asset('js/scripts/receivable.js')}}"></script>
+{{-- <script src="{{asset('js/scripts/receivable.js')}}"></script> --}}
 
 
 @include('Site.Contas.ContasReceber.Modal.new')
 @include('Site.Contas.ContasReceber.Modal.edit')
 @include('Site.Contas.ContasReceber.Modal.delete')
+@include('Site.Contas.ContasReceber.Modal.receivable_modal')
 
 
 @endsection('content')

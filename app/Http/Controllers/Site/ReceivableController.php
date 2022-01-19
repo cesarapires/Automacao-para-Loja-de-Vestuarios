@@ -16,9 +16,14 @@ class ReceivableController extends Controller
         ->get();
         $payments = DB::table('payments')->get();
         $clients = DB::table('clients')->get();
+        $clientsReceivables = DB::table('clients')->select('clients.client_id','name')
+        ->join('receivables', 'receivables.client_id', '=', 'clients.client_id')
+        ->where('receivables.value_receivable', null)
+        ->get();
         return view('Site.Contas.ContasReceber.index',[
             'receivables'=>$receivables,
             'clients' => $clients,
+            'clientsReceivables' => $clientsReceivables,
             'payments' => $payments
         ]);
     }
@@ -38,9 +43,9 @@ class ReceivableController extends Controller
             'value'=>$request->valuereceiable,
             'status'=>$request->statusreceiable,
             'numberplot'=>1,
-            'created_at' => date("Y-m-d H:i:s"),  
-            'updated_at' => date("Y-m-d H:i:s"),  
-        ]);        
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
 
         if($request->statusreceiable == 1){
             $idreceivable = DB::table('receivables')->latest()->first();
@@ -55,9 +60,9 @@ class ReceivableController extends Controller
                 'date_receivable'=>$dateconvert,
                 'value'=>$request->valuereceiable,
                 'type'=>'C',
-                'created_at' => date("Y-m-d H:i:s"),  
-                'updated_at' => date("Y-m-d H:i:s"),  
-            ]);  
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ]);
         }
         return redirect('ContasReceber');
     }
@@ -89,8 +94,8 @@ class ReceivableController extends Controller
             'date_duereceivable'=>implode('-', array_reverse(explode('/', $request->edtdateduereceivable))),
             'value'=>$request->edtvaluereceivable,
             'status'=>$request->edtstatusreceivable,
-            'updated_at' => date("Y-m-d H:i:s"),    
-        ]);        
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
 
 
         if($status[0]->status <> $request->edtstatusreceivable){
@@ -107,9 +112,9 @@ class ReceivableController extends Controller
                     'date_receivable'=>$dateconvert,
                     'value'=>$request->edtvaluereceivable,
                     'type'=>'C',
-                    'created_at' => date("Y-m-d H:i:s"),  
-                    'updated_at' => date("Y-m-d H:i:s"),  
-                ]);  
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s"),
+                ]);
             }
             else{
                 DB::table('cashiers')->

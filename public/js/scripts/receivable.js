@@ -8,6 +8,7 @@ $(document).ready(function() {
     var segundaData = moment().endOf('month').format('YYYY-MM-DD');
     $('#dateStart').val(primeiraData);
     $('#dateEnd').val(segundaData);
+    // $('.sidebar-mini').addClass(''sidebar-collapse');
     loadtable();
 });
 
@@ -59,7 +60,7 @@ function loadtable() {
 
             //Filtrar por data de vencimento index = 5, filtro por data da compra index = 2
             $('#datetype').val() == 0 ? index = 3 : index = 5;
-           
+
             var dateStart = removefeature($("#dateStart").val());
             var dateEnd = removefeature($("#dateEnd").val());
 
