@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Exports\Export;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductsController extends Controller
 {
@@ -13,7 +16,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {
         $products = DB::table('products')
@@ -50,7 +53,7 @@ class ProductsController extends Controller
      */
     public function create(Request $request)
     {
-        //        
+        //
     }
 
     /**
@@ -58,13 +61,13 @@ class ProductsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     * 
+     *
      */
     public function storeProduct(Request $request)
     {
         DB::table('products')->insert([
-            'url'=>strtolower( preg_replace("/[^a-zA-Z0-9-]/", "-", 
-            strtr(utf8_decode(trim($request->nameProduct)), 
+            'url'=>strtolower(preg_replace("/[^a-zA-Z0-9-]/", "-",
+            strtr(utf8_decode(trim($request->nameProduct)),
             utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
             "aaaaeeiooouuncAAAAEEIOOOUUNC-"))),
             'name'=>$request->name,
@@ -74,8 +77,8 @@ class ProductsController extends Controller
             'price_buy'=>$request->pricebuy,
             'price_sell'=>$request->pricesell,
             'visible'=>"1",
-            'created_at' => date("Y-m-d H:i:s"),  
-            'updated_at' => date("Y-m-d H:i:s"),  
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
             'stock'=>$request->stock
         ]);
         return redirect('Produtos');
@@ -84,18 +87,18 @@ class ProductsController extends Controller
     public function storeType(Request $request){
         DB::table('types')->insert([
             'name'=>$request->nameType,
-            'created_at' => date("Y-m-d H:i:s"),  
-            'updated_at' => date("Y-m-d H:i:s"),  
-        ]);        
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
         return redirect('Produtos/Tipos');
     }
 
     public function storeSize(Request $request){
         DB::table('sizes')->insert([
             'name'=>$request->nameSize,
-            'created_at' => date("Y-m-d H:i:s"),  
-            'updated_at' => date("Y-m-d H:i:s"),  
-        ]);        
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
+        ]);
         return redirect('Produtos/Tamanhos');
     }
     /**
@@ -108,14 +111,14 @@ class ProductsController extends Controller
     {
         //
     }
-    
+
     public function updateProduct(Request $request)
     {
         DB::table('products')->
         where('product_id','=',$request->edtid)->
         update([
-            'url'=>strtolower( preg_replace("/[^a-zA-Z0-9-]/", "-", 
-            strtr(utf8_decode(trim($request->edtname)), 
+            'url'=>strtolower( preg_replace("/[^a-zA-Z0-9-]/", "-",
+            strtr(utf8_decode(trim($request->edtname)),
             utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
             "aaaaeeiooouuncAAAAEEIOOOUUNC-")) ),
             'name'=>$request->edtname,
@@ -124,9 +127,9 @@ class ProductsController extends Controller
             'size_id'=>$request->edtsize,
             'stock'=>$request->edtstock,
             'price_buy'=>$request->edtpricebuy,
-            'price_sell'=>$request->edtpricesell, 
+            'price_sell'=>$request->edtpricesell,
             'updated_at' => date("Y-m-d H:i:s")
-            
+
         ]);
         return redirect('Produtos');
     }
@@ -136,9 +139,9 @@ class ProductsController extends Controller
         DB::table('types')->
         where('type_id','=',$request->edtidType)->
         update([
-            'name'=>$request->edtnameType, 
-            'updated_at' => date("Y-m-d H:i:s")  
-        ]);        
+            'name'=>$request->edtnameType,
+            'updated_at' => date("Y-m-d H:i:s")
+        ]);
         return redirect('Produtos/Tipos');
     }
 
@@ -147,9 +150,9 @@ class ProductsController extends Controller
         DB::table('sizes')->
         where('size_id','=',$request->edtidSize)->
         update([
-            'name'=>$request->edtnameSize, 
-            'updated_at' => date("Y-m-d H:i:s")  
-        ]);        
+            'name'=>$request->edtnameSize,
+            'updated_at' => date("Y-m-d H:i:s")
+        ]);
         return redirect('Produtos/Tamanhos');
     }
 
@@ -183,5 +186,9 @@ class ProductsController extends Controller
         ->where('product_id','=',$idProduct)
         ->get();
         return response()->json($products);
+    }
+
+    public function gerar_excel_nuvem_shopp(){
+        return Excel::download(new Export, 'products_nuvem_shop.csv');
     }
 }

@@ -35,6 +35,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
     #Aqui estão as rotas relacionadas ao CRUD de produtos, todos com as devidas autenticação de usuário
     Route::get('/Produtos', 'ProductsController@index')->middleware(['auth'])->name('Site.Products');
+    Route::get('/Produtos/ExcelNuvemShop', 'ProductsController@gerar_excel_nuvem_shopp')->middleware(['auth'])->name('Site.Products.GerarExcelNuvemShop');
     Route::post('/Produtos/CadastroProduto', 'ProductsController@storeProduct')->middleware(['auth'])->name('Site.ProductsStore');
     Route::post('/Produtos/AlterarProduto', 'ProductsController@updateProduct')->middleware(['auth'])->name('Site.ProductsUpdate');
     Route::post('/Produtos/DeleteProduto', 'ProductsController@deleteProduct')->middleware(['auth'])->name('Site.ProductsDelete');
