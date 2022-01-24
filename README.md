@@ -63,10 +63,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Laravel](https://laravel.com/)
 - [JavaScript](https://developer.mozilla.org/)
 - [JQuery](https://jquery.com/)
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- [Laravel Excel - by SPARTNER](https://laravel-excel.com/)
+- [Admin LTE](https://adminlte.io/)
 
 ### Premium Partners
 

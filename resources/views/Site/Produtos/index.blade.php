@@ -6,15 +6,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Produtos | <button class="btn btn-success btn-sm" data-toggle="modal"
-                        data-target="#modalNewProduct">
-                        <i class="fas fa-plus"></i>
-                        Novo</button>
-                </h1>
+                <h1 class="m-0">Produtos</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active">NSD Dashboard v1 | Produtos</li>
+                    <li class="breadcrumb-item active">NSD Dashboard</li>
                 </ol>
             </div>
         </div>
@@ -26,6 +22,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalNewProduct">
+                        <i class="fas fa-plus"></i> Novo</button>
+                        <a class="btn btn-info btn-sm" href="{{route('Site.Products.GerarExcelNuvemShop')}}">
+                        <i class="fas fa-file-excel"></i> Excel Nuvem Shop</a>
+                    </div>
                     <div class="card-body">
                         <table id="produtos" class="table table-bordered table-striped">
                             <div class="form-group">

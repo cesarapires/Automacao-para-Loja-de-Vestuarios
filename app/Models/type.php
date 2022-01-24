@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class type extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
     protected $fillable = [
         'name',
     ];
-}
+
+    public function product()
+    {
+        return $this->belongsTo(product::class);
+    }
 }
