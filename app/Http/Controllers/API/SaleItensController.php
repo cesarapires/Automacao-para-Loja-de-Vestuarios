@@ -23,6 +23,7 @@ class SaleItensController extends Controller
             return ["code"=>200,
             "status"=>"Created",
             "message"=>"Item adicionado com sucesso!"];
+            //Remover do estoque
         }
         else {
             return ["code"=>500,
@@ -45,6 +46,7 @@ class SaleItensController extends Controller
 
     public function update(Request $request, $sale_id)
     {
+        //Pegar o estoque atual
         $request['subtotal'] = $request['quantity']*$request['price'];
         if(SaleItens::where('sale_id','=',$sale_id)->first()===null){
             return ["code"=>403,
@@ -62,6 +64,7 @@ class SaleItensController extends Controller
                 return ["code"=>200,
                 "status"=>"Edited",
                 "message"=>"Item alterado com sucesso!"];
+                //Atualizar o estoque novo
             }
         }
     }
@@ -84,6 +87,7 @@ class SaleItensController extends Controller
                 return ["code"=>200,
                 "status"=>"Removed",
                 "message"=>"Item removido com sucesso!"];
+                //Devolver estoque
             }
         }
     }
@@ -93,4 +97,16 @@ class SaleItensController extends Controller
         return $result;
     }
 
+    private function update_stock($operation = false, $saleitens_id, $quantity){
+        //Pegar o estoque atual
+
+        $saleitens = SaleItens::where('saleitens_id','=',$saleitens_id)->get();
+        $stock = 0;
+        // $stock = Products::where('product_id','=',$saleitens->product_id)->get();
+        if($operation){
+            $data['stock'] = $stock + $quantity;
+        } else {
+            $data['stock'] = $stock - $quantity;
+        }
+    }
 }

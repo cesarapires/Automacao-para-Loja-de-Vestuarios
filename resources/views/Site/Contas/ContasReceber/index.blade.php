@@ -2,10 +2,6 @@
 
 @section('content')
 
-<link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-<link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -29,11 +25,11 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="btn btn-success btn-sm" data-toggle="modal"
-                        data-target="#modalnewreceiable">
+                        data-target="#modal_receivables" data-funcao="new">
                         <i class="fas fa-plus"></i> Nova</a>
                         <a class="btn btn-info btn-sm" data-toggle="modal"
                         data-target="#modal_receivables">
-                        <i class="fas fa-hand-holding-usd"></i> Receber</a>
+                        <i class="fas fa-hand-holding-usd" data-funcao=""></i> Receber</a>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -111,7 +107,6 @@
                                     <th>Vencimento</th>
                                     <th>Valor</th>
                                     <th>Status</th>
-                                    <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -136,16 +131,15 @@
                                             @endif
                                         @endif
                                     </td>
-                                    <td>{{$receivables->status}}</td>
                                     <td>
                                         <button class="btn btn-outline-warning btn-sm" data-toggle="modal"
-                                            data-target="#modaledtreceivable"
-                                            data-whatever='{{$receivables->receivable_id}}'>
+                                        data-target="#modal_receivables" data-funcao="edit"
+                                            data-value='{{$receivables->receivable_id}}'>
                                             <i class="fas fa-pencil-alt"></i>
                                         </button>
                                         <button class="btnEdit btn btn-outline-danger btn-sm" data-toggle="modal"
-                                            data-target="#modaldelreceivable"
-                                            data-whatever='{{$receivables->receivable_id}}'>
+                                        data-target="#modal_receivables" data-funcao="delete"
+                                            data-value='{{$receivables->receivable_id}}'>
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </td>
@@ -160,13 +154,9 @@
     </div>
 </section>
 
-{{-- <script src="{{asset('js/scripts/receivable.js')}}"></script> --}}
+<script src="{{asset('js/scripts/receivable.js')}}"></script>
 
-
-@include('Site.Contas.ContasReceber.Modal.new')
-@include('Site.Contas.ContasReceber.Modal.edit')
-@include('Site.Contas.ContasReceber.Modal.delete')
-@include('Site.Contas.ContasReceber.Modal.receivable_modal')
+@include('Site.Contas.ContasReceber.Modal.modal_receivable')
 
 
 @endsection('content')

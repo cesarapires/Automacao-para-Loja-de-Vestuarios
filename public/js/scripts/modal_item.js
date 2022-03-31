@@ -33,7 +33,7 @@ $("#modal_item").on('show.bs.modal', function(event) {
         $("#modal-title").empty().html(`Editar Item #${button.data('value')}`);
         $("#button_send_modal").empty().html("Salvar");
         $("#button_send_modal").val('edit');
-        loadtable();
+        get_iten();
     }
     else if(button.data('funcao') == 'delete'){
         $("#form-item").hide();
@@ -61,7 +61,7 @@ function get_iten(){
         if(Response){
             $("input[name=product_id]").val(Response[0].product_id);
             $("input[name=quantity]").val(Response[0].quantity);
-            $("#selectProduct").val(Response[0].product_id);
+            $("#selectProduct").val(Response[0].product_id).trigger("change");
             $("input[name=price]").val(Response[0].price);
         }
         else{

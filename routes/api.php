@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('saleitens', RouteApi\SaleItensController::class);
 Route::post('saleitens/listsaleitens/{slug}', [RouteApi\SaleItensController::class, 'list_sale_itens'])->name('get_list_itens_sale');
+Route::resource('receivables', RouteApi\ReceivablesController::class);

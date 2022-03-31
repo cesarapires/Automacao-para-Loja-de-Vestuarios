@@ -1,8 +1,8 @@
 <div class="modal fade" id="modaledtreceivable">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Editar Contas a Receber</h4>
+                <h4 class="modal-title">Editar Promissória</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -15,34 +15,24 @@
                     <div class="card-body">
                         <div class="form-group">
                             <div class='row'>
-                                <div class='col-5'>
+                                <div class='col-2'>
                                     <label for="inputNameProduct">Nº Título</label>
-                                    <input type="text" class="form-control" name="edtidreceivable" id="edtidreceivable" placeholder=""
-                                        readonly>
+                                    <input type="text" class="form-control" name="edtidreceivable" id="edtidreceivable" placeholder="" readonly>
                                 </div>
-                                <div class='col-5'>
+                                <div class='col-2'>
                                     <label for="inputNameProduct">Nº Venda</label>
-                                    <input type="text" class="form-control" name="edtidsale" id="edtidsale" placeholder=""
-                                        readonly>
+                                    <input type="text" class="form-control" name="edtidsale" id="edtidsale" placeholder="" readonly>
                                 </div>
                                 <div class='col-2'>
                                     <label for="inputNameProduct">Parcela</label>
-                                    <input type="text" class="form-control" name="edtnumberplot" id="edtnumberplot" placeholder=""
-                                        readonly>
+                                    <input type="text" class="form-control" name="edtnumberplot" id="edtnumberplot" placeholder="" readonly>
                                 </div>
-                            </div>
-                            <div class='row'>
-                                <div class='col-2'>
-                                    <label for="inputNameProduct">ID</label>
-                                    <input type="text" class="form-control" name="edtidclient" id="edtidclient" placeholder=""
-                                        readonly>
-                                </div>
-                                <div class="col-md-10">
+                                <div class="col-md-6">
                                     <label>Cliente</label>
-                                    <select class="form-control select2bs4" required id="edtclient" style="width: 100%;">
-                                        <option value="">Selecione o cliente</option>
-                                        @foreach($clients as $clients)
-                                        <option value="{{$clients->client_id}}">{{$clients->name}}</option>
+                                    <select class="form-control select2bs4" id="edtclient" required>
+                                        <option>Selecione o cliente</option>
+                                        @foreach($clients as $client)
+                                        <option value="{{$client->client_id}}">{{$client->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -50,26 +40,41 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class='col-6'>
+                                <div class='col-3'>
                                     <label for="inputPrice_SellProduct">Data da Venda</label>
                                     <input type="date" required class="form-control" name="edtdatesalereceivable"
-                                        id="edtdatesalereceivable" placeholder="01/05/2021">
+                                        id="edtdatesalereceivable" placeholder="01/05/2021" readonly>
                                 </div>
-                                <div class='col-6'>
+                                <div class='col-3'>
                                     <label for="inputPrice_BuyProduct">Vencimento</label>
                                     <input type="date" required class="form-control" name="edtdateduereceivable"
                                         id="edtdateduereceivable" placeholder="04/05/2021">
+                                </div>
+                                <div class='col-3'>
+                                    <label>Data Pagamento</label>
+                                    <input type="date" class="form-control" required name="edtdatepayablereceivable"
+                                        id="edtdatepayablereceivable" placeholder="R$ 127.00" disabled>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class='col-6'>
+                                <div class='col-3'>
                                     <label>Valor</label>
-                                    <input type="text" required class="form-control" name="edtvaluereceivable" id="edtvaluereceivable"
+                                    <input type="number" required class="form-control" name="edtvaluereceivable" id="edtvaluereceivable"
                                         placeholder="R$ 127.00" step=".01">
                                 </div>
-                                <div class='col-5'>
+                                <div class='col-3'>
+                                    <label>Pago</label>
+                                    <input type="number" required class="form-control" name="amountpaidvalue" id="amountpaidvalue"
+                                        placeholder="R$ 127.00" step=".01">
+                                </div>
+                                <div class='col-3'>
+                                    <label>Restante</label>
+                                    <input type="number" required class="form-control" id="remainingvalue"
+                                        placeholder="R$ 127.00" step=".01" readonly>
+                                </div>
+                                <div class='col-3'>
                                     <label>Status</label>
                                     <br>
                                     <div class="form-check">
@@ -78,16 +83,12 @@
                                         <label class="form-check-label">Efetivação</label>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class='col-5'>
-                                    <label>Data Pagamento</label>
-                                    <input type="date" class="form-control" required name="edtdatepayablereceivable"
-                                        id="edtdatepayablereceivable" placeholder="R$ 127.00" disabled>
-                                </div>
-                                <div class='col-7'>
+                                <div class='col-4'>
                                     <label>Última Modificação</label>
                                     <input type="datetime-local" class="form-control" name="lastupdatedReceivable"
                                         id="lastupdatedReceivable" placeholder="04/06/2021" step="1" disabled>
@@ -95,13 +96,13 @@
                             </div>
                         </div>
                     </div>
+                </form>
             </div>
             <!-- /.card-body -->
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
                 <button type="submit" class="btn btn-success">Salvar</button>
             </div>
-            </form>
         </div>
     </div>
     <!-- /.modal-content -->
@@ -128,8 +129,7 @@ function searchreceivable(receivableURL) {
         var receivable = request.response;
         $('#edtidsale').val(receivable[0].sale_id);
         $('#edtnumberplot').val(receivable[0].numberplot);
-        $('#edtidclient').val(receivable[0].client_id);
-        $('#edtclient').val(receivable[0].client_id);
+        $('#edtclient').val(receivable[0].client_id).trigger('change');
         $('#edtdatesalereceivable').val(receivable[0].date_sale);
         $('#edtdateduereceivable').val(receivable[0].date_duereceivable);
         $('#edtvaluereceivable').val(receivable[0].value);
@@ -150,24 +150,55 @@ function searchreceivable(receivableURL) {
     }
 }
 
-var edtreceiablestatus = $('#edtstatusreceivable');
+
 
 $('#edtstatusreceivable').on('click', function() {
-    if (edtreceiablestatus.is(':checked')) {
-        $("#edtdatepayablereceivable").prop('disabled', false);
-        $("#edtdatepayablereceivable").prop('required', true);
-        $('#edtstatusreceivable').val(1);
-    } else {
-        $("#edtdatepayablereceivable").prop('disabled', true);
-        $("#edtdatepayablereceivable").prop('required', false);
-        $('#edtstatusreceivable').val(0);
-        $("#edtdatepayablereceivable").val(null);
-    }
+    testarStatusEfetivado();
 });
+
+$("#amountpaidvalue").change(function() {
+    somarValorRemanessente();
+});
+
+function somarValorRemanessente(){
+    let valorPromissoria = $('#edtvaluereceivable').val();
+    let valorPago = $('#amountpaidvalue').val();
+    let valorRemanessente = parseFloat(valorPromissoria).toFixed(2) - parseFloat(valorPago).toFixed(2);
+    $("#remainingvalue").val(parseFloat(valorRemanessente).toFixed(2));
+    testarStatusEfetivado();
+}
+
+function testarStatusEfetivado(){
+    let edtreceiablestatus = $('#edtstatusreceivable');
+    if ($('#edtvaluereceivable').val() == $('#amountpaidvalue').val()) {
+        $('#edtstatusreceivable').prop('checked', true);
+        if (edtreceiablestatus.is(':checked')) {
+            $("#edtdatepayablereceivable").prop('disabled', false);
+            $("#edtdatepayablereceivable").prop('required', true);
+            $('#edtstatusreceivable').val(1);
+        } else {
+            $("#edtdatepayablereceivable").prop('disabled', true);
+            $("#edtdatepayablereceivable").prop('required', false);
+            $('#edtstatusreceivable').val(0);
+            $("#edtdatepayablereceivable").val(null);
+        }
+    } else {
+        toastr.error('Não foi possível marcar como recebido');
+        $('#edtstatusreceivable').prop('checked', false);
+        $("#edtdatepayablereceivable").prop('disabled', true);
+    }
+}
+
+$('#amountpaidvalue').on('click', function(){
+    let valorPromissoria = $('#edtvaluereceivable').val();
+    let valorPago = $('#amountpaidvalue').val(parseFloat(valorPromissoria).toFixed(2));
+    somarValorRemanessente();
+});
+
 
 $("#edtclient").change(function() {
     var edtidClient = ($(this).find(':selected').val());
-    document.getElementById('edtidclient').value = edtidClient;
+    $('#edtidclient').val(edtidClient);
 });
 </script>
 <script>

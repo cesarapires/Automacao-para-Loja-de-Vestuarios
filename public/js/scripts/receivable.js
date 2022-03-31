@@ -12,6 +12,8 @@ $(document).ready(function() {
     loadtable();
 });
 
+
+
 function removerClasse() {
     $("#receivableopen").removeClass('active');
     $("#receivabledue").removeClass('active');
@@ -142,11 +144,6 @@ function loadtable() {
 
     $(function() {
         tablaTransacciones_dt = $('#vendas').DataTable({
-            "columnDefs": [{
-                "targets": [8],
-                "visible": false,
-                "searchable": false
-            }],
             "language": {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
             },
@@ -239,3 +236,4 @@ $("#year").click(function() {
 $("#filterPayment").change(function() {
     $('#vendas').DataTable().draw();
 });
+
